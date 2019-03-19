@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Global Food</string>
+    <string name="email">Email</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="update_text">Update Text</string>
+    <string name="emtpy" />
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="confirmacion_contrase_a">Confirmacion Contraseña</string>
+    <string name="fecha">fecha</string>
 </resources>
