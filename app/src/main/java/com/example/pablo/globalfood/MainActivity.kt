@@ -17,6 +17,7 @@ private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         // Make sure this is before calling super.onCreate
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         var fechaNacimiento: String
         var anoActual = 1
         var ano = 1
-        val comprobarEmail = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
+        //val comprobarEmail = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
 
         datBasTest()
 
@@ -63,61 +64,17 @@ class MainActivity : AppCompatActivity() {
 
                 val toast = Toast.makeText(applicationContext, success, duration)
                 toast.show()
+
+                val registerFragment = Register ()
+                supportFragmentManager.beginTransaction().
+                        add(R.id.main_container, registerFragment).
+                        commit()
             }
 
 
 
         }
 
-        register.setOnClickListener(){
-
-            if (email.text.contains("@")) {
-                //email.setText("")
-                emailValid = true
-
-            }else {
-                email.error = "No es un formato válido de email"
-                emailValid = false
-            }
-
-            if (contrasena.text.length < 8) {
-                contrasena.error = "La contraseña debe tener almenos 8 cáracteres"
-                //contrasena.setText("")
-                passValid = false
-
-            }else{
-                if (confirmacionContrasena.text.toString().equals(this.contrasena.text.toString())) {
-                    //email.setText("")
-                    passValid = true
-
-
-                }else {
-                    confirmacionContrasena.error = "Las contraseñas no coinciden"
-                    passValid = false
-                }
-
-            }
-
-            if(anoActual - ano >= 18){
-                fechaValid = true
-            }else{
-
-                fecha.error="No puedes registrarte si eres menor de edad"
-                fecha.requestFocus()
-                fechaValid = false
-            }
-
-            if(emailValid && passValid && fechaValid){
-                textVisual.text = email.text
-                val registered = "Te has registrado correctamente"
-                val duration = Toast.LENGTH_LONG
-
-                val toast2 = Toast.makeText(applicationContext, registered, duration)
-                toast2.show()
-            }
-
-
-        }
 
         fecha.setOnClickListener({ _ ->
             val c = Calendar.getInstance()
@@ -138,11 +95,11 @@ class MainActivity : AppCompatActivity() {
             dpd.show()
 
 
-
         })
 
 
     }
+
 
     fun datBasTest(){
         // Write a message to the database
