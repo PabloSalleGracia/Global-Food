@@ -13,12 +13,16 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+private const val TAG = "MainActivity"
 
-    private val TAG = "MainActivity"
+class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Make sure this is before calling super.onCreate
+        setTheme(R.style.AppTheme)
+        //intento de splashscreen
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
