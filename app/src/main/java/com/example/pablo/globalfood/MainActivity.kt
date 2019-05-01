@@ -18,88 +18,18 @@ private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         // Make sure this is before calling super.onCreate
         setTheme(R.style.AppTheme)
         //intento de splashscreen
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var emailValid = false
-        var passValid = false
-        var fechaValid = false
-        var fechaNacimiento: String
-        var anoActual = 1
-        var ano = 1
-        //val comprobarEmail = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
-
-        datBasTest()
-
-        login.setOnClickListener(){
-
-            if (email.text.contains("@")) {
-                //email.setText("")
-                emailValid = true
-
-            }else {
-                email.error = "No es un formato válido de email"
-                emailValid = false
-            }
-
-            if (contrasena.text.length < 8) {
-                contrasena.error = "La contraseña debe tener almenos 8 cáracteres"
-                //contrasena.setText("")
-                passValid = false
-
-            }else{
-                passValid = true
-            }
-
-            if(emailValid && passValid){
-                textVisual.text = email.text
-                val success = "Logeado correctamente"
-                val duration = Toast.LENGTH_LONG
-
-                val toast = Toast.makeText(applicationContext, success, duration)
-                toast.show()
-
-                val registerFragment = Register ()
-                supportFragmentManager.beginTransaction().
-                        add(R.id.main_container, registerFragment).
-                        commit()
-            }
-
-
-
-        }
-
-
-        fecha.setOnClickListener({ _ ->
-            val c = Calendar.getInstance()
-            val actualYear = c.get(Calendar.YEAR)
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
-
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
-                fechaNacimiento = "$dayOfMonth/$monthOfYear/$year"
-                fecha.text = fechaNacimiento
-
-                anoActual = actualYear
-                ano = year
-
-
-            },year , month, day)
-            dpd.show()
-
-
-        })
-
-
+        val loginFragment = LoginFragment()
+        supportFragmentManager.beginTransaction().
+                add(R.id.main_container, loginFragment).
+                commit()
     }
-
 
     fun datBasTest(){
         // Write a message to the database

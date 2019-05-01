@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Global Food</string>
     <string name="email">Email</string>
+    <string name="email_invalido">No es un formato válido de email</string>
     <string name="contrasena">Contraseña</string>
+    <string name="contrasena_error">La contraseña debe tener almenos 8 cáracteres</string>
     <string name="update_text">Update Text</string>
     <string name="emtpy" />
     <string name="login">Login</string>
+    <string name="login_correcto">Logeado correctamente</string>
     <string name="register">Register</string>
     <string name="confirmacion_contrase_a">Confirmacion Contraseña</string>
     <string name="fecha">fecha</string>
