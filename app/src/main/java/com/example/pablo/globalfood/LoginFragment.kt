@@ -25,6 +25,13 @@ import java.util.regex.Pattern
  *
  */
 class LoginFragment : Fragment() {
+
+    interface OnButtonPressedListener {
+        fun onButtonPressed(text: String)
+    }
+
+    private lateinit var listener: OnButtonPressedListener
+
     var fieldsOk = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +50,10 @@ class LoginFragment : Fragment() {
                 Toast.makeText(this.context, getString(R.string.login_correcto), Toast.LENGTH_LONG).show()
             }
         }
+
+        register.setOnClickListener {
+            listener.onButtonPressed(register.text.toString())
+        }
     }
     fun checkEmail(editText: EditText){
         val email = editText.text.toString()
@@ -58,6 +69,11 @@ class LoginFragment : Fragment() {
             editText.error = getString(R.string.contrasena_error)
             fieldsOk = false
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
     }
 
 

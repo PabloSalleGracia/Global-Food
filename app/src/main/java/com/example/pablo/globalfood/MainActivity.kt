@@ -15,8 +15,12 @@ import java.util.*
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener {
 
+    override fun onButtonPressed(text: String) {
+        val register = Register()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Make sure this is before calling super.onCreate

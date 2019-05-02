@@ -9,12 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.*
 
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
+private const val TEXT = "text"
 
 /**
  * A simple [Fragment] subclass.
@@ -23,18 +24,15 @@ import java.util.*
 class Register : Fragment() {
 
 
-    interface OnButtonPressedListener {
-        fun onButtonPressed(text: String)
-    }
-
-    private lateinit var listener: OnButtonPressedListener
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_register, container, false)
+    }
 
-        /*
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+            /*
         register.setOnClickListener(){
 
             if (email.text.contains("@")) {
@@ -85,19 +83,19 @@ class Register : Fragment() {
 
         }
          */
+
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        /*register.setOnClickListener {
-            listener.onButtonPressed(email.text.toString())
-        }*/
-    }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        listener = activity as OnButtonPressedListener
-    }
+    /*companion object {
+        @JvmStatic
+        fun newInstance(text: String = "") =
+                Register().apply {
+                    arguments = Bundle().apply {
+                        putString(TEXT, text)
+                    }
+                }
+    }*/
 
     /*fun clickFecha(){
         fecha.setOnClickListener { _ ->
