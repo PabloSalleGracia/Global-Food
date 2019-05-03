@@ -43,6 +43,7 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         login.setOnClickListener(){
+            listener.onButtonPressed(login.text.toString())
             fieldsOk = true
             checkEmail(email)
             checkPass(contrasena)
