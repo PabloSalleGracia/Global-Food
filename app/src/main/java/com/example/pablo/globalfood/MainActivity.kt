@@ -15,15 +15,45 @@ import java.util.*
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener {
+class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener, MainMenu.OnButtonPressedListenerM {
+
+    override fun onButtonPressedM(text: String) {
+        when (text) {
+            "Mis Recetas" -> {
+                val myRecipes = MyRecipes()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, myRecipes).addToBackStack(null).commit()
+            }
+            "Recetas Fav" -> {
+                val recipesFav = FavRecipes()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, recipesFav).addToBackStack(null).commit()
+            }
+            "Buscar" -> {
+                val search = Search()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, search).addToBackStack(null).commit()
+            }
+            "Restaurantes Fav" -> {
+                val resFav = FavRestaurants()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, resFav).addToBackStack(null).commit()
+            }
+
+        }
+    }
 
     override fun onButtonPressed(text: String) {
-        if(text.equals("Register")){
-            val register = Register()
-            supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
-        }else{
-            val menu = MainMenu()
-            supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
+
+        when (text) {
+            "Register" -> {
+                val register = Register()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
+            }
+            "Login" -> {
+                val menu = MainMenu()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
+            }
+            else -> {
+                val register2 = Register()
+                supportFragmentManager.beginTransaction().replace(R.id.main_container, register2).addToBackStack(null).commit()
+            }
         }
 
     }

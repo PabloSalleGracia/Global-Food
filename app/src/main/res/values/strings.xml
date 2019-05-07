@@ -17,4 +17,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ha_olvidado_la_contrasena">Ha olvidado la contraseña?</string>
     <string name="have_account">Ya tienes cuenta? Logeate aquí!</string>
+    <string name="menu_principal">Menú Principal</string>
+    <string name="mis_recetas">Mis Recetas</string>
+    <string name="recetas_fav">Recetas Fav</string>
+    <string name="buscar">Buscar</string>
+    <string name="restaurantes_fav">Restaurantes Fav</string>
 </resources>
