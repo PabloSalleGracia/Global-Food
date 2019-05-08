@@ -19,41 +19,18 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener,
 
     override fun onButtonPressedM(text: String) {
         when (text) {
-            "Mis Recetas" -> {
-                val myRecipes = MyRecipes()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, myRecipes).addToBackStack(null).commit()
-            }
-            "Recetas Fav" -> {
-                val recipesFav = FavRecipes()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, recipesFav).addToBackStack(null).commit()
-            }
-            "Buscar" -> {
-                val search = Search()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, search).addToBackStack(null).commit()
-            }
-            "Restaurantes Fav" -> {
-                val resFav = FavRestaurants()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, resFav).addToBackStack(null).commit()
-            }
-
+            "Mis Recetas" -> openMyRecipes()
+            "Recetas Fav" -> openRecipesFav()
+            "Buscar" -> openSearch()
+            "Restaurantes Fav" -> openRestaurantFav()
         }
     }
 
     override fun onButtonPressed(text: String) {
-
         when (text) {
-            "Register" -> {
-                val register = Register()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
-            }
-            "Login" -> {
-                val menu = MainMenu()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
-            }
-            else -> {
-                val register2 = Register()
-                supportFragmentManager.beginTransaction().replace(R.id.main_container, register2).addToBackStack(null).commit()
-            }
+            "Register" -> openRegister()
+            "Login" -> openLogin()
+            else -> openLogin()
         }
 
     }
@@ -92,6 +69,36 @@ class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener,
                 Log.w(TAG, "Failed to read value.", error.toException())
             }
         })
+    }
+
+    private fun openMyRecipes(){
+        val myRecipes = MyRecipes()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, myRecipes).addToBackStack(null).commit()
+    }
+
+    private fun openRecipesFav(){
+        val recipesFav = FavRecipes()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, recipesFav).addToBackStack(null).commit()
+    }
+
+    private fun openSearch(){
+        val search = Search()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, search).addToBackStack(null).commit()
+    }
+
+    private fun openRestaurantFav(){
+        val resFav = FavRestaurants()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, resFav).addToBackStack(null).commit()
+    }
+
+    private fun openRegister(){
+        val register = Register()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
+    }
+
+    private fun openLogin(){
+        val menu = MainMenu()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
     }
 
 }
