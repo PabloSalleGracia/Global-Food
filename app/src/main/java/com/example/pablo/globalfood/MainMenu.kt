@@ -21,11 +21,7 @@ import kotlinx.android.synthetic.main.main_menu.*
  */
 class MainMenu : Fragment() {
 
-    interface OnButtonPressedListenerM {
-        fun onButtonPressedM(text: String)
-    }
-
-    private lateinit var listener: OnButtonPressedListenerM
+    private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,23 +32,23 @@ class MainMenu : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        misRecetas.setOnClickListener(){
-            listener.onButtonPressedM(misRecetas.text.toString())
+        misRecetas.setOnClickListener {
+            listener.onButtonPressed(misRecetas.text.toString())
         }
-        recetasFav.setOnClickListener(){
-            listener.onButtonPressedM(recetasFav.text.toString())
+        recetasFav.setOnClickListener {
+            listener.onButtonPressed(recetasFav.text.toString())
         }
-        buscar.setOnClickListener(){
-            listener.onButtonPressedM(buscar.text.toString())
+        buscar.setOnClickListener {
+            listener.onButtonPressed(buscar.text.toString())
         }
-        restaurantesFav.setOnClickListener(){
-            listener.onButtonPressedM(restaurantesFav.text.toString())
+        restaurantesFav.setOnClickListener {
+            listener.onButtonPressed(restaurantesFav.text.toString())
         }
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        listener = activity as OnButtonPressedListenerM
+        listener = activity as OnButtonPressedListener
     }
 
 

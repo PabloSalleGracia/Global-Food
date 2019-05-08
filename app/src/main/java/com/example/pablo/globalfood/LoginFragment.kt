@@ -26,10 +26,6 @@ import java.util.regex.Pattern
  */
 class LoginFragment : Fragment() {
 
-    interface OnButtonPressedListener {
-        fun onButtonPressed(text: String)
-    }
-
     private lateinit var listener: OnButtonPressedListener
 
     var fieldsOk = false
@@ -42,7 +38,7 @@ class LoginFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        login.setOnClickListener(){
+        login.setOnClickListener {
             listener.onButtonPressed(login.text.toString())
             fieldsOk = true
             checkEmail(email)

@@ -15,24 +15,18 @@ import java.util.*
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity(), LoginFragment.OnButtonPressedListener, MainMenu.OnButtonPressedListenerM {
-
-    override fun onButtonPressedM(text: String) {
-        when (text) {
-            "Mis Recetas" -> openMyRecipes()
-            "Recetas Fav" -> openRecipesFav()
-            "Buscar" -> openSearch()
-            "Restaurantes Fav" -> openRestaurantFav()
-        }
-    }
+class MainActivity : AppCompatActivity(), OnButtonPressedListener {
 
     override fun onButtonPressed(text: String) {
         when (text) {
             "Register" -> openRegister()
             "Login" -> openLogin()
+            "Mis Recetas" -> openMyRecipes()
+            "Recetas Fav" -> openRecipesFav()
+            "Buscar" -> openSearch()
+            "Restaurantes Fav" -> openRestaurantFav()
             else -> openLogin()
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
