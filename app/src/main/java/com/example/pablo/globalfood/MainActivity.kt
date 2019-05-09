@@ -48,10 +48,13 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val loginFragment = LoginFragment()
-        supportFragmentManager.beginTransaction().
-                add(R.id.main_container, loginFragment).
-                commit()
+        if(savedInstanceState == null){
+            val loginFragment = LoginFragment()
+            supportFragmentManager.beginTransaction().
+                    add(R.id.main_container, loginFragment).
+                    commit()
+        }
+
     }
 
     fun datBasTest(){

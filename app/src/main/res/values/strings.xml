@@ -30,4 +30,6 @@
     <string name="Register">Register</string>
     <string name="registrarse">Registrarse</string>
     <string name="tengoCuenta">TengoCuenta</string>
+    <string name="volver">Volver</string>
+    <string name="textview">TextView</string>
 </resources>
