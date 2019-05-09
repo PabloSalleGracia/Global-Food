@@ -33,22 +33,24 @@ class MainMenu : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         misRecetas.setOnClickListener {
-            listener.onButtonPressed(misRecetas.text.toString())
+            listener.onButtonPressed(misRecetas.tag.toString())
         }
         recetasFav.setOnClickListener {
-            listener.onButtonPressed(recetasFav.text.toString())
+            listener.onButtonPressed(recetasFav.tag.toString())
         }
         buscar.setOnClickListener {
-            listener.onButtonPressed(buscar.text.toString())
+            listener.onButtonPressed(buscar.tag.toString())
         }
         restaurantesFav.setOnClickListener {
-            listener.onButtonPressed(restaurantesFav.text.toString())
+            listener.onButtonPressed(restaurantesFav.tag.toString())
         }
     }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         listener = activity as OnButtonPressedListener
+
+
     }
 
 

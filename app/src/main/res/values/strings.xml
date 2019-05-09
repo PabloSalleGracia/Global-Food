@@ -8,7 +8,7 @@
     <string name="emtpy" />
     <string name="login">Login</string>
     <string name="login_correcto">Logeado correctamente</string>
-    <string name="register">Register</string>
+    <string name="register">No tienes cuenta? Registrate aquí!</string>
     <string name="confirmacion_contrase_a">Confirmacion Contraseña</string>
     <string name="fecha">Fecha</string>
     <string name="el_logo">El Logo</string>
@@ -20,6 +20,11 @@
     <string name="menu_principal">Menú Principal</string>
     <string name="mis_recetas">Mis Recetas</string>
     <string name="recetas_fav">Recetas Fav</string>
-    <string name="buscar">Buscar</string>
+    <string name="buscar">Search</string>
     <string name="restaurantes_fav">Restaurantes Fav</string>
+    <string name="favrecipes">FavRecipes</string>
+    <string name="favrestaurantes">FavRestaurants</string>
+    <string name="myrecipes">MyRecipes</string>
+    <string name="review">review</string>
+    <string name="Register">Register</string>
 </resources>

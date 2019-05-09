@@ -15,17 +15,24 @@ import java.util.*
 
 private const val TAG = "MainActivity"
 
+private const val REGISTER = "Register"
+private const val LOGIN = "Login"
+private const val MYRECIPES = "MyRecipes"
+private const val FAVRECIPES = "FavRecipes"
+private const val SEARCH = "Search"
+private const val FAVRESTAURANTS = "FavRestaurants"
+
 class MainActivity : AppCompatActivity(), OnButtonPressedListener {
 
     override fun onButtonPressed(text: String) {
         when (text) {
-            "Register" -> openRegister()
-            "Login" -> openLogin()
-            "Mis Recetas" -> openMyRecipes()
-            "Recetas Fav" -> openRecipesFav()
-            "Buscar" -> openSearch()
-            "Restaurantes Fav" -> openRestaurantFav()
-            else -> openLogin()
+            REGISTER -> openRegister()
+            LOGIN -> openLogin()
+            MYRECIPES -> openMyRecipes()
+            FAVRECIPES -> openRecipesFav()
+            SEARCH -> openSearch()
+            FAVRESTAURANTS -> openRestaurantFav()
+            else -> openSearch()
         }
     }
 

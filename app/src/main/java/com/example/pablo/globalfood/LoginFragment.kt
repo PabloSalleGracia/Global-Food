@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         login.setOnClickListener {
-            listener.onButtonPressed(login.text.toString())
+            listener.onButtonPressed(login.tag.toString())
             fieldsOk = true
             checkEmail(email)
             checkPass(contrasena)
@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
         }
 
         register.setOnClickListener {
-            listener.onButtonPressed(register.text.toString())
+            listener.onButtonPressed(register.tag.toString())
         }
     }
     fun checkEmail(editText: EditText){
