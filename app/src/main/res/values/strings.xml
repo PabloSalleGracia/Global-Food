@@ -8,9 +8,10 @@
     <string name="emtpy" />
     <string name="login">Login</string>
     <string name="login_correcto">Logeado correctamente</string>
+    <string name="register_correcto">Te has registrado con éxito</string>
     <string name="register">No tienes cuenta? Registrate aquí!</string>
     <string name="confirmacion_contrase_a">Confirmacion Contraseña</string>
-    <string name="fecha">Fecha</string>
+    <string name="fecha">Fecha de nacimiento</string>
     <string name="el_logo">El Logo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -27,4 +28,6 @@
     <string name="myrecipes">MyRecipes</string>
     <string name="review">review</string>
     <string name="Register">Register</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="tengoCuenta">TengoCuenta</string>
 </resources>

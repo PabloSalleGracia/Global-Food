@@ -21,13 +21,18 @@ private const val MYRECIPES = "MyRecipes"
 private const val FAVRECIPES = "FavRecipes"
 private const val SEARCH = "Search"
 private const val FAVRESTAURANTS = "FavRestaurants"
+private const val SIGNUP = "Registrarse"
+private const val HAVEACC = "TengoCuenta"
+
 
 class MainActivity : AppCompatActivity(), OnButtonPressedListener {
 
     override fun onButtonPressed(text: String) {
         when (text) {
             REGISTER -> openRegister()
-            LOGIN -> openLogin()
+            LOGIN -> openMenu()
+            SIGNUP -> openLogin()
+            HAVEACC -> openLogin()
             MYRECIPES -> openMyRecipes()
             FAVRECIPES -> openRecipesFav()
             SEARCH -> openSearch()
@@ -97,9 +102,14 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
         supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
     }
 
-    private fun openLogin(){
+    private fun openMenu(){
         val menu = MainMenu()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
+    }
+
+    private fun openLogin(){
+        val login = LoginFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.main_container, login).addToBackStack(null).commit()
     }
 
 }

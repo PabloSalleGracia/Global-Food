@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_register.*
 import java.util.*
 
 
@@ -24,6 +26,8 @@ private const val TEXT = "text"
 class Register : Fragment() {
 
 
+    private lateinit var listener: OnButtonPressedListener
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -32,6 +36,16 @@ class Register : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        registrarse.setOnClickListener {
+            Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
+            listener.onButtonPressed(registrarse.tag.toString())
+        }
+
+        haveAcc.setOnClickListener{
+            listener.onButtonPressed(haveAcc.tag.toString())
+        }
+
             /*
         register.setOnClickListener(){
 
@@ -84,6 +98,11 @@ class Register : Fragment() {
         }
          */
 
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
     }
 
 
