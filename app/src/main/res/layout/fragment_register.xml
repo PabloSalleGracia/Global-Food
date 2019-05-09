@@ -9,31 +9,21 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="142dp"
-        android:layout_marginTop="48dp"
-        android:contentDescription="@string/el_logo"
-        android:src="@drawable/logo_p"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email"
         android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill" />
 
     <EditText
@@ -41,13 +31,13 @@
         android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/contrasena"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
         tools:ignore="Autofill" />
@@ -57,27 +47,27 @@
         android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/confirmacion_contrase_a"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contrasena"
         tools:ignore="Autofill" />
 
     <TextView
         android:id="@+id/fecha"
-        android:layout_width="89dp"
+        android:layout_width="142dp"
         android:layout_height="44dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/fecha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirmacionContrasena" />
 
@@ -86,7 +76,7 @@
         android:layout_width="97dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,18 +93,19 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:text="@string/have_account"
+        android:tag="@string/tengoCuenta"
         android:textColor="@color/colorBlue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textVisual"
-        app:layout_constraintVertical_bias="0.508"
+        app:layout_constraintVertical_bias="0.666"
         tools:ignore="Autofill,LabelFor" />
 
     <Button
         android:id="@+id/registrarse"
-        android:layout_width="114dp"
+        android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -123,8 +114,9 @@
         android:tag="@string/registrarse"
         android:text="@string/registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/email"
+        app:layout_constraintEnd_toStartOf="@+id/fecha"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.785" />
 
 </android.support.constraint.ConstraintLayout>
