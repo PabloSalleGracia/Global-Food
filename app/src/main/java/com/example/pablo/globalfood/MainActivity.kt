@@ -1,26 +1,18 @@
 package com.example.pablo.globalfood
 
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 private const val TAG = "MainActivity"
 
 private const val REGISTER = "Register"
 private const val LOGIN = "Login"
-private const val MYRECIPES = "MyRecipes"
-private const val FAVRECIPES = "FavRecipes"
-private const val SEARCH = "Search"
-private const val FAVRESTAURANTS = "FavRestaurants"
 private const val SIGNUP = "Registrarse"
 private const val HAVEACC = "TengoCuenta"
 
@@ -30,14 +22,19 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
     override fun onButtonPressed(text: String) {
         when (text) {
             REGISTER -> openRegister()
-            LOGIN -> openMenu()
+            LOGIN -> {
+                val intent = Intent(this, MainMenuActivity::class.java)
+                //intent.putExtras(getRegisterBundle())
+                //startActivityForResult(intent, MainMenuActivity.REQUEST_CODE)
+                startActivity(intent)
+            }
             SIGNUP -> openLogin()
             HAVEACC -> openLogin()
-            MYRECIPES -> openMyRecipes()
+            /*MYRECIPES -> openMyRecipes()
             FAVRECIPES -> openRecipesFav()
             SEARCH -> openSearch()
             FAVRESTAURANTS -> openRestaurantFav()
-            else -> openSearch()
+            else -> openSearch()*/
         }
     }
 
@@ -80,39 +77,17 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
         })
     }
 
-    private fun openMyRecipes(){
-        val myRecipes = MyRecipes()
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, myRecipes).addToBackStack(null).commit()
-    }
-
-    private fun openRecipesFav(){
-        val recipesFav = FavRecipes()
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, recipesFav).addToBackStack(null).commit()
-    }
-
-    private fun openSearch(){
-        val search = Search()
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, search).addToBackStack(null).commit()
-    }
-
-    private fun openRestaurantFav(){
-        val resFav = FavRestaurants()
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, resFav).addToBackStack(null).commit()
-    }
 
     private fun openRegister(){
         val register = Register()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
     }
-
-    private fun openMenu(){
-        val menu = MainMenu()
-        supportFragmentManager.beginTransaction().replace(R.id.main_container, menu).addToBackStack(null).commit()
-    }
+    
 
     private fun openLogin(){
         val login = LoginFragment()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, login).addToBackStack(null).commit()
     }
+
 
 }
