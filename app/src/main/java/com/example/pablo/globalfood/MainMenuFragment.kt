@@ -23,7 +23,7 @@ class MainMenuFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        misRecetas.setOnClickListener(){
+        /*misRecetas.setOnClickListener(){
             listener.onButtonPressed(misRecetas.tag.toString())
         }
         recetasFav.setOnClickListener {
@@ -34,7 +34,7 @@ class MainMenuFragment : Fragment() {
         }
         restaurantesFav.setOnClickListener {
             listener.onButtonPressed(restaurantesFav.tag.toString())
-        }
+        }*/
 
 
     }

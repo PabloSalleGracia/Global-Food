@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
         val register = Register()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, register).addToBackStack(null).commit()
     }
-    
+
 
     private fun openLogin(){
         val login = LoginFragment()

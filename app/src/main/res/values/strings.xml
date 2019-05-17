@@ -34,4 +34,9 @@
     <string name="textview">TextView</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
     <string name="action_settings">Settings</string>
+    <string-array name="pruebaLista">
+        <item>Uno</item>
+        <item>Dos</item>
+        <item>Tres</item>
+    </string-array>
 </resources>
