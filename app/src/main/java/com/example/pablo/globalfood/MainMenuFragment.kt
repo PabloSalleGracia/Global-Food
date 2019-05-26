@@ -1,11 +1,15 @@
 package com.example.pablo.globalfood
 
 import android.content.Context
+import android.content.res.Resources
 import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.os.Parcel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 /**
@@ -23,18 +27,20 @@ class MainMenuFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        /*misRecetas.setOnClickListener(){
-            listener.onButtonPressed(misRecetas.tag.toString())
-        }
-        recetasFav.setOnClickListener {
-            listener.onButtonPressed(recetasFav.tag.toString())
-        }
-        buscar.setOnClickListener {
-            listener.onButtonPressed(buscar.tag.toString())
-        }
-        restaurantesFav.setOnClickListener {
-            listener.onButtonPressed(restaurantesFav.tag.toString())
-        }*/
+        val listFavRecipes:ListView = view!!.findViewById(R.id.list_item)
+        //cargar datos de string
+        //val listItems = resources.getStringArray(R.array.pruebaLista)
+
+        //mirar como obtener context sin !!
+        val datos = ArrayList<FavRecipe>()
+
+
+        datos.add(FavRecipe("juan", "rapero"))
+        datos.add(FavRecipe("juan", "colilla"))
+        //datos.add((FavRecipe()))
+
+        val favRecipeAdapter = FavRecipeAdapter(context!!, datos)
+        listFavRecipes.adapter = favRecipeAdapter
 
 
     }

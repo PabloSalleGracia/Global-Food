@@ -4,12 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.*
 
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.content_menu.*
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 private const val MYRECIPES = "MyRecipes"
 private const val FAVRECIPES = "FavRecipes"
@@ -33,29 +36,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         setContentView(R.layout.activity_menu)
         setSupportActionBar(toolbar)
 
-        //TextView txtMyTextBox = (TextView)getView().findViewById(R.id.my_text_box)
-
-        //ListView() list = this.findViewById<ListView>(R.id.list_item)
-
-        //ListView list = (ListView) this.findViewById<ListView>(R.id.list_item)
-
-        lateinit var listView: ListView
-
-
-
-        listView = findViewById(R.id.list_item)
-
-        val listItems = arrayOfNulls<String>(5)
-
-        //listItems = ["hola", "adios"]
-
-        //adapter = ArrayAdapter.createFromResource(this, R.array.pruebaLista, android.R.layout.activity_list_item)
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
-
-        listView.adapter = adapter
-
-
         if(savedInstanceState == null){
             val menuFragment = MainMenuFragment()
             supportFragmentManager.beginTransaction().
@@ -69,6 +49,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         }
 
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
