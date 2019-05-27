@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,6 +24,26 @@ class FavRecipes : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.favorite_recipes, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //cargar datos de string
+        //val listItems = resources.getStringArray(R.array.pruebaLista)
+
+        //mirar como obtener context sin !!
+
+
+
+        val listFavRecipes: ListView = view!!.findViewById(R.id.list_item1)
+        val datos = ArrayList<FavRecipe>()
+
+        datos.add(FavRecipe("fav", "reci"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+
+        val favRecipeAdapter = FavRecipeAdapter(context!!, datos)
+        listFavRecipes.adapter = favRecipeAdapter
     }
 
 

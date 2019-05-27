@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,5 +26,17 @@ class FavRestaurants : Fragment() {
         return inflater.inflate(R.layout.favorite_restaurants, container, false)
     }
 
+    /*override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        /*val listFavRestau: ListView = view!!.findViewById(R.id.list_item3)
+        val datos3 = ArrayList<FavRecipe>()
+
+        datos3.add(FavRecipe("fav", "rest"))
+        datos3.add(FavRecipe("fsd", "fdasf"))
+
+        val favRes = FavRecipeAdapter(context!!, datos3)
+        listFavRestau.adapter = favRes*/
+    }*/
 
 }

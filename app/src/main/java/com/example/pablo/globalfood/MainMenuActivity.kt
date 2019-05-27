@@ -3,6 +3,8 @@ package com.example.pablo.globalfood
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.design.widget.TabLayout
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.Menu
@@ -11,6 +13,7 @@ import android.view.View
 import android.widget.*
 
 import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.activity_menu.view.*
 import kotlinx.android.synthetic.main.content_menu.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 
@@ -36,12 +39,34 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         setContentView(R.layout.activity_menu)
         setSupportActionBar(toolbar)
 
-        if(savedInstanceState == null){
+        val viewPager:ViewPager = findViewById(R.id.pager)
+        val tabLayout:TabLayout = findViewById(R.id.tab_layout)
+        val tabsAdapter = PagerAdapter(supportFragmentManager, tabLayout.tabCount)
+
+        //println(tabLayout.getTabAt(0)!!.text)
+
+        viewPager.adapter = tabsAdapter
+
+        //println(tabLayout.getTabAt(0)!!.text)
+
+        tabLayout.setupWithViewPager(viewPager)
+
+        //println(tabLayout.getTabAt(0)!!.text)
+
+        /*fun onTabSelected(tab: TabLayout.Tab) {
+            viewPager.setCurrentItem(tab.position)
+        }*/
+
+        //tabLayout.addOnTabSelectedListener(onTabSelected(TabLayout(context.tab) tab))
+        //viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+
+
+        /*if(savedInstanceState == null){
             val menuFragment = MainMenuFragment()
             supportFragmentManager.beginTransaction().
                     add(R.id.menu_container, menuFragment).
                     commit()
-        }
+        }*/
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -49,6 +74,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         }
 
     }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
