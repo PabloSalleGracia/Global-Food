@@ -11,13 +11,13 @@ class PagerAdapter(fm: FragmentManager, private val numOfTabs: Int) : FragmentSt
 
         return when (position) {
             0 -> {
-                FavRecipes()
-            }
-            1 -> {
                 MyRecipes()
             }
+            1 -> {
+                FavRecipes()
+            }
             2 -> {
-                MainMenuFragment()
+                FavRestaurants()
             }
             else -> null
         }

@@ -39,7 +39,14 @@ class FavRecipes : Fragment() {
         val listFavRecipes: ListView = view!!.findViewById(R.id.list_item1)
         val datos = ArrayList<FavRecipe>()
 
-        datos.add(FavRecipe("fav", "reci"))
+        datos.add(FavRecipe("Favorite", "Recipes"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
+        datos.add(FavRecipe("pdf", "fdsaf"))
         datos.add(FavRecipe("pdf", "fdsaf"))
 
         val favRecipeAdapter = FavRecipeAdapter(context!!, datos)
