@@ -12,6 +12,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 
@@ -25,7 +26,6 @@ private const val TEXT = "text"
  */
 class Register : Fragment() {
 
-
     private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +37,12 @@ class Register : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        var emailValid:Boolean
+        var passValid:Boolean
+        var anoActual:Int
+        var ano:Int
+        var fechaValid:Boolean
+
         registrarse.setOnClickListener {
             Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
             listener.onButtonPressed(registrarse.tag.toString())
@@ -46,25 +52,24 @@ class Register : Fragment() {
             listener.onButtonPressed(haveAcc.tag.toString())
         }
 
-            /*
-        register.setOnClickListener(){
+        registrarse.setOnClickListener{
 
-            if (email.text.contains("@")) {
+            if (emailR.text.contains("@")) {
                 //email.setText("")
                 emailValid = true
 
             }else {
-                email.error = "No es un formato válido de email"
+                emailR.error = "No es un formato válido de email"
                 emailValid = false
             }
 
-            if (contrasena.text.length < 8) {
-                contrasena.error = "La contraseña debe tener almenos 8 cáracteres"
+            if (contrasenaR.text.length < 8) {
+                contrasenaR.error = "La contraseña debe tener almenos 8 cáracteres"
                 //contrasena.setText("")
                 passValid = false
 
             }else{
-                if (confirmacionContrasena.text.toString().equals(this.contrasena.text.toString())) {
+                if (confirmacionContrasena.text.toString().equals(this.contrasenaR.text.toString())) {
                     //email.setText("")
                     passValid = true
 
@@ -76,7 +81,7 @@ class Register : Fragment() {
 
             }
 
-            if(anoActual - ano >= 18){
+            if(20 >= 18){
                 fechaValid = true
             }else{
 
@@ -86,17 +91,18 @@ class Register : Fragment() {
             }
 
             if(emailValid && passValid && fechaValid){
-                textVisual.text = email.text
+                textVisual.text = emailR.text
                 val registered = "Te has registrado correctamente"
                 val duration = Toast.LENGTH_LONG
 
-                val toast2 = Toast.makeText(applicationContext, registered, duration)
+                val toast2 = Toast.makeText(context, registered, duration)
                 toast2.show()
+                firebaseRegister()
             }
 
 
         }
-         */
+
 
     }
 
@@ -106,6 +112,23 @@ class Register : Fragment() {
     }
 
 
+    fun firebaseRegister(){
+        var email = emailR.text.toString()
+        val password = contrasenaR.text.toString()
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener{
+                    if(!it.isSuccessful){
+                        return@addOnCompleteListener
+                    }else{
+                        //Log.d("tag", "sa registrao")
+                        println("se ha registrao")
+                    }
+                }
+                .addOnFailureListener{
+                    println("error")
+                    //Log.d("dsd")
+                }
+    }
     /*companion object {
         @JvmStatic
         fun newInstance(text: String = "") =
@@ -116,26 +139,32 @@ class Register : Fragment() {
                 }
     }*/
 
-    /*fun clickFecha(){
-        fecha.setOnClickListener { _ ->
+    fun clickFecha(){
+        fecha.setOnClickListener {
             val c = Calendar.getInstance()
             val actualYear = c.get(Calendar.YEAR)
             val year = c.get(Calendar.YEAR)
             val month = c.get(Calendar.MONTH)
             val day = c.get(Calendar.DAY_OF_MONTH)
 
-            val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
-                fechaNacimiento = "$dayOfMonth/$monthOfYear/$year"
-                fecha.text = fechaNacimiento
+            val dpd = DatePickerDialog(
+                    context!!,
+                    DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
+                        val fechaNacimiento = "$dayOfMonth/$monthOfYear/$year"
+                        fecha.text = fechaNacimiento
 
-                anoActual = actualYear
-                ano = year
+                        var anoActual = actualYear
+                        var ano = year
 
 
-            },year , month, day)
+                    },
+                    year ,
+                    month,
+                    day
+            )
             dpd.show()
         }
-    }*/
+    }
 
 
 }
