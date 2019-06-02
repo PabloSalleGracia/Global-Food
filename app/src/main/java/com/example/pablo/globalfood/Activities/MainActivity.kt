@@ -1,9 +1,13 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.pablo.globalfood.Fragments.Login
+import com.example.pablo.globalfood.OnButtonPressedListener
+import com.example.pablo.globalfood.R
+import com.example.pablo.globalfood.Fragments.Register
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -46,7 +50,7 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
         setContentView(R.layout.activity_main)
 
         if(savedInstanceState == null){
-            val loginFragment = LoginFragment()
+            val loginFragment = Login()
             supportFragmentManager.beginTransaction().
                     add(R.id.main_container, loginFragment).
                     commit()
@@ -85,7 +89,7 @@ class MainActivity : AppCompatActivity(), OnButtonPressedListener {
 
 
     private fun openLogin(){
-        val login = LoginFragment()
+        val login = Login()
         supportFragmentManager.beginTransaction().replace(R.id.main_container, login).addToBackStack(null).commit()
     }
 

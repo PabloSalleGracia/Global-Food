@@ -1,13 +1,14 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Parcel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.pablo.globalfood.Model.FavRecipe
+import com.example.pablo.globalfood.R
 
 class FavRecipeAdapter(private val context: Context, private val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
 

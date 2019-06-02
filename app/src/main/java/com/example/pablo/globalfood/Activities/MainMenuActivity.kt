@@ -1,21 +1,22 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Activities
 
-import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
+import com.example.pablo.globalfood.*
+import com.example.pablo.globalfood.Adapters.PagerAdapter
+import com.example.pablo.globalfood.Fragments.FavRecipes
+import com.example.pablo.globalfood.Fragments.FavRestaurants
+import com.example.pablo.globalfood.Fragments.MyRecipes
+import com.example.pablo.globalfood.Fragments.Search
 
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_menu.view.*
-import kotlinx.android.synthetic.main.content_menu.*
-import kotlinx.android.synthetic.main.fragment_menu.*
 
 private const val MYRECIPES = "MyRecipes"
 private const val FAVRECIPES = "FavRecipes"
@@ -50,6 +51,8 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         //println(tabLayout.getTabAt(0)!!.text)
 
         tabLayout.setupWithViewPager(viewPager)
+
+
 
         //println(tabLayout.getTabAt(0)!!.text)
 

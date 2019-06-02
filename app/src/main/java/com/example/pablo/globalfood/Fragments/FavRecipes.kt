@@ -1,4 +1,4 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Fragments
 
 
 import android.os.Bundle
@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
+import com.example.pablo.globalfood.Model.FavRecipe
+import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
+import com.example.pablo.globalfood.R
 
 
 // TODO: Rename parameter arguments, choose names that match

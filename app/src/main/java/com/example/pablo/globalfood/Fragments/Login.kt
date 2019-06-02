@@ -1,4 +1,4 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Fragments
 
 
 import android.content.Context
@@ -9,9 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.pablo.globalfood.OnButtonPressedListener
+import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.util.*
 import java.util.regex.Pattern
 
 
@@ -24,7 +24,7 @@ import java.util.regex.Pattern
  * A simple [Fragment] subclass.
  *
  */
-class LoginFragment : Fragment() {
+class Login : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
 

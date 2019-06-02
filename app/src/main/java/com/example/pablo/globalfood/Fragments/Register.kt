@@ -1,22 +1,17 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Fragments
 
 
-import android.app.DatePickerDialog
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.pablo.globalfood.OnButtonPressedListener
+import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.fragment_register.*
 import com.google.firebase.auth.FirebaseAuth
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
 import java.util.regex.Pattern
 
 

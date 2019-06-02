@@ -1,8 +1,11 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Adapters
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
+import com.example.pablo.globalfood.Fragments.FavRecipes
+import com.example.pablo.globalfood.Fragments.FavRestaurants
+import com.example.pablo.globalfood.Fragments.MyRecipes
 
 
 class PagerAdapter(fm: FragmentManager, private val numOfTabs: Int) : FragmentStatePagerAdapter(fm) {
@@ -27,6 +30,8 @@ class PagerAdapter(fm: FragmentManager, private val numOfTabs: Int) : FragmentSt
     override fun getPageTitle(position: Int): CharSequence? {
         return tabTitles[position]
     }
+
+
 
     override fun getCount(): Int {
         return numOfTabs
