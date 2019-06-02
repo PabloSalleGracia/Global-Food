@@ -68,48 +68,19 @@
         tools:ignore="Autofill" />
 
     <TextView
-        android:id="@+id/fecha"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/fecha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmacionContrasena" />
-
-    <TextView
-        android:id="@+id/textVisual"
-        android:layout_width="97dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="8dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fecha" />
-
-    <TextView
         android:id="@+id/haveAcc"
         android:layout_width="271dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:ems="10"
-        android:text="@string/have_account"
         android:tag="@string/tengoCuenta"
+        android:text="@string/have_account"
         android:textColor="@color/colorBlue"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.758"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrarse"
-        app:layout_constraintVertical_bias="0.485"
+        app:layout_constraintTop_toBottomOf="@+id/confirmacionContrasena"
         tools:ignore="Autofill,LabelFor" />
 
     <Button
@@ -117,13 +88,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/registrarse"
+        android:layout_marginBottom="96dp"
         android:tag="@string/registrarse"
+        android:text="@string/registrarse"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.434"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textVisual" />
+        app:layout_constraintTop_toBottomOf="@+id/haveAcc"
+        app:layout_constraintVertical_bias="0.683" />
 
 </android.support.constraint.ConstraintLayout>

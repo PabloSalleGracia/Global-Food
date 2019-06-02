@@ -3,6 +3,7 @@ package com.example.pablo.globalfood
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import com.google.firebase.auth.FirebaseAuth
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.regex.Pattern
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -27,6 +31,7 @@ private const val TEXT = "text"
 class Register : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
+    private var fieldsOk = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,72 +42,20 @@ class Register : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        var emailValid:Boolean
-        var passValid:Boolean
-        var anoActual:Int
-        var ano:Int
-        var fechaValid:Boolean
-
         registrarse.setOnClickListener {
-            Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
-            listener.onButtonPressed(registrarse.tag.toString())
+            fieldsOk = true
+            checkFields()
+
+            if (fieldsOk) {
+                firebaseRegister()
+                Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
+                listener.onButtonPressed(registrarse.tag.toString())
+            }
         }
 
         haveAcc.setOnClickListener{
             listener.onButtonPressed(haveAcc.tag.toString())
         }
-
-        registrarse.setOnClickListener{
-
-            if (emailR.text.contains("@")) {
-                //email.setText("")
-                emailValid = true
-
-            }else {
-                emailR.error = "No es un formato válido de email"
-                emailValid = false
-            }
-
-            if (contrasenaR.text.length < 8) {
-                contrasenaR.error = "La contraseña debe tener almenos 8 cáracteres"
-                //contrasena.setText("")
-                passValid = false
-
-            }else{
-                if (confirmacionContrasena.text.toString().equals(this.contrasenaR.text.toString())) {
-                    //email.setText("")
-                    passValid = true
-
-
-                }else {
-                    confirmacionContrasena.error = "Las contraseñas no coinciden"
-                    passValid = false
-                }
-
-            }
-
-            if(20 >= 18){
-                fechaValid = true
-            }else{
-
-                fecha.error="No puedes registrarte si eres menor de edad"
-                fecha.requestFocus()
-                fechaValid = false
-            }
-
-            if(emailValid && passValid && fechaValid){
-                textVisual.text = emailR.text
-                val registered = "Te has registrado correctamente"
-                val duration = Toast.LENGTH_LONG
-
-                val toast2 = Toast.makeText(context, registered, duration)
-                toast2.show()
-                firebaseRegister()
-            }
-
-
-        }
-
 
     }
 
@@ -111,24 +64,6 @@ class Register : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-
-    fun firebaseRegister(){
-        var email = emailR.text.toString()
-        val password = contrasenaR.text.toString()
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener{
-                    if(!it.isSuccessful){
-                        return@addOnCompleteListener
-                    }else{
-                        //Log.d("tag", "sa registrao")
-                        println("se ha registrao")
-                    }
-                }
-                .addOnFailureListener{
-                    println("error")
-                    //Log.d("dsd")
-                }
-    }
     /*companion object {
         @JvmStatic
         fun newInstance(text: String = "") =
@@ -139,32 +74,64 @@ class Register : Fragment() {
                 }
     }*/
 
-    fun clickFecha(){
-        fecha.setOnClickListener {
-            val c = Calendar.getInstance()
-            val actualYear = c.get(Calendar.YEAR)
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
 
-            val dpd = DatePickerDialog(
-                    context!!,
-                    DatePickerDialog.OnDateSetListener{ _, year, monthOfYear, dayOfMonth ->
-                        val fechaNacimiento = "$dayOfMonth/$monthOfYear/$year"
-                        fecha.text = fechaNacimiento
+    private fun checkFields() {
+        checkEmail()
+        checkPassword()
+        checkRepeatPassword()
+    }
 
-                        var anoActual = actualYear
-                        var ano = year
-
-
-                    },
-                    year ,
-                    month,
-                    day
-            )
-            dpd.show()
+    private fun checkEmail() {
+        val email = emailR.text.toString()
+        if (!Pattern.compile(".+\\@.+\\..+").matcher(email).matches()) {
+            emailR.error = getString(R.string.email_invalido)
+            fieldsOk = false
         }
     }
+
+    private fun checkPassword() {
+        val password = contrasenaR.text.toString()
+        if (password.isEmpty() || password.length < 8) {
+            contrasenaR.error = getString(R.string.contrasena_error)
+            fieldsOk = false
+        }
+    }
+
+    private fun checkRepeatPassword() {
+        if (confirmacionContrasena.text.toString() != contrasenaR.text.toString()) {
+            confirmacionContrasena.error = getString(R.string.confirma_contra_incorrecta)
+            fieldsOk = false
+        }
+    }
+
+    /*private fun loadFields(extras: Bundle) {
+        register_email.setText(extras.getString(LoginActivity.EMAIL_EXTRA))
+        register_password.setText(extras.getString(LoginActivity.PASSWORD_EXTRA))
+    }*/
+
+    /*private fun getLoginBundle(): Bundle {
+        val bundle = Bundle()
+        bundle.putString(LoginActivity.EMAIL_EXTRA, register_email.text.toString())
+        bundle.putString(LoginActivity.PASSWORD_EXTRA, register_password.text.toString())
+        return bundle
+    }*/
+
+    private fun firebaseRegister(){
+        val email = emailR.text.toString()
+        val password = contrasenaR.text.toString()
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener{
+                    if(!it.isSuccessful){
+                        return@addOnCompleteListener
+                    }else{
+                        println("se ha registrao")
+                    }
+                }
+                .addOnFailureListener{
+                    println("error")
+                }
+    }
+
 
 
 }
