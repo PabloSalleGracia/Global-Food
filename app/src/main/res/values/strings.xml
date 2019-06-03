@@ -39,6 +39,12 @@
     <string name="action_settings">Settings</string>
     <string name="title">title</string>
     <string name="description">description</string>
+    <string name="anadir_a_favs">Añadir a Favs</string>
+    <string name="ver_review">Ver Review</string>
+    <string name="titulo_receta">Titulo Receta</string>
+    <string name="ver_restau">Ver restau</string>
+    <string name="titulo_restaurante">Titulo restaurante</string>
+    <string name="ver_receta">Ver receta</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>
