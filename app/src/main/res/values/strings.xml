@@ -45,6 +45,8 @@
     <string name="ver_restau">Ver restau</string>
     <string name="titulo_restaurante">Titulo restaurante</string>
     <string name="ver_receta">Ver receta</string>
+    <string name="read_review">Read Review</string>
+    <string name="list_review">List Review</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

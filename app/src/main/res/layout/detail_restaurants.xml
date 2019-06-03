@@ -8,7 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:id="@+id/imageViewD"
+        android:id="@+id/imageViewDR"
         android:layout_width="263dp"
         android:layout_height="109dp"
         android:layout_gravity="center"
@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/recipe_description"
+        android:id="@+id/res_description"
         android:layout_width="291dp"
         android:layout_height="211dp"
         android:layout_gravity="center"
@@ -32,10 +32,10 @@
         android:text="@string/hello_blank_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloRec" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloRes" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -44,10 +44,10 @@
         android:text="@string/anadir_a_favs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_description" />
+        app:layout_constraintTop_toBottomOf="@+id/res_description" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -56,10 +56,10 @@
         android:text="@string/ver_review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_description" />
+        app:layout_constraintTop_toBottomOf="@+id/res_description" />
 
     <TextView
-        android:id="@+id/tituloRec"
+        android:id="@+id/tituloRes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -68,10 +68,10 @@
         android:text="@string/titulo_restaurante"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewD" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewDR" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -80,10 +80,10 @@
         android:layout_marginBottom="8dp"
         android:text="@string/ver_receta"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
         app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_description"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toBottomOf="@+id/res_description"
         app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

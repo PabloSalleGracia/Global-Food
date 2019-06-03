@@ -1,14 +1,18 @@
 package com.example.pablo.globalfood.Fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ListView
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
+import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 
 
@@ -22,6 +26,8 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class MyRecipes : Fragment() {
+
+    private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,6 +51,25 @@ class MyRecipes : Fragment() {
 
         val myReci = FavRecipeAdapter(context!!, datos2)
         listMyRecipes.adapter = myReci
+
+
+
+        listMyRecipes.setOnItemClickListener { _, _, position, _ ->
+
+
+            val detRec = RecipesDetail()
+
+            fragmentManager!!.beginTransaction().replace(R.id.main_container, detRec)
+            //supportFragmentManager.beginTransaction().replace(R.id.menu_container, detRecip).addToBackStack(null).commit()
+
+        }
+
+        //listener.onButtonPressed(login.tag.toString())
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
     }
 
 

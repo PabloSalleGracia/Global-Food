@@ -10,10 +10,7 @@ import android.view.MenuItem
 import android.widget.*
 import com.example.pablo.globalfood.*
 import com.example.pablo.globalfood.Adapters.PagerAdapter
-import com.example.pablo.globalfood.Fragments.FavRecipes
-import com.example.pablo.globalfood.Fragments.FavRestaurants
-import com.example.pablo.globalfood.Fragments.MyRecipes
-import com.example.pablo.globalfood.Fragments.Search
+import com.example.pablo.globalfood.Fragments.*
 
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_menu.view.*
@@ -22,6 +19,7 @@ private const val MYRECIPES = "MyRecipes"
 private const val FAVRECIPES = "FavRecipes"
 private const val SEARCH = "Search"
 private const val FAVRESTAURANTS = "FavRestaurants"
+private const val DETAILRECIPES = "DetailRecipes"
 
 class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
@@ -31,6 +29,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
             FAVRECIPES -> openRecipesFav()
             SEARCH -> openSearch()
             FAVRESTAURANTS -> openRestaurantFav()
+            DETAILRECIPES -> openDetailRecipes()
         }
     }
 
@@ -111,6 +110,11 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
     private fun openRestaurantFav(){
         val resFav = FavRestaurants()
         supportFragmentManager.beginTransaction().replace(R.id.menu_container, resFav).addToBackStack(null).commit()
+    }
+
+    private fun openDetailRecipes(){
+        val detRecip = RestaurantsDetail()
+        supportFragmentManager.beginTransaction().replace(R.id.menu_container, detRecip).addToBackStack(null).commit()
     }
 
 }
