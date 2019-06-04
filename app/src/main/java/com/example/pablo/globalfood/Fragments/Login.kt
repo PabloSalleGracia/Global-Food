@@ -1,4 +1,4 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Fragments
 
 
 import android.content.Context
@@ -9,9 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.pablo.globalfood.OnButtonPressedListener
+import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.util.*
 import java.util.regex.Pattern
 
 
@@ -24,7 +25,7 @@ import java.util.regex.Pattern
  * A simple [Fragment] subclass.
  *
  */
-class LoginFragment : Fragment() {
+class Login : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
 
@@ -45,6 +46,8 @@ class LoginFragment : Fragment() {
             checkPass(contrasena)
             if (fieldsOk) {
                 Toast.makeText(this.context, getString(R.string.login_correcto), Toast.LENGTH_LONG).show()
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(), contrasena.text.toString())
+                println(email.text.toString())
             }
         }
 

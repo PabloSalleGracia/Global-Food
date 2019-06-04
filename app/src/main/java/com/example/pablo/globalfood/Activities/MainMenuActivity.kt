@@ -1,35 +1,41 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Activities
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.*
+import com.example.pablo.globalfood.*
+import com.example.pablo.globalfood.Adapters.PagerAdapter
+import com.example.pablo.globalfood.Fragments.*
 
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_menu.view.*
-import kotlinx.android.synthetic.main.content_menu.*
-import kotlinx.android.synthetic.main.fragment_menu.*
 
-private const val MYRECIPES = "MyRecipes"
-private const val FAVRECIPES = "FavRecipes"
-private const val SEARCH = "Search"
-private const val FAVRESTAURANTS = "FavRestaurants"
+private const val DETAILRECIPES = "ListaMyRecipes"
+private var datosEnviados = "seEnvia"
 
 class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
+    override fun onItemPressed(text: Any) {
+
+            datosEnviados = text.toString()
+
+        //recibes el titulo y lo pasas al
+    }
 
     override fun onButtonPressed(text: String) {
         when(text){
-            MYRECIPES -> openMyRecipes()
-            FAVRECIPES -> openRecipesFav()
-            SEARCH -> openSearch()
-            FAVRESTAURANTS -> openRestaurantFav()
+            DETAILRECIPES -> {
+                val intent2 = Intent(this, DetailActivity::class.java)
+                intent2.putExtra("id", datosEnviados)
+                //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
+                startActivity(intent2)
+            }
+                //openDetailRecipes()
         }
     }
 
@@ -43,30 +49,14 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         val tabLayout:TabLayout = findViewById(R.id.tab_layout)
         val tabsAdapter = PagerAdapter(supportFragmentManager, tabLayout.tabCount)
 
-        //println(tabLayout.getTabAt(0)!!.text)
-
         viewPager.adapter = tabsAdapter
 
-        //println(tabLayout.getTabAt(0)!!.text)
-
         tabLayout.setupWithViewPager(viewPager)
-
-        //println(tabLayout.getTabAt(0)!!.text)
-
         /*fun onTabSelected(tab: TabLayout.Tab) {
             viewPager.setCurrentItem(tab.position)
         }*/
-
         //tabLayout.addOnTabSelectedListener(onTabSelected(TabLayout(context.tab) tab))
         //viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-
-
-        /*if(savedInstanceState == null){
-            val menuFragment = MainMenuFragment()
-            supportFragmentManager.beginTransaction().
-                    add(R.id.menu_container, menuFragment).
-                    commit()
-        }*/
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -90,24 +80,12 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun openMyRecipes(){
-        val myRecipes = MyRecipes()
-        supportFragmentManager.beginTransaction().replace(R.id.menu_container, myRecipes).addToBackStack(null).commit()
-    }
 
-    private fun openRecipesFav(){
-        val recipesFav = FavRecipes()
-        supportFragmentManager.beginTransaction().replace(R.id.menu_container, recipesFav).addToBackStack(null).commit()
-    }
+    private fun openDetailRecipes(){
 
-    private fun openSearch(){
-        val search = Search()
-        supportFragmentManager.beginTransaction().replace(R.id.menu_container, search).addToBackStack(null).commit()
-    }
 
-    private fun openRestaurantFav(){
-        val resFav = FavRestaurants()
-        supportFragmentManager.beginTransaction().replace(R.id.menu_container, resFav).addToBackStack(null).commit()
+        /*val detRecip = RecipesDetail.newInstance(datosEnviados)
+        supportFragmentManager.beginTransaction().replace(R.id.menu_container, detRecip).addToBackStack(null).commit()*/
     }
 
 }

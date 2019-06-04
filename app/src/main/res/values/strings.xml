@@ -13,6 +13,7 @@
     <string name="confirmacion_contrase_a">Confirmacion Contraseña</string>
     <string name="fecha">Fecha de nacimiento</string>
     <string name="el_logo">El Logo</string>
+    <string name="confirma_contra_incorrecta">Las contraseñas introducidas no coinciden</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -36,6 +37,15 @@
     <string name="action_settings">Settings</string>
     <string name="title">title</string>
     <string name="description">description</string>
+    <string name="anadir_a_favs">Añadir a Favs</string>
+    <string name="ver_review">Ver Review</string>
+    <string name="titulo_receta">Titulo Receta</string>
+    <string name="ver_restau">Ver restau</string>
+    <string name="titulo_restaurante">Titulo restaurante</string>
+    <string name="ver_receta">Ver receta</string>
+    <string name="read_review">Read Review</string>
+    <string name="list_review">List Review</string>
+    <string name="ListaMyRecipes">ListaMyRecipes</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

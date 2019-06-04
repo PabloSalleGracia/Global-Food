@@ -1,15 +1,16 @@
-package com.example.pablo.globalfood
+package com.example.pablo.globalfood.Adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Parcel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import com.example.pablo.globalfood.Model.FavRecipe
+import com.example.pablo.globalfood.R
 
-class FavRecipeAdapter(private val context: Context, private val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
+class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -43,6 +44,7 @@ class FavRecipeAdapter(private val context: Context, private val dataSource: Arr
 
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
+
 
         return rowView
     }
