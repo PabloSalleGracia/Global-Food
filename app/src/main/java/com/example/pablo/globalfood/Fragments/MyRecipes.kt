@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.Toast
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
 import com.example.pablo.globalfood.OnButtonPressedListener
@@ -27,7 +28,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class MyRecipes : Fragment() {
 
-    private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -52,25 +52,28 @@ class MyRecipes : Fragment() {
         val myReci = FavRecipeAdapter(context!!, datos2)
         listMyRecipes.adapter = myReci
 
-
-
-        listMyRecipes.setOnItemClickListener { _, _, position, _ ->
-
+        listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+            var prueba = datos2[position]
 
             val detRec = RecipesDetail()
 
-            fragmentManager!!.beginTransaction().replace(R.id.main_container, detRec)
+            //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
+            //se pasan con el bundle?
+
+            println(position)
+
+            activity!!.supportFragmentManager.beginTransaction()
+                    .replace(R.id.menu_container, detRec, "findThisFragment")
+                    .addToBackStack(null)
+                    .commit()
+
+            //fragmentManager!!.beginTransaction().replace(R.id.menu_container, detRec)
             //supportFragmentManager.beginTransaction().replace(R.id.menu_container, detRecip).addToBackStack(null).commit()
 
-        }
+        })
 
-        //listener.onButtonPressed(login.tag.toString())
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        listener = activity as OnButtonPressedListener
-    }
 
 
 }
