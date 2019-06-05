@@ -9,8 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
+import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
+import com.example.pablo.globalfood.Adapters.ListReviewsAdapter
 import com.example.pablo.globalfood.Model.FavRecipe
+import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
@@ -40,25 +42,23 @@ class ReviewsList : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val listMyRecipes: ListView = view!!.findViewById(R.id.list_reviews)
-        val datos4 = ArrayList<FavRecipe>()
+        val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
+        val datosReviews = ArrayList<Review>()
 
-        datos4.add(FavRecipe("My", "Reviews"))
-        datos4.add(FavRecipe("sadas", "sadsad"))
-        datos4.add(FavRecipe("sadas", "sadsad"))
-        datos4.add(FavRecipe("sadas", "sadsad"))
-        datos4.add(FavRecipe("sadas", "sadsad"))
-        datos4.add(FavRecipe("sadas", "sadsad"))
+        datosReviews.add(Review(1,"My", "Reviews", "test", "prueba"))
+        datosReviews.add(Review(2,"My", "dsadsa", "tesdsadat", "prueba"))
+        datosReviews.add(Review(3,"My", "Revidsadsaews", "test", "prueba"))
+
         //datos.add((FavRecipe()))
 
-        val reviews = FavRecipeAdapter(context!!, datos4)
-        listMyRecipes.adapter = reviews
+        val reviews = ListReviewsAdapter(context!!, datosReviews)
+        listReviews.adapter = reviews
 
         write_reviews.setOnClickListener{
-            listenerReview.onTitleSelected(reviews.dataSource[0].description)
+            listenerReview.onTitleSelected(reviews.dataSource[0].title)
             listener.onButtonPressed(write_reviews.tag.toString())
         }
-        listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+        listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
             //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
             //se pasan con el bundle?

@@ -3,21 +3,26 @@ package com.example.pablo.globalfood.Model
 import android.os.Parcel
 import android.os.Parcelable
 
+
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-data class FavRecipe (var title:String, var country:String, var resDish:String, var esFav:Int):Parcelable{
+data class Review (var idReview:Int, var title:String, var nombreAutor:String, var country:String, var resDish:String): Parcelable {
     constructor(parcel: Parcel) : this(
+            parcel.readInt(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readInt()
+            parcel.readString()
+
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(idReview)
         parcel.writeString(title)
+        parcel.writeString(nombreAutor)
         parcel.writeString(country)
         parcel.writeString(resDish)
-        parcel.writeInt(esFav)
+
     }
 
     override fun describeContents(): Int {
@@ -33,5 +38,4 @@ data class FavRecipe (var title:String, var country:String, var resDish:String, 
             return arrayOfNulls(size)
         }
     }
-
 }

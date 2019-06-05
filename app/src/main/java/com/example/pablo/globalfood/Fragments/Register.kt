@@ -101,8 +101,8 @@ class Register : Fragment() {
     }
 
     private fun checkRepeatPassword() {
-        if (confirmacionContrasena.text.toString() != contrasenaR.text.toString()) {
-            confirmacionContrasena.error = getString(R.string.confirma_contra_incorrecta)
+        if (confirmacion_contrasena.text.toString() != contrasenaR.text.toString()) {
+            confirmacion_contrasena.error = getString(R.string.confirma_contra_incorrecta)
             fieldsOk = false
         }
     }

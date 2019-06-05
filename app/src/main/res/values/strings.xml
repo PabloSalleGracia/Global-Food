@@ -61,6 +61,9 @@
     <string name="recipe_description">Descripcion Receta</string>
     <string name="restaurant_description">Descripcion del Restaurante</string>
     <string name="pais">Pais</string>
+    <string name="lista_fav_recipes">ListaFavRecipes</string>
+    <string name="ListaFavRestaurants">ListaFavRestaurants</string>
+    <string name="ListaFavRecipes">ListaFavRecipes</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

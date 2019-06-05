@@ -4,18 +4,17 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.Toast
 import com.example.pablo.globalfood.Model.FavRecipe
-import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
+import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
+import com.example.pablo.globalfood.Adapters.ListMyRecipesAdapter
+import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
-import kotlinx.android.synthetic.main.favorite_recipes.*
 import kotlinx.android.synthetic.main.my_recipes.*
 
 
@@ -48,19 +47,20 @@ class MyRecipes : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val listMyRecipes: ListView = view!!.findViewById(R.id.list_item2)
-        val datos2 = ArrayList<FavRecipe>()
+        val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
+        val datosMyRecipes = ArrayList<MyRecipe>()
 
-        datos2.add(FavRecipe("My", "Recipes"))
-        datos2.add(FavRecipe("sadas", "sadsad"))
-        datos2.add(FavRecipe("sadas", "sadsad"))
-        datos2.add(FavRecipe("sadas", "sadsad"))
-        datos2.add(FavRecipe("sadas", "sadsad"))
-        datos2.add(FavRecipe("sadas", "sadsad"))
+        datosMyRecipes.add(MyRecipe("My", "Recipes", "prueba", 1))
+        datosMyRecipes.add(MyRecipe("titulo", "checa", "plato", 0))
+        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
+        datosMyRecipes.add(MyRecipe("titulo", "mexicana", "plato", 0))
+        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
+        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
+        datosMyRecipes.add(MyRecipe("titulo", "australiana", "plato", 0))
         //datos.add((FavRecipe()))
 
-        val myReci = FavRecipeAdapter(context!!, datos2)
-        listMyRecipes.adapter = myReci
+        val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+        listMyRecipes.adapter = myRecipeAdapter
 
         listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
@@ -68,8 +68,8 @@ class MyRecipes : Fragment() {
             //se pasan con el bundle?
 
             //var hola = "hola"
-            listener.onItemPressed(myReci.dataSource[position].title)
-            listener.onButtonPressed(list_item2.tag.toString())
+            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
+            listener.onButtonPressed(list_my_recipes.tag.toString())
 
             /* BORRAR FILAS
             datos2.removeAt(position)

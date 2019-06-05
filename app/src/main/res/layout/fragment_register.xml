@@ -43,7 +43,7 @@
         tools:ignore="Autofill" />
 
     <EditText
-        android:id="@+id/confirmacionContrasena"
+        android:id="@+id/confirmacion_contrasena"
         android:layout_width="277dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

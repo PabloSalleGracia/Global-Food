@@ -7,10 +7,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/title_list_reviews"
+        android:id="@+id/title_list_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pais_reviews"
+        android:layout_below="@+id/pais_review"
         android:layout_marginStart="24dp"
         android:text="@string/title"
         android:textColor="@android:color/black"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/pais_reviews"
+        android:id="@+id/pais_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -34,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/pla"
+        android:id="@+id/plaRes_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -47,7 +47,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toEndOf="@+id/pais_reviews"
+        app:layout_constraintStart_toEndOf="@+id/pais_review"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_list_reviews"
+        app:layout_constraintStart_toEndOf="@+id/title_list_review"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

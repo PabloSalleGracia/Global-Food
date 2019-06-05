@@ -5,7 +5,8 @@ import android.os.Parcelable
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-data class FavRecipe (var title:String, var country:String, var resDish:String, var esFav:Int):Parcelable{
+
+data class FavRestaurant (var title:String, var country:String, var resDish:String, var esFav:Int):Parcelable{
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -33,5 +34,4 @@ data class FavRecipe (var title:String, var country:String, var resDish:String, 
             return arrayOfNulls(size)
         }
     }
-
 }

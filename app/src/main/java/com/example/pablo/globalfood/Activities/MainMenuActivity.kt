@@ -37,7 +37,11 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
 
     override fun onButtonPressed(text: String) {
+            /*when(text){
+                DETAILRECIPES -> {
 
+                }
+            }*/
     }
 
 

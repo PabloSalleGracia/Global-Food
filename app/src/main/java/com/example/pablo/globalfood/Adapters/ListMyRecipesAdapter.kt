@@ -6,11 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.TextView
-import com.example.pablo.globalfood.Model.FavRecipe
+import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
+import java.util.*
 
-class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
+class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayList<MyRecipe>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
@@ -29,18 +31,29 @@ class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<F
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
-        val titleTextView = rowView.findViewById(R.id.title_list_reviews) as TextView
+        val title = rowView.findViewById(R.id.title_list_review) as TextView
 
-        // Get subtitle element
-        val subtitleTextView = rowView.findViewById(R.id.pais_reviews) as TextView
+        // Get
+        val country = rowView.findViewById(R.id.pais_review) as TextView
+
+        // Get
+        val recRes = rowView.findViewById(R.id.plaRes_recres) as TextView
+
+        // Get
+        val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as Button
 
         //--
 
-        // 1
-        val favRecipe = getItem(position) as FavRecipe
+        val myRecipe = getItem(position) as MyRecipe
         // 2
-        titleTextView.text = favRecipe.title
-        subtitleTextView.text = favRecipe.description
+        title.text = myRecipe.title
+        country.text = myRecipe.country
+        recRes.text = myRecipe.resDish
+        if(myRecipe.esFav == 1){
+            anadirFav.text = "Añadir a favs"
+        }else{
+            anadirFav.text = "Eliminar de favs"
+        }
 
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
@@ -60,5 +73,4 @@ class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<F
     override fun getCount(): Int {
         return dataSource.size
     }
-
 }
