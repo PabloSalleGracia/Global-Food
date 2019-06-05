@@ -38,7 +38,6 @@
     <string name="title">title</string>
     <string name="description">description</string>
     <string name="anadir_a_favs">Añadir a Favs</string>
-    <string name="ver_review">Ver Review</string>
     <string name="titulo_receta">Titulo Receta</string>
     <string name="ver_restau">Ver restau</string>
     <string name="titulo_restaurante">Titulo restaurante</string>
@@ -47,6 +46,7 @@
     <string name="list_review">List Review</string>
     <string name="ListaMyRecipes">ListaMyRecipes</string>
     <string name="usuario_existente">Este nombre de usuario ya existe</string>
+    <string name="ver_review">Ver Review</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

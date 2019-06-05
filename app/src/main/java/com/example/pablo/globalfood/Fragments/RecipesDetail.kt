@@ -1,11 +1,13 @@
 package com.example.pablo.globalfood.Fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.detail_recipes.*
@@ -23,6 +25,7 @@ private const val datosPrueba = "datosEnviados"
 class RecipesDetail : Fragment() {
 
     private var param1: String? = null
+    private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -54,12 +57,17 @@ class RecipesDetail : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
 
-        /*button3.setOnClickListener{
+        button2.setOnClickListener{
+            listener.onButtonPressed(button2.tag.toString())
+        }
+        //tituloRec.text = param1
 
-        }*/
-        tituloRec.text = param1
 
+    }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
     }
 
 

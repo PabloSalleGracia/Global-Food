@@ -125,14 +125,17 @@ class Register : Fragment() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener{
                     if(!it.isSuccessful){
+                        usuarioRepetido = true
                         return@addOnCompleteListener
+
                     }else{
-                        println("se ha registrao")
+                        usuarioRepetido = true
                     }
                 }
                 .addOnFailureListener{
                     usuarioRepetido = true
                 }
+        //usuarioRepetido = true
     }
 
 

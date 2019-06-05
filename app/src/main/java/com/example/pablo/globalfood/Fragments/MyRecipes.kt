@@ -68,8 +68,8 @@ class MyRecipes : Fragment() {
             //se pasan con el bundle?
 
             //var hola = "hola"
-            //listener.onItemPressed(myReci.dataSource[position].title)
-            //listener.onButtonPressed(list_item2.tag.toString())
+            listener.onItemPressed(myReci.dataSource[position].title)
+            listener.onButtonPressed(list_item2.tag.toString())
 
             /* BORRAR FILAS
             datos2.removeAt(position)
