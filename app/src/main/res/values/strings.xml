@@ -54,6 +54,10 @@
     <string name="num_favs">NumFavs</string>
     <string name="name_autor">Nombre Autor</string>
     <string name="text_review">Texto Review</string>
+    <string name="plato_res">PlatoRes</string>
+    <string name="anadirfav">AñadirFav</string>
+    <string name="nombre_autor">nombreAutor</string>
+    <string name="idreview">idReview</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

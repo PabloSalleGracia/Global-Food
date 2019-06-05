@@ -26,13 +26,13 @@ class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<F
     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
-        val rowView = inflater.inflate(R.layout.list_item_fav_recipe, parent, false)
+        val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
         val titleTextView = rowView.findViewById(R.id.titleFavRec) as TextView
 
         // Get subtitle element
-        val subtitleTextView = rowView.findViewById(R.id.descriptionFavRec) as TextView
+        val subtitleTextView = rowView.findViewById(R.id.pais) as TextView
 
         //--
 

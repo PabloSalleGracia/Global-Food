@@ -17,10 +17,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchViewMR" />
 
     <SearchView
-        android:id="@+id/searchView"
+        android:id="@+id/searchViewMR"
         android:layout_width="395dp"
         android:layout_height="50dp"
         android:background="@drawable/search_bar"
