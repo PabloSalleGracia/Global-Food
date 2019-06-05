@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
-import kotlinx.android.synthetic.main.reviews_list.*
 import kotlinx.android.synthetic.main.write_review.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,7 +56,7 @@ class WriteReview : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tituloWR.text = param1
+        tituloRR.text = param1
     }
 
 }

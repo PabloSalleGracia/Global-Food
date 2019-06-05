@@ -50,6 +50,10 @@
     <string name="read_review_text">readReviewText</string>
     <string name="write_review">Escribir review</string>
     <string name="reviews_list">ListaReviews</string>
+    <string name="return_screen">Volver</string>
+    <string name="num_favs">NumFavs</string>
+    <string name="name_autor">Nombre Autor</string>
+    <string name="text_review">Texto Review</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>
