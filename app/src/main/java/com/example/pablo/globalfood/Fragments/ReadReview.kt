@@ -1,13 +1,16 @@
 package com.example.pablo.globalfood.Fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
+import kotlinx.android.synthetic.main.read_review.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +25,7 @@ private const val datosPrueba = "datosEnviados"
 class ReadReview : Fragment() {
 
     private var param1: String? = null
+    private lateinit var listener : OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,11 +43,23 @@ class ReadReview : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(param1: String) =
-                RecipesDetail().apply {
+                ReadReview().apply {
                     arguments = Bundle().apply {
                         putString(datosPrueba, param1)
                     }
                 }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        rrreview.text = param1
+
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
     }
 
 

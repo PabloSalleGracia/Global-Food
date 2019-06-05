@@ -57,6 +57,7 @@ class RecipesDetail : Fragment() {
 
         super.onActivityCreated(savedInstanceState)
 
+        tituloRec.text = param1
         button2.setOnClickListener{
             listener.onButtonPressed(button2.tag.toString())
         }

@@ -24,19 +24,20 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
             datosEnviados = text.toString()
 
-        //recibes el titulo y lo pasas al
-    }
-
-    override fun onButtonPressed(text: String) {
-        when(text){
-            DETAILRECIPES -> {
+        //when(datosEnviados){
+         //   DETAILRECIPES -> {
                 val intent2 = Intent(this, DetailActivity::class.java)
                 intent2.putExtra("id", datosEnviados)
                 //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
                 startActivity(intent2)
             }
-                //openDetailRecipes()
-        }
+            //openDetailRecipes()
+        //}
+        //recibes el titulo y lo pasas al
+
+
+    override fun onButtonPressed(text: String) {
+
     }
 
 

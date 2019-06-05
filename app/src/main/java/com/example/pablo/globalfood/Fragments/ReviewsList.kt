@@ -12,6 +12,7 @@ import android.widget.ListView
 import com.example.pablo.globalfood.Adapters.FavRecipeAdapter
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
+import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.my_recipes.*
@@ -29,6 +30,7 @@ private const val ARG_PARAM2 = "param2"
 class ReviewsList : Fragment() {
 
     private lateinit var listener : OnButtonPressedListener
+    private lateinit var listenerReview : OnTitleSelectedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,6 +55,10 @@ class ReviewsList : Fragment() {
         val reviews = FavRecipeAdapter(context!!, datos4)
         listMyRecipes.adapter = reviews
 
+        writeRev.setOnClickListener{
+            listenerReview.onTitleSelected(reviews.dataSource[0].description)
+            listener.onButtonPressed(writeRev.tag.toString())
+        }
         listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
             //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
@@ -60,7 +66,7 @@ class ReviewsList : Fragment() {
 
             //var hola = "hola"
             listener.onItemPressed(reviews.dataSource[position].title)
-            listener.onButtonPressed(list_item4.tag.toString())
+            //listener.onButtonPressed(list_item4.tag.toString())
 
             /* BORRAR FILAS
             datos2.removeAt(position)
@@ -73,6 +79,7 @@ class ReviewsList : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         listener = activity as OnButtonPressedListener
+        listenerReview = activity as OnTitleSelectedListener
     }
 
 
