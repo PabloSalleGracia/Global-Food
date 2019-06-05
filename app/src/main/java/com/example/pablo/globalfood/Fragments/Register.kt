@@ -27,6 +27,7 @@ class Register : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
     private var fieldsOk = false
+    private var usuarioRepetido = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,13 +40,20 @@ class Register : Fragment() {
 
         registrarse.setOnClickListener {
             fieldsOk = true
+            usuarioRepetido = false
             checkFields()
 
             if (fieldsOk) {
                 firebaseRegister()
-                Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
-                listener.onButtonPressed(registrarse.tag.toString())
+                if (usuarioRepetido){
+                    Toast.makeText(this.context, getString(R.string.usuario_existente), Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
+                    listener.onButtonPressed(registrarse.tag.toString())
+                }
             }
+
+
         }
 
         haveAcc.setOnClickListener{
@@ -123,7 +131,7 @@ class Register : Fragment() {
                     }
                 }
                 .addOnFailureListener{
-                    println("error")
+                    usuarioRepetido = true
                 }
     }
 
