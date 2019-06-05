@@ -53,7 +53,7 @@ class ReadReview : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        rrreview.text = param1
+        titulo_read_review.text = param1
 
     }
 

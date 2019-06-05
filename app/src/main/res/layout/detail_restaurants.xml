@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.RestaurantsDetail">
 
-    <!-- TODO: Update blank fragment layout -->
     <ImageView
         android:id="@+id/imageViewDR"
         android:layout_width="263dp"
@@ -22,20 +21,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/res_description"
+        android:id="@+id/restaurant_description"
         android:layout_width="291dp"
         android:layout_height="211dp"
         android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/hello_blank_fragment"
+        android:text="@string/restaurant_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloRes" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo_detail_restaurante" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/anadir_favs_detres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -44,38 +43,38 @@
         android:layout_marginBottom="8dp"
         android:text="@string/anadir_a_favs"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/ver_reviews_detres"
         app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/res_description" />
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_description" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/ver_reviews_detres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:text="@string/ver_review"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/res_description" />
+        app:layout_constraintTop_toBottomOf="@+id/restaurant_description" />
 
     <TextView
-        android:id="@+id/tituloRes"
+        android:id="@+id/titulo_detail_restaurante"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/titulo_restaurante"
-        app:layout_constraintEnd_toStartOf="@+id/numFavsRes"
+        app:layout_constraintEnd_toStartOf="@+id/num_favs_restaurantes"
         app:layout_constraintHorizontal_bias="0.801"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDR" />
 
     <Button
-        android:id="@+id/buttonBDRes"
+        android:id="@+id/volver_detres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -86,17 +85,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/ver_reviews_detres" />
 
     <TextView
-        android:id="@+id/numFavsRes"
+        android:id="@+id/num_favs_restaurantes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="8dp"
         android:text="@string/num_favs"
-        app:layout_constraintBottom_toTopOf="@+id/res_description"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewDR" />
 

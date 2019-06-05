@@ -4,10 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RecipesDetail"
-    android:orientation="vertical">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".Fragments.RecipesDetail">
 
     <ImageView
         android:id="@+id/imageViewD"
@@ -24,6 +21,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/titulo_detail_receta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/titulo_receta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewD" />
+
+    <TextView
+        android:id="@+id/num_favs_recetas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/num_favs"
+        app:layout_constraintBottom_toTopOf="@+id/recipe_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewD" />
+
+    <TextView
         android:id="@+id/recipe_description"
         android:layout_width="291dp"
         android:layout_height="211dp"
@@ -31,13 +52,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/hello_blank_fragment"
+        android:text="@string/recipe_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tituloRec" />
+        app:layout_constraintTop_toBottomOf="@+id/titulo_detail_receta" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/anadir_favs_detrec"
         android:layout_width="128dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -46,13 +67,13 @@
         android:layout_marginBottom="8dp"
         android:text="@string/anadir_a_favs"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintEnd_toStartOf="@+id/ver_reviews_detrec"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipe_description" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/ver_reviews_detrec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -64,20 +85,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recipe_description" />
 
-    <TextView
-        android:id="@+id/tituloRec"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/titulo_receta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewD" />
+
 
     <Button
-        android:id="@+id/buttonBDR"
+        android:id="@+id/volver_detrec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -88,18 +99,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/ver_reviews_detrec" />
 
-    <TextView
-        android:id="@+id/numFavsRes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/num_favs"
-        app:layout_constraintBottom_toTopOf="@+id/recipe_description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewD" />
+
 
 </android.support.constraint.ConstraintLayout>

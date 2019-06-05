@@ -58,6 +58,9 @@
     <string name="anadirfav">AñadirFav</string>
     <string name="nombre_autor">nombreAutor</string>
     <string name="idreview">idReview</string>
+    <string name="recipe_description">Descripcion Receta</string>
+    <string name="restaurant_description">Descripcion del Restaurante</string>
+    <string name="pais">Pais</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

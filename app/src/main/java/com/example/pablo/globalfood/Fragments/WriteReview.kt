@@ -56,7 +56,8 @@ class WriteReview : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        tituloRR.text = param1
+        //tituloRR.text = param1
+
     }
 
 }

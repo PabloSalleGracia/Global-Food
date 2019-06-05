@@ -15,7 +15,6 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
-import kotlinx.android.synthetic.main.my_recipes.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,7 +40,7 @@ class ReviewsList : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val listMyRecipes: ListView = view!!.findViewById(R.id.list_item4)
+        val listMyRecipes: ListView = view!!.findViewById(R.id.list_reviews)
         val datos4 = ArrayList<FavRecipe>()
 
         datos4.add(FavRecipe("My", "Reviews"))
@@ -55,9 +54,9 @@ class ReviewsList : Fragment() {
         val reviews = FavRecipeAdapter(context!!, datos4)
         listMyRecipes.adapter = reviews
 
-        writeRev.setOnClickListener{
+        write_reviews.setOnClickListener{
             listenerReview.onTitleSelected(reviews.dataSource[0].description)
-            listener.onButtonPressed(writeRev.tag.toString())
+            listener.onButtonPressed(write_reviews.tag.toString())
         }
         listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 

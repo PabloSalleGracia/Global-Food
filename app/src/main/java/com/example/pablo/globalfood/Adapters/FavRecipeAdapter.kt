@@ -29,10 +29,10 @@ class FavRecipeAdapter(private val context: Context, val dataSource: ArrayList<F
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
-        val titleTextView = rowView.findViewById(R.id.titleFavRec) as TextView
+        val titleTextView = rowView.findViewById(R.id.title_list_reviews) as TextView
 
         // Get subtitle element
-        val subtitleTextView = rowView.findViewById(R.id.pais) as TextView
+        val subtitleTextView = rowView.findViewById(R.id.pais_reviews) as TextView
 
         //--
 
