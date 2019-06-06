@@ -10,40 +10,24 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 
-private var datosEnviados = "seEnvia"
-private var tituloEnviado = "ensladnas"
+private var tituloAReview = "ensladnas"
 
 class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSelectedListener {
 
     override fun onTitleSelected(text: String) {
-       tituloEnviado = text
+       tituloAReview = text
     }
 
     override fun onItemPressed(text: Any) {
+        tituloAReview = text.toString()
+        openReadReviews()
 
-        datosEnviados = text.toString()
-
-       // when(datosEnviados){
-       //     "hola" -> {
-                val readReview = ReadReview.newInstance(datosEnviados)
-                supportFragmentManager.beginTransaction().
-                        replace(R.id.detail_container, readReview).
-                        commit()
-
-       // }
     }
 
     override fun onButtonPressed(text: String) {
         when(text){
-            "Ver Review" -> {
-                val reviewList = ReviewsList()
-                supportFragmentManager.beginTransaction().replace(R.id.detail_container, reviewList).commit()
-            }
-            "Escribir review" -> {
-                val writeReview = WriteReview.newInstance(tituloEnviado)
-                supportFragmentManager.beginTransaction().replace(R.id.detail_container, writeReview).commit()
-            }
-
+            "Ver Review" -> openListReviews()
+            "Escribir review" -> openWriteReviews()
         }
     }
 
@@ -52,16 +36,30 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        val recibido = intent.getStringExtra("id")
+        val tituloRecibido = intent.getStringExtra("tituloRecRes")
 
 
         if(savedInstanceState == null){
-            val recipesDetail = RecipesDetail.newInstance(recibido)
+            val recipesDetail = RecipesDetail.newInstance(tituloRecibido)
             supportFragmentManager.beginTransaction().
                     add(R.id.detail_container, recipesDetail).
                     commit()
         }
     }
 
+    private fun openListReviews(){
+        val reviewList = ReviewsList.newInstance(tituloAReview)
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, reviewList).commit()
+    }
+
+    private fun openWriteReviews(){
+        val writeReview = WriteReview.newInstance(tituloAReview)
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, writeReview).commit()
+    }
+
+    private fun openReadReviews(){
+        val readReview = ReadReview.newInstance(tituloAReview)
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, readReview).commit()
+    }
 
 }

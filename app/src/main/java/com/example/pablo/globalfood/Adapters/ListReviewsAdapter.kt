@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.R
@@ -34,7 +33,7 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
 
         val id = rowView.findViewById(R.id.id_review) as TextView
 
-        val title = rowView.findViewById(R.id.title_list_review) as TextView
+        val title = rowView.findViewById(R.id.title_list_recipres) as TextView
 
         val nombreAutor = rowView.findViewById(R.id.nombre_autor) as TextView
 

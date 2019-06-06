@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.R
+import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
 
 class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
@@ -31,7 +33,7 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
-        val title = rowView.findViewById(R.id.title_list_review) as TextView
+        val title = rowView.findViewById(R.id.title_list_recipres) as TextView
 
         // Get
         val country = rowView.findViewById(R.id.pais_review) as TextView
@@ -40,7 +42,7 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
         val recRes = rowView.findViewById(R.id.plaRes_recres) as TextView
 
         // Get
-        val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as Button
+        val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as TextView
 
         //--
 
@@ -50,13 +52,29 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
         title.text = favRecipe.title
         country.text = favRecipe.country
         recRes.text = favRecipe.resDish
-        if(favRecipe.esFav == 1){
+        if(favRecipe.esFav == 0){
             anadirFav.text = "Añadir a favs"
         }else{
             anadirFav.text = "Eliminar de favs"
         }
+
+        rowView.anadir_fav_recipres.setOnClickListener{
+            if(favRecipe.esFav == 0){
+                favRecipe.esFav = 1
+                anadirFav.text = "Eliminar de favs"
+            }else{
+                favRecipe.esFav = 0
+                anadirFav.text = "Añadir a favs"
+            }
+        }
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
+
+        //borra los datos y la fila seleccionada cuando le das al boton anadir
+        /*rowView.anadir_fav_recipres.setOnClickListener{
+            dataSource.removeAt(position)
+            notifyDataSetChanged()
+        }*/
 
 
         return rowView

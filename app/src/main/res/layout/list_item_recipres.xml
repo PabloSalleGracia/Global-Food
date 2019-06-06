@@ -7,11 +7,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/title_list_review"
+        android:id="@+id/title_list_recipres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pais_review"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/title"
@@ -25,23 +25,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/pais"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/title_list_review"
+        app:layout_constraintStart_toEndOf="@+id/title_list_recipres"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/plaRes_recres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/plato_res"
         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -52,12 +52,12 @@
         app:layout_constraintStart_toEndOf="@+id/pais_review"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <TextView
         android:id="@+id/anadir_fav_recipres"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/anadirfav"
         android:textAppearance="?android:attr/textAppearanceSmall"

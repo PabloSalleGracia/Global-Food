@@ -17,19 +17,14 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
+import kotlinx.android.synthetic.main.detail_recipes.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val tituloRecibido = "datosRecibidos"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
 class ReviewsList : Fragment() {
 
+    private var tituloRewList: String? = null
     private lateinit var listener : OnButtonPressedListener
     private lateinit var listenerReview : OnTitleSelectedListener
 
@@ -39,8 +34,26 @@ class ReviewsList : Fragment() {
         return inflater.inflate(R.layout.reviews_list, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            tituloRewList = it.getString(tituloRecibido)
+        }
+    }
+    companion object {
+        @JvmStatic
+        fun newInstance(tituloRewList: String) =
+                ReviewsList().apply {
+                    arguments = Bundle().apply {
+                        putString(tituloRecibido, tituloRewList)
+                    }
+                }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        titulo_reviews_list.text = tituloRewList
 
         val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
         val datosReviews = ArrayList<Review>()
@@ -49,28 +62,16 @@ class ReviewsList : Fragment() {
         datosReviews.add(Review(2,"My", "dsadsa", "tesdsadat", "prueba"))
         datosReviews.add(Review(3,"My", "Revidsadsaews", "test", "prueba"))
 
-        //datos.add((FavRecipe()))
 
         val reviews = ListReviewsAdapter(context!!, datosReviews)
         listReviews.adapter = reviews
 
         write_reviews.setOnClickListener{
-            listenerReview.onTitleSelected(reviews.dataSource[0].title)
+            listenerReview.onTitleSelected(titulo_reviews_list.text.toString())
             listener.onButtonPressed(write_reviews.tag.toString())
         }
         listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-
-            //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
-            //se pasan con el bundle?
-
-            //var hola = "hola"
             listener.onItemPressed(reviews.dataSource[position].title)
-            //listener.onButtonPressed(list_item4.tag.toString())
-
-            /* BORRAR FILAS
-            datos2.removeAt(position)
-            myReci.notifyDataSetChanged()*/
-
         })
 
     }

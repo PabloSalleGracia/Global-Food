@@ -57,12 +57,16 @@ class MyRecipes : Fragment() {
         datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
         datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
         datosMyRecipes.add(MyRecipe("titulo", "australiana", "plato", 0))
-        //datos.add((FavRecipe()))
 
         val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
         listMyRecipes.adapter = myRecipeAdapter
 
-        listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+
+        listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
+            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
+        }
+
+        /*listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
             //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
             //se pasan con el bundle?
@@ -75,7 +79,7 @@ class MyRecipes : Fragment() {
             datos2.removeAt(position)
             myReci.notifyDataSetChanged()*/
 
-        })
+        })*/
 
     }
 

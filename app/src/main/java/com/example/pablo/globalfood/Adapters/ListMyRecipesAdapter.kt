@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
+import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
 
 class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayList<MyRecipe>) : BaseAdapter() {
@@ -31,7 +32,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
-        val title = rowView.findViewById(R.id.title_list_review) as TextView
+        val title = rowView.findViewById(R.id.title_list_recipres) as TextView
 
         // Get
         val country = rowView.findViewById(R.id.pais_review) as TextView
@@ -40,7 +41,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         val recRes = rowView.findViewById(R.id.plaRes_recres) as TextView
 
         // Get
-        val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as Button
+        val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as TextView
 
         //--
 
@@ -49,7 +50,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         title.text = myRecipe.title
         country.text = myRecipe.country
         recRes.text = myRecipe.resDish
-        if(myRecipe.esFav == 1){
+        if(myRecipe.esFav == 0){
             anadirFav.text = "Añadir a favs"
         }else{
             anadirFav.text = "Eliminar de favs"
@@ -58,6 +59,15 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
+        rowView.anadir_fav_recipres.setOnClickListener{
+            if(myRecipe.esFav == 0){
+                myRecipe.esFav = 1
+                anadirFav.text = "Eliminar de favs"
+            }else{
+                myRecipe.esFav = 0
+                anadirFav.text = "Añadir a favs"
+            }
+        }
 
         return rowView
     }
