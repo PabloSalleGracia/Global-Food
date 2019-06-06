@@ -50,7 +50,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         title.text = myRecipe.title
         country.text = myRecipe.country
         recRes.text = myRecipe.resDish
-        if(myRecipe.esFav == 0){
+        if(myRecipe.esFav == 0.toLong()){
             anadirFav.text = "Añadir a favs"
         }else{
             anadirFav.text = "Eliminar de favs"
@@ -60,7 +60,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(myRecipe.esFav == 0){
+            if(myRecipe.esFav == 0.toLong()){
                 myRecipe.esFav = 1
                 anadirFav.text = "Eliminar de favs"
             }else{
