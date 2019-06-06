@@ -55,6 +55,10 @@ class ReadReview : Fragment() {
 
         titulo_read_review.text = param1
 
+        volver_rreview.setOnClickListener{
+            listener.onButtonPressed("Volver")
+        }
+
     }
 
     override fun onAttach(context: Context?) {

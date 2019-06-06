@@ -66,6 +66,10 @@ class ReviewsList : Fragment() {
         val reviews = ListReviewsAdapter(context!!, datosReviews)
         listReviews.adapter = reviews
 
+        volver_review_list.setOnClickListener{
+            listener.onButtonPressed("Volver")
+        }
+
         write_reviews.setOnClickListener{
             listenerReview.onTitleSelected(titulo_reviews_list.text.toString())
             listener.onButtonPressed(write_reviews.tag.toString())

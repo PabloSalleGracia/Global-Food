@@ -56,6 +56,10 @@ class RecipesDetail : Fragment() {
             listener.onButtonPressed(ver_reviews_detrec.tag.toString())
         }
 
+        volver_detrec.setOnClickListener{
+            listener.onButtonPressed("VolverAtras")
+        }
+
 
     }
 

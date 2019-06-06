@@ -54,22 +54,6 @@ class MyRecipes : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-
-
-
-
-        /*datosMyRecipes.add(MyRecipe("My", "Recipes", "prueba", 1))
-        datosMyRecipes.add(MyRecipe("titulo", "checa", "plato", 0))
-        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
-        datosMyRecipes.add(MyRecipe("titulo", "mexicana", "plato", 0))
-        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
-        datosMyRecipes.add(MyRecipe("titulo", "india", "plato", 1))
-        datosMyRecipes.add(MyRecipe("titulo", "australiana", "plato", 0))*/
-
-
-
-
-
         /*listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
             //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados

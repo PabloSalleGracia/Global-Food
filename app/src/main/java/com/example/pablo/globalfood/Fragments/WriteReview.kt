@@ -59,6 +59,10 @@ class WriteReview : Fragment() {
         //tituloRR.text = param1
         titulo_write_review.text = param1
 
+        volver_wreview.setOnClickListener{
+            listener.onButtonPressed("Volver")
+        }
+
     }
 
 }

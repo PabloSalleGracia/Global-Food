@@ -28,6 +28,8 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
         when(text){
             "Ver Review" -> openListReviews()
             "Escribir review" -> openWriteReviews()
+            "Volver" -> goToLastScreen()
+            "VolverAtras" -> goBackToMenu()
         }
     }
 
@@ -42,24 +44,31 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
         if(savedInstanceState == null){
             val recipesDetail = RecipesDetail.newInstance(tituloRecibido)
             supportFragmentManager.beginTransaction().
-                    add(R.id.detail_container, recipesDetail).
-                    commit()
+                    add(R.id.detail_container, recipesDetail).commit()
         }
     }
 
     private fun openListReviews(){
         val reviewList = ReviewsList.newInstance(tituloAReview)
-        supportFragmentManager.beginTransaction().replace(R.id.detail_container, reviewList).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, reviewList).addToBackStack(null).commit()
     }
 
     private fun openWriteReviews(){
         val writeReview = WriteReview.newInstance(tituloAReview)
-        supportFragmentManager.beginTransaction().replace(R.id.detail_container, writeReview).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, writeReview).addToBackStack(null).commit()
     }
 
     private fun openReadReviews(){
         val readReview = ReadReview.newInstance(tituloAReview)
-        supportFragmentManager.beginTransaction().replace(R.id.detail_container, readReview).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.detail_container, readReview).addToBackStack(null).commit()
+    }
+
+    private fun goToLastScreen(){
+        supportFragmentManager.popBackStackImmediate()
+    }
+
+    private fun goBackToMenu(){
+        super.onBackPressed()
     }
 
 }
