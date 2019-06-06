@@ -41,20 +41,22 @@ class MyRecipes : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pruebaFireBaseSelect()
     }
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        pruebaFireBaseSelect()
         return inflater.inflate(R.layout.my_recipes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
+
+
+
 
         /*datosMyRecipes.add(MyRecipe("My", "Recipes", "prueba", 1))
         datosMyRecipes.add(MyRecipe("titulo", "checa", "plato", 0))
@@ -66,15 +68,8 @@ class MyRecipes : Fragment() {
 
 
 
-        val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
-        listMyRecipes.adapter = myRecipeAdapter
 
 
-        listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
-        }
-
-        myRecipeAdapter.notifyDataSetChanged()
         /*listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
 
             //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
@@ -101,7 +96,7 @@ class MyRecipes : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         db.collection("Recetas")
-                .whereEqualTo("titulo", "TituloReceta")
+                .whereEqualTo("tipo", "Plato")
                 .addSnapshotListener(object : EventListener<QuerySnapshot> {
                     override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
                         if (p1 != null) {
@@ -111,10 +106,22 @@ class MyRecipes : Fragment() {
 
                         if (p0 != null) {
                             for (doc in p0) {
-                                if (doc.get("titulo") != null) {
+                                if (doc.get("tipo") != null) {
+
+                                    val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
 
                                     datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                             doc.getString("tipo")!!, doc.getLong("numFavs")!!))
+
+                                    val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+                                    listMyRecipes.adapter = myRecipeAdapter
+
+
+                                    listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
+                                        listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
+                                    }
+
+
 
                                 }
                             }
