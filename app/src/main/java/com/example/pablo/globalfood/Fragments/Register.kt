@@ -4,6 +4,7 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.fragment_register.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
+import java.util.*
 
 
 class Register : Fragment() {
@@ -111,8 +114,22 @@ class Register : Fragment() {
                     if(!it.isSuccessful){
                         return@addOnCompleteListener
                     }else{
-                        Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
-                        listener.onButtonPressed(registrarse.tag.toString())
+                        val db = FirebaseFirestore.getInstance()
+                        val newUserForDB = FirebaseAuth.getInstance().currentUser!!.uid
+                        val fieldsAndValuesDB = HashMap<String, Any>()
+                        fieldsAndValuesDB.put("fecha_registrado", " ")
+                        fieldsAndValuesDB.put("activo?", true)
+
+                        db.collection("Usuarios").document(newUserForDB)
+                                .set(fieldsAndValuesDB)
+                                .addOnSuccessListener {
+                                    documentReference ->  Log.d("Register", "se ha registrado en firestore")
+                                    Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
+                                    listener.onButtonPressed(registrarse.tag.toString())
+                                }
+                                .addOnFailureListener{
+
+                                }
                     }
                 }
                 .addOnFailureListener{

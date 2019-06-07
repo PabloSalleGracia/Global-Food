@@ -52,18 +52,18 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
         title.text = favRecipe.title
         country.text = favRecipe.country
         recRes.text = favRecipe.resDish
-        if(favRecipe.esFav == 0){
+        if(favRecipe.numFavs == 0.toLong()){
             anadirFav.text = "Añadir a favs"
         }else{
             anadirFav.text = "Eliminar de favs"
         }
 
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(favRecipe.esFav == 0){
-                favRecipe.esFav = 1
+            if(favRecipe.numFavs == 0.toLong()){
+                favRecipe.numFavs = 1
                 anadirFav.text = "Eliminar de favs"
             }else{
-                favRecipe.esFav = 0
+                favRecipe.numFavs = 0
                 anadirFav.text = "Añadir a favs"
             }
         }

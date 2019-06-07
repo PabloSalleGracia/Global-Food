@@ -68,9 +68,9 @@ class WriteReview : Fragment() {
     }
 
     fun escribirReview(){
-        var db = FirebaseFirestore.getInstance()
+        val db = FirebaseFirestore.getInstance()
 
-        var data = "hola"
+        val data = "hola"
 
         db.collection("Reviews").add(data)
                 .addOnSuccessListener {

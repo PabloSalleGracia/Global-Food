@@ -51,7 +51,7 @@ class ListFavRestaurantsAdapter (private val context: Context, val dataSource: A
         title.text = favRestaurant.title
         country.text = favRestaurant.country
         recRes.text = favRestaurant.resDish
-        if(favRestaurant.esFav == 0){
+        if(favRestaurant.numFavs == 0.toLong()){
             anadirFav.text = "Añadir a favs"
         }else{
             anadirFav.text = "Eliminar de favs"
@@ -59,11 +59,11 @@ class ListFavRestaurantsAdapter (private val context: Context, val dataSource: A
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(favRestaurant.esFav == 0){
-                favRestaurant.esFav = 1
+            if(favRestaurant.numFavs == 0.toLong()){
+                favRestaurant.numFavs = 1
                 anadirFav.text = "Eliminar de favs"
             }else{
-                favRestaurant.esFav = 0
+                favRestaurant.numFavs = 0
                 anadirFav.text = "Añadir a favs"
             }
         }

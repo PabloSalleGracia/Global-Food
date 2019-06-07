@@ -16,6 +16,8 @@ import com.example.pablo.globalfood.Adapters.ListMyRecipesAdapter
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthProvider
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -29,35 +31,19 @@ class MyRecipes : Fragment() {
     private lateinit var listener: OnButtonPressedListener
     val datosMyRecipes = ArrayList<MyRecipe>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        pruebaFireBaseSelect()
+        fireBaseSelectMyRecipes()
         return inflater.inflate(R.layout.my_recipes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        /*listMyRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-
-            //como pasar datos como con el extra, y como abrir nuevo fragment pasandole esos datos seleccionados
-            //se pasan con el bundle?
-
-            //var hola = "hola"
-            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
-            listener.onButtonPressed(list_my_recipes.tag.toString())
-
             /* BORRAR FILAS
             datos2.removeAt(position)
             myReci.notifyDataSetChanged()*/
-
-        })*/
 
     }
 
@@ -66,11 +52,21 @@ class MyRecipes : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-    fun pruebaFireBaseSelect(){
-        val db = FirebaseFirestore.getInstance()
+    fun fireBaseSelectMyRecipes(){
+        /*val db = FirebaseFirestore.getInstance()
+        //id del usuario logeado en firebase
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+
+
+        val esFavRef = db.collection("Usuario-Recetas")
+                .whereEqualTo("id_usuario", user)
+                .whereEqualTo("id_receta", "kdns") //receta value sea la seleccionada, hay que hacer for para mirar todas
+                                                            //usuario value sea el logeado, hay que hacer for de todos los usuarios
+                    //devuelveme el esFav
 
         db.collection("Recetas")
                 .whereEqualTo("tipo", "Plato")
+                .whereEqualTo("pais", esFavRef)
                 .addSnapshotListener(object : EventListener<QuerySnapshot> {
                     override fun onEvent(values: QuerySnapshot?, p1: FirebaseFirestoreException?) {
                         if (p1 != null) {
@@ -81,28 +77,26 @@ class MyRecipes : Fragment() {
                         if (values != null) {
                             for (doc in values) {
                                 if (doc.get("tipo") != null) {
-
-                                    val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
-
                                     datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                             doc.getString("tipo")!!, doc.getLong("numFavs")!!))
-
-                                    val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
-                                    listMyRecipes.adapter = myRecipeAdapter
-
-                                    listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-                                        listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
-                                    }
-
-
-
+                                    fillListMyRecipes()
                                 }
                             }
                         }
                         Log.d("MainMenuActivity", "Current cites in CA: $datosMyRecipes")
                     }
-                })
+                })*/
+    }
 
+    fun fillListMyRecipes(){
+        val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
+
+        val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+        listMyRecipes.adapter = myRecipeAdapter
+
+        listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
+            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
+        }
     }
 
 
