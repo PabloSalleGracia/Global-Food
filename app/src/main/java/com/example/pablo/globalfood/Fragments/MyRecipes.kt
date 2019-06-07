@@ -23,16 +23,6 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.my_recipes.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
-
 
 class MyRecipes : Fragment() {
 
@@ -82,14 +72,14 @@ class MyRecipes : Fragment() {
         db.collection("Recetas")
                 .whereEqualTo("tipo", "Plato")
                 .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                    override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
+                    override fun onEvent(values: QuerySnapshot?, p1: FirebaseFirestoreException?) {
                         if (p1 != null) {
                             Log.w("MainMenuActivity", "Listen failed.", p1)
                             return
                         }
 
-                        if (p0 != null) {
-                            for (doc in p0) {
+                        if (values != null) {
+                            for (doc in values) {
                                 if (doc.get("tipo") != null) {
 
                                     val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
@@ -99,7 +89,6 @@ class MyRecipes : Fragment() {
 
                                     val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
                                     listMyRecipes.adapter = myRecipeAdapter
-
 
                                     listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
                                         listener.onItemPressed(myRecipeAdapter.dataSource[position].title)

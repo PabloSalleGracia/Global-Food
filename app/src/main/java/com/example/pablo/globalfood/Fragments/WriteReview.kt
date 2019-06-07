@@ -4,12 +4,14 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.write_review.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -63,6 +65,20 @@ class WriteReview : Fragment() {
             listener.onButtonPressed("Volver")
         }
 
+    }
+
+    fun escribirReview(){
+        var db = FirebaseFirestore.getInstance()
+
+        var data = "hola"
+
+        db.collection("Reviews").add(data)
+                .addOnSuccessListener {
+                    documentReference ->  Log.d("WriteReview", "bla bla falla? bla bla" + documentReference.id)
+                }
+                .addOnFailureListener{
+
+                }
     }
 
 }
