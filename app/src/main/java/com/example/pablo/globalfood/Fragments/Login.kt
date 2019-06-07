@@ -16,20 +16,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
 import java.util.regex.Pattern
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//private const val ARG_PARAM1 = "param1"
-//private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class Login : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
 
-    var fieldsOk = false
+    private var fieldsOk = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,14 +31,11 @@ class Login : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         login.setOnClickListener {
-            listener.onButtonPressed(login.tag.toString())
             fieldsOk = true
             checkEmail(email)
             checkPass(contrasena)
             if (fieldsOk) {
-                Toast.makeText(this.context, getString(R.string.login_correcto), Toast.LENGTH_LONG).show()
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(), contrasena.text.toString())
-                println(email.text.toString())
+                logIn()
             }
         }
 
@@ -69,6 +57,21 @@ class Login : Fragment() {
             editText.error = getString(R.string.contrasena_error)
             fieldsOk = false
         }
+    }
+
+    fun logIn(){
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(), contrasena.text.toString())
+                .addOnCompleteListener{
+                    if(!it.isSuccessful){
+                        return@addOnCompleteListener
+                    }else{
+                        Toast.makeText(this.context, getString(R.string.login_correcto), Toast.LENGTH_LONG).show()
+                        listener.onButtonPressed(login.tag.toString())
+                    }
+                }
+                .addOnFailureListener{
+                    email.error = "El email o contraseña introducidos no son válidos"
+                }
     }
 
     override fun onAttach(context: Context?) {

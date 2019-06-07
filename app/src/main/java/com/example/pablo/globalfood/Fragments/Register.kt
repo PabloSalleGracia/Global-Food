@@ -15,19 +15,10 @@ import com.google.firebase.auth.FirebaseAuth
 import java.util.regex.Pattern
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val TEXT = "text"
-
-/**
- * A simple [Fragment] subclass.
- *
- */
 class Register : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
     private var fieldsOk = false
-    private var usuarioRepetido = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -40,17 +31,10 @@ class Register : Fragment() {
 
         registrarse.setOnClickListener {
             fieldsOk = true
-            usuarioRepetido = false
             checkFields()
 
             if (fieldsOk) {
                 firebaseRegister()
-                if (usuarioRepetido){
-                    Toast.makeText(this.context, getString(R.string.usuario_existente), Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
-                    listener.onButtonPressed(registrarse.tag.toString())
-                }
             }
 
 
@@ -125,17 +109,15 @@ class Register : Fragment() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener{
                     if(!it.isSuccessful){
-                        usuarioRepetido = true
                         return@addOnCompleteListener
-
                     }else{
-                        usuarioRepetido = true
+                        Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
+                        listener.onButtonPressed(registrarse.tag.toString())
                     }
                 }
                 .addOnFailureListener{
-                    usuarioRepetido = true
+                    emailR.error = "Este usuario ya existe, introduce otro email"
                 }
-        //usuarioRepetido = true
     }
 
 
