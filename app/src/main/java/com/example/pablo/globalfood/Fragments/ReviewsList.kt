@@ -4,6 +4,7 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,8 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail_recipes.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
@@ -25,12 +28,14 @@ private const val tituloRecibido = "datosRecibidos"
 class ReviewsList : Fragment() {
 
     private var tituloRewList: String? = null
+    val datosReviews = ArrayList<Review>()
     private lateinit var listener : OnButtonPressedListener
     private lateinit var listenerReview : OnTitleSelectedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        fireBaseSelectReviews()
         return inflater.inflate(R.layout.reviews_list, container, false)
     }
 
@@ -55,13 +60,49 @@ class ReviewsList : Fragment() {
 
         titulo_reviews_list.text = tituloRewList
 
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = activity as OnButtonPressedListener
+        listenerReview = activity as OnTitleSelectedListener
+    }
+
+    fun fireBaseSelectReviews(){
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+
+
+        db.collection("Recetas")
+                .whereEqualTo("titulo", tituloRewList)
+                .addSnapshotListener { values, _ ->
+                    if (values != null) {
+                        for (doc in values) {
+                            if (doc.get("titulo") != null) {
+                                doc.reference.collection("Reviews")
+                                        .addSnapshotListener{ reviews, _ ->
+                                            if (reviews != null) {
+                                                for (docRev in reviews) {
+                                                    if (docRev.get("descripcion") != null) {
+                                                        datosReviews.add(Review(1, doc.getString("titulo")!!,
+                                                                docRev.getString("autor")!!, docRev.getString("pais")!!,
+                                                                docRev.getString("tipo")!!
+                                                                ))
+                                                        fillListReviews()
+                                                    }
+                                                }
+                                            }
+                                }
+                            }
+                        }
+                    }
+                }
+    }
+
+    fun fillListReviews(){
         val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
-        val datosReviews = ArrayList<Review>()
-
-        datosReviews.add(Review(1,"My", "Reviews", "test", "prueba"))
-        datosReviews.add(Review(2,"My", "dsadsa", "tesdsadat", "prueba"))
-        datosReviews.add(Review(3,"My", "Revidsadsaews", "test", "prueba"))
-
 
         val reviews = ListReviewsAdapter(context!!, datosReviews)
         listReviews.adapter = reviews
@@ -77,14 +118,6 @@ class ReviewsList : Fragment() {
         listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
             listener.onItemPressed(reviews.dataSource[position].title)
         })
-
     }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        listener = activity as OnButtonPressedListener
-        listenerReview = activity as OnTitleSelectedListener
-    }
-
 
 }

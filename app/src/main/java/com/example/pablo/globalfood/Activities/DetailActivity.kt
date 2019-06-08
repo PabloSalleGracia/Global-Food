@@ -40,7 +40,6 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
 
         val tituloRecibido = intent.getStringExtra("tituloRecRes")
 
-
         if(savedInstanceState == null){
             val recipesDetail = RecipesDetail.newInstance(tituloRecibido)
             supportFragmentManager.beginTransaction().
