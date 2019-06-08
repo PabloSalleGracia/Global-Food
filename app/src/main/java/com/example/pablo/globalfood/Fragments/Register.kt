@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -124,6 +125,10 @@ class Register : Fragment() {
                                 .set(fieldsAndValuesDB)
                                 .addOnSuccessListener {
                                     documentReference ->  Log.d("Register", "se ha registrado en firestore")
+                                    //hacer inserts en Usuarios-RecRes para setear esFav del nuevo user
+                                    obtenerRecetasparaInsertarEnUsuariosRecetas()
+                                    obtenerRestaurantesparaInsertarEnUsuariosRestaurantes()
+
                                     Toast.makeText(this.context, getString(R.string.register_correcto), Toast.LENGTH_LONG).show()
                                     listener.onButtonPressed(registrarse.tag.toString())
                                 }
@@ -134,6 +139,62 @@ class Register : Fragment() {
                 }
                 .addOnFailureListener{
                     emailR.error = "Este usuario ya existe, introduce otro email"
+                }
+    }
+
+    fun obtenerRecetasparaInsertarEnUsuariosRecetas(){
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+        db.collection("Recetas")
+                .addSnapshotListener { values, _ ->
+                    if (values != null) {
+                        for (doc in values) {
+                            if (doc.get("tipo") != null) {
+                                val refRecetaId = db.document("/Recetas/${doc.id}")
+
+                                val fieldsAndValuesDB = HashMap<String, Any>()
+                                fieldsAndValuesDB.put("esFav?", false)
+                                fieldsAndValuesDB.put("id_receta", refRecetaId)
+                                fieldsAndValuesDB.put("id_usuario", refUserId)
+                                fieldsAndValuesDB.put("tipo", doc.getString("tipo")!!)
+                                fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
+                                fieldsAndValuesDB.put("pais", doc.getString("pais")!!)
+
+
+                                db.collection("Usuario-Recetas").add(fieldsAndValuesDB)
+                            }
+                        }
+                    }
+                }
+    }
+
+    fun obtenerRestaurantesparaInsertarEnUsuariosRestaurantes(){
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+        db.collection("Restaurantes")
+                .addSnapshotListener { values, _ ->
+                    if (values != null) {
+                        for (doc in values) {
+                            if (doc.get("tipo") != null) {
+                                val refRestauranteId = db.document("/Restaurantes/${doc.id}")
+
+                                val fieldsAndValuesDB = HashMap<String, Any>()
+                                fieldsAndValuesDB.put("esFav?", false)
+                                fieldsAndValuesDB.put("id_receta", refRestauranteId)
+                                fieldsAndValuesDB.put("id_usuario", refUserId)
+                                fieldsAndValuesDB.put("tipo", doc.getString("tipo")!!)
+                                fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
+                                fieldsAndValuesDB.put("pais", doc.getString("pais")!!)
+
+
+                                db.collection("Usuario-Restaurantes").add(fieldsAndValuesDB)
+                            }
+                        }
+                    }
                 }
     }
 

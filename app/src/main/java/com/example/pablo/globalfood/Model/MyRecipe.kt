@@ -5,19 +5,19 @@ import android.os.Parcelable
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-data class MyRecipe (var title:String, var country:String, var resDish:String, var numFavs:Long): Parcelable {
+data class MyRecipe (var title:String, var country:String, var resDish:String, var esFav:Boolean): Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readLong()
+            parcel.readInt() == 1
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(title)
         parcel.writeString(country)
         parcel.writeString(resDish)
-        parcel.writeLong(numFavs)
+        parcel.writeInt(if (esFav) 1 else 0)
     }
 
     override fun describeContents(): Int {

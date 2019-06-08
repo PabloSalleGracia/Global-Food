@@ -15,6 +15,7 @@ import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -44,33 +45,28 @@ class FavRecipes : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-    fun fireBaseSelectFavRecipes(){
+    private fun fireBaseSelectFavRecipes(){
         val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
 
-        db.collection("Recetas")
-                .whereEqualTo("tipo", "Plato")
-                .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                    override fun onEvent(values: QuerySnapshot?, p1: FirebaseFirestoreException?) {
-                        if (p1 != null) {
-                            Log.w("MainMenuActivity", "Listen failed.", p1)
-                            return
-                        }
-
-                        if (values != null) {
-                            for (doc in values) {
-                                if (doc.get("tipo") != null) {
-                                    datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                            doc.getString("tipo")!!, doc.getLong("numFavs")!!))
-                                    fillListFavRecipes()
-                                }
+        db.collection("Usuario-Recetas")
+                .whereEqualTo("id_usuario", refUserId)
+                .addSnapshotListener { values, _ ->
+                    if (values != null) {
+                        for (doc in values) {
+                            if (doc.get("tipo") != null) {
+                                datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                fillListFavRecipes()
                             }
                         }
-                        Log.d("MainMenuActivity", "Current cites in CA: $datosFavRecipes")
                     }
-                })
+                    Log.d("MainMenuActivity", "Current cites in CA: $datosFavRecipes")
+                }
     }
 
-    fun fillListFavRecipes(){
+    private fun fillListFavRecipes(){
         val listFavRecipes: ListView = view!!.findViewById(R.id.list_fav_recipes)
 
         val favRecipeAdapter = ListFavRecipesAdapter(context!!, datosFavRecipes )

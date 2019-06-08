@@ -14,8 +14,10 @@ import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListFavRestaurantsAdapter
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Model.FavRestaurant
+import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -45,33 +47,29 @@ class FavRestaurants : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-    fun fireBaseSelectFavRecipes(){
+    private fun fireBaseSelectFavRecipes(){
         val db = FirebaseFirestore.getInstance()
+        //id del usuario logeado en firebase
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
 
-        db.collection("Recetas")
-                .whereEqualTo("tipo", "Plato")
-                .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                    override fun onEvent(values: QuerySnapshot?, p1: FirebaseFirestoreException?) {
-                        if (p1 != null) {
-                            Log.w("MainMenuActivity", "Listen failed.", p1)
-                            return
-                        }
-
-                        if (values != null) {
-                            for (doc in values) {
-                                if (doc.get("tipo") != null) {
-                                    datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                            doc.getString("tipo")!!, doc.getLong("numFavs")!!))
-                                    fillListFavRestaurants()
-                                }
+        db.collection("Usuario-Restaurantes")
+                .whereEqualTo("id_usuario", refUserId)
+                .addSnapshotListener { values, _ ->
+                    if(values != null){
+                        for(doc in values){
+                            if (doc.get("tipo") != null) {
+                                datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                fillListFavRestaurants()
                             }
+
                         }
-                        Log.d("MainMenuActivity", "Current cites in CA: $datosFavRestaurants")
                     }
-                })
+                }
     }
 
-    fun fillListFavRestaurants(){
+    private fun fillListFavRestaurants(){
         val listFavRestau: ListView = view!!.findViewById(R.id.list_fav_restaurants)
 
         val favRestaurantAdapter = ListFavRestaurantsAdapter(context!!, datosFavRestaurants)
