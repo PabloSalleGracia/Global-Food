@@ -14,19 +14,14 @@ import com.example.pablo.globalfood.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.write_review.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-private const val datosPrueba = "datosEnviados"
 
-/**
- * A simple [Fragment] subclass.
- *
- */
+private const val tituloRecibido = "datosEnviados"
+private const val tipoRecibido = "datosEnviados"
+
 class WriteReview : Fragment() {
 
-    private var param1: String? = null
+    private var tituloWriteRev: String? = null
+    private var tipoWriteRev: String? = null
     private lateinit var listener: OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,15 +33,17 @@ class WriteReview : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(datosPrueba)
+            tituloWriteRev = it.getString(tituloRecibido)
+            tipoWriteRev = it.getString(tipoRecibido)
         }
     }
     companion object {
         @JvmStatic
-        fun newInstance(param1: String) =
+        fun newInstance(tituloWriteRev: String, tipoWriteRev: String) =
                 WriteReview().apply {
                     arguments = Bundle().apply {
-                        putString(datosPrueba, param1)
+                        putString(tituloRecibido, tituloWriteRev)
+                        putString(tituloRecibido, tipoWriteRev)
                     }
                 }
     }
@@ -59,7 +56,7 @@ class WriteReview : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //tituloRR.text = param1
-        titulo_write_review.text = param1
+        titulo_write_review.text = tituloWriteRev
 
         volver_wreview.setOnClickListener{
             listener.onButtonPressed("Volver")

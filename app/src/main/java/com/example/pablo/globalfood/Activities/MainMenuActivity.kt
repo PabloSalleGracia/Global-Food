@@ -26,11 +26,13 @@ import com.google.firebase.firestore.*
 
 
 private var tituloRecRes = "seEnvia"
+private var tipoRecRes = "seEnvia"
 
 class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
-    override fun onItemPressed(text: Any) {
-        tituloRecRes = text.toString()
+    override fun onItemPressed(titulo: String, tipo: String) {
+        tituloRecRes = titulo
+        tipoRecRes = tipo
         openDetailRecipes()
     }
 
@@ -119,6 +121,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
     private fun openDetailRecipes(){
         val detailActivity = Intent(this, DetailActivity::class.java)
         detailActivity.putExtra("tituloRecRes", tituloRecRes)
+        detailActivity.putExtra("tipoRecRes", tipoRecRes)
         //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
         startActivity(detailActivity)
     }

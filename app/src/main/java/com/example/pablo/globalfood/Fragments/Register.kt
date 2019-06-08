@@ -124,7 +124,7 @@ class Register : Fragment() {
                         db.collection("Usuarios").document(newUserForDB)
                                 .set(fieldsAndValuesDB)
                                 .addOnSuccessListener {
-                                    documentReference ->  Log.d("Register", "se ha registrado en firestore")
+                                    Log.d("Register", "se ha registrado en firestore")
                                     //hacer inserts en Usuarios-RecRes para setear esFav del nuevo user
                                     obtenerRecetasparaInsertarEnUsuariosRecetas()
                                     obtenerRestaurantesparaInsertarEnUsuariosRestaurantes()
@@ -161,13 +161,33 @@ class Register : Fragment() {
                                 fieldsAndValuesDB.put("tipo", doc.getString("tipo")!!)
                                 fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
                                 fieldsAndValuesDB.put("pais", doc.getString("pais")!!)
-
+                                fieldsAndValuesDB.put("creador", doc.getString("creador")!!)
 
                                 db.collection("Usuario-Recetas").add(fieldsAndValuesDB)
                             }
                         }
                     }
                 }
+    }
+
+    fun crearReceta(){
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+
+        val fieldsAndValuesDB = HashMap<String, Any>()
+        fieldsAndValuesDB.put("esFav?", false)
+        fieldsAndValuesDB.put("id_receta", emailR.text.toString())
+        fieldsAndValuesDB.put("id_usuario", emailR.text.toString())
+        fieldsAndValuesDB.put("tipo", emailR.text.toString())
+        fieldsAndValuesDB.put("titulo", emailR.text.toString())
+        fieldsAndValuesDB.put("pais", emailR.text.toString())
+        fieldsAndValuesDB.put("creador", user)
+
+        //comprobar que ningun campo esta vacio o no dejar insertar nueva receta
+
+        db.collection("Recetas").add(fieldsAndValuesDB)
+
+        //ademas he de hacer insert en usuario recetas de la nueva receta a todos los users ya registrados
     }
 
     fun obtenerRestaurantesparaInsertarEnUsuariosRestaurantes(){
@@ -184,7 +204,7 @@ class Register : Fragment() {
 
                                 val fieldsAndValuesDB = HashMap<String, Any>()
                                 fieldsAndValuesDB.put("esFav?", false)
-                                fieldsAndValuesDB.put("id_receta", refRestauranteId)
+                                fieldsAndValuesDB.put("id_restaurante", refRestauranteId)
                                 fieldsAndValuesDB.put("id_usuario", refUserId)
                                 fieldsAndValuesDB.put("tipo", doc.getString("tipo")!!)
                                 fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)

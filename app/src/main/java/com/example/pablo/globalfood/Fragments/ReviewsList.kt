@@ -20,14 +20,16 @@ import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.detail_recipes.*
+import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
 private const val tituloRecibido = "datosRecibidos"
+private const val tipoRecibido = "datosRecibidos"
 
 class ReviewsList : Fragment() {
 
     private var tituloRewList: String? = null
+    private var tipoRewList: String? = null
     val datosReviews = ArrayList<Review>()
     private lateinit var listener : OnButtonPressedListener
     private lateinit var listenerReview : OnTitleSelectedListener
@@ -43,14 +45,16 @@ class ReviewsList : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             tituloRewList = it.getString(tituloRecibido)
+            tipoRewList = it.getString(tipoRecibido)
         }
     }
     companion object {
         @JvmStatic
-        fun newInstance(tituloRewList: String) =
+        fun newInstance(tituloRewList: String, tipoRewList: String) =
                 ReviewsList().apply {
                     arguments = Bundle().apply {
                         putString(tituloRecibido, tituloRewList)
+                        putString(tipoRecibido, tipoRewList)
                     }
                 }
     }
@@ -70,27 +74,25 @@ class ReviewsList : Fragment() {
 
     fun fireBaseSelectReviews(){
         val db = FirebaseFirestore.getInstance()
-        val user = FirebaseAuth.getInstance().currentUser!!.uid
-        val refUserId = db.document("/Usuarios/$user")
 
-
-
-        db.collection("Recetas")
-                .whereEqualTo("titulo", tituloRewList)
-                .addSnapshotListener { values, _ ->
-                    if (values != null) {
-                        for (doc in values) {
-                            if (doc.get("titulo") != null) {
-                                doc.reference.collection("Reviews")
-                                        .addSnapshotListener{ reviews, _ ->
-                                            if (reviews != null) {
-                                                for (docRev in reviews) {
-                                                    if (docRev.get("descripcion") != null) {
-                                                        datosReviews.add(Review(1, doc.getString("titulo")!!,
-                                                                docRev.getString("autor")!!, docRev.getString("pais")!!,
-                                                                docRev.getString("tipo")!!
-                                                                ))
-                                                        fillListReviews()
+        if(tipoRewList == "Plato"){
+            db.collection("Recetas")
+                    .whereEqualTo("titulo", tituloRewList)
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.get("titulo") != null) {
+                                    doc.reference.collection("Reviews")
+                                            .addSnapshotListener{ reviews, _ ->
+                                                if (reviews != null) {
+                                                    for (docRev in reviews) {
+                                                        if (docRev.get("descripcion") != null) {
+                                                            datosReviews.add(Review(1, doc.getString("titulo")!!,
+                                                                    docRev.getString("autor")!!, docRev.getString("pais")!!,
+                                                                    docRev.getString("tipo")!!
+                                                            ))
+                                                            fillListReviews()
+                                                        }
                                                     }
                                                 }
                                             }
@@ -98,7 +100,34 @@ class ReviewsList : Fragment() {
                             }
                         }
                     }
-                }
+        }else{
+            db.collection("Restaurantes")
+                    .whereEqualTo("titulo", tituloRewList)
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.get("titulo") != null) {
+                                    doc.reference.collection("Reviews")
+                                            .addSnapshotListener{ reviews, _ ->
+                                                if (reviews != null) {
+                                                    for (docRev in reviews) {
+                                                        if (docRev.get("descripcion") != null) {
+                                                            datosReviews.add(Review(1, doc.getString("titulo")!!,
+                                                                    docRev.getString("autor")!!, docRev.getString("pais")!!,
+                                                                    docRev.getString("tipo")!!
+                                                            ))
+                                                            fillListReviews()
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                }
+                            }
+                        }
+                    }
+        }
+
+
     }
 
     fun fillListReviews(){
@@ -116,7 +145,7 @@ class ReviewsList : Fragment() {
             listener.onButtonPressed(write_reviews.tag.toString())
         }
         listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(reviews.dataSource[position].title)
+            listener.onItemPressed(reviews.dataSource[position].title, reviews.dataSource[position].resDish)
         })
     }
 

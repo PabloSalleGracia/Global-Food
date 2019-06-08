@@ -52,6 +52,7 @@ class FavRecipes : Fragment() {
 
         db.collection("Usuario-Recetas")
                 .whereEqualTo("id_usuario", refUserId)
+                .whereEqualTo("esFav?", true)
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
                         for (doc in values) {
@@ -73,7 +74,7 @@ class FavRecipes : Fragment() {
         listFavRecipes.adapter = favRecipeAdapter
 
         listFavRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(favRecipeAdapter.dataSource[position].title)
+            listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish)
             listener.onButtonPressed(list_fav_recipes.tag.toString())
         })
     }

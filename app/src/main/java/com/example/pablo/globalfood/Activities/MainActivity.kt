@@ -22,9 +22,10 @@ private const val HAVEACC = "TengoCuenta"
 
 
 class MainActivity : AppCompatActivity(), OnButtonPressedListener {
-    override fun onItemPressed(text: Any) {
+    override fun onItemPressed(titulo: String, tipo: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 
     override fun onButtonPressed(text: String) {
         when (text) {

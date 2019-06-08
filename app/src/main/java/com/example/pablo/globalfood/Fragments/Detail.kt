@@ -11,17 +11,17 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.detail_recipes.*
-import java.util.HashMap
+import kotlinx.android.synthetic.main.detail.*
 
 
 private const val tituloRecibido = "datosRecibidos"
+private const val tipoRecibido = "datosRecibidos"
 
 class RecipesDetail : Fragment() {
 
     private var tituloRecDet: String? = null
+    private var tipoRecRes: String? = null
     private lateinit var listener: OnButtonPressedListener
     private lateinit var listenerTitulo : OnTitleSelectedListener
 
@@ -29,21 +29,23 @@ class RecipesDetail : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         datosDetailFromDB()
-        return inflater.inflate(R.layout.detail_recipes, container, false)
+        return inflater.inflate(R.layout.detail, container, false)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             tituloRecDet = it.getString(tituloRecibido)
+            tipoRecRes = it.getString(tipoRecibido)
         }
     }
     companion object {
         @JvmStatic
-        fun newInstance(tituloRecDet: String) =
+        fun newInstance(tituloRecDet: String, tipoRecRes: String) =
                 RecipesDetail().apply {
                     arguments = Bundle().apply {
                         putString(tituloRecibido, tituloRecDet)
+                        putString(tipoRecibido, tipoRecRes)
                     }
                 }
     }
@@ -75,37 +77,37 @@ class RecipesDetail : Fragment() {
 
     fun datosDetailFromDB(){
         val db = FirebaseFirestore.getInstance()
-        val user = FirebaseAuth.getInstance().currentUser!!.uid
-        val refUserId = db.document("/Usuarios/$user")
 
-        db.collection("Recetas")
-                .whereEqualTo("titulo", tituloRecDet)
-                .addSnapshotListener { values, _ ->
-                    if (values != null) {
-                        for (doc in values) {
-                            if (doc.get("tipo") != null) {
+        if(tipoRecRes == "Plato"){
+            db.collection("Recetas")
+                    .whereEqualTo("titulo", tituloRecDet)
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.get("tipo") != null) {
+                                    titulo_detail_receta.text = tituloRecDet
+                                    recipe_description.text = doc.getString("descripcion")
 
-                                val refRecetaId = db.document("/Recetas/${doc.id}")
-
-
-                                //num favs
-                                //si es fav
-                                titulo_detail_receta.text = tituloRecDet
-                                recipe_description.text = doc.getString("descripcion")
-
-                                /*val fieldsAndValuesDB = HashMap<String, Any>()
-                                fieldsAndValuesDB.put("esFav?", false)
-                                fieldsAndValuesDB.put("id_receta", refRecetaId)
-                                fieldsAndValuesDB.put("id_usuario", refUserId)
-                                fieldsAndValuesDB.put("tipo", doc.getString("tipo")!!)
-                                fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
-                                fieldsAndValuesDB.put("pais", doc.getString("pais")!!)*/
-
-
+                                }
                             }
                         }
                     }
-                }
+        }else{
+            db.collection("Restaurantes")
+                    .whereEqualTo("titulo", tituloRecDet)
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.get("tipo") != null) {
+                                    titulo_detail_receta.text = tituloRecDet
+                                    recipe_description.text = doc.getString("descripcion")
+
+                                }
+                            }
+                        }
+                    }
+        }
+
     }
 
 }

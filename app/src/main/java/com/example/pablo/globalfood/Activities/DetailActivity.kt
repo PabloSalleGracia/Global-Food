@@ -11,6 +11,7 @@ import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 
 private var tituloAReview = "ensladnas"
+private var tipoAReview = "ensladnas"
 
 class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSelectedListener {
 
@@ -18,8 +19,9 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
        tituloAReview = text
     }
 
-    override fun onItemPressed(text: Any) {
-        tituloAReview = text.toString()
+    override fun onItemPressed(titulo: String, tipo: String) {
+        tituloAReview = titulo
+        tipoAReview = tipo
         openReadReviews()
 
     }
@@ -39,9 +41,10 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
         setContentView(R.layout.activity_detail)
 
         val tituloRecibido = intent.getStringExtra("tituloRecRes")
+        val tipoRecibido = intent.getStringExtra("tipoRecRes")
 
         if(savedInstanceState == null){
-            val recipesDetail = RecipesDetail.newInstance(tituloRecibido)
+            val recipesDetail = RecipesDetail.newInstance(tituloRecibido, tipoRecibido)
             supportFragmentManager.beginTransaction().
                     add(R.id.detail_container, recipesDetail).commit()
         }

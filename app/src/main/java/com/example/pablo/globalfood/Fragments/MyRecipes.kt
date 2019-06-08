@@ -64,6 +64,7 @@ class MyRecipes : Fragment() {
         //denormalization data -> añades datos redudantes/repetidos/ para acceder a ellos mas facil y hacer querys mas eficientes
         db.collection("Usuario-Recetas")
                 .whereEqualTo("id_usuario", refUserId)
+                .whereEqualTo("creador", user)
                 .addSnapshotListener { values, _ ->
                     if(values != null){
                         for(doc in values){
@@ -134,7 +135,7 @@ class MyRecipes : Fragment() {
         listMyRecipes.adapter = myRecipeAdapter
 
         listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-            listener.onItemPressed(myRecipeAdapter.dataSource[position].title)
+            listener.onItemPressed(myRecipeAdapter.dataSource[position].title, myRecipeAdapter.dataSource[position].resDish )
         }
     }
 
