@@ -170,25 +170,6 @@ class Register : Fragment() {
                 }
     }
 
-    fun crearReceta(){
-        val db = FirebaseFirestore.getInstance()
-        val user = FirebaseAuth.getInstance().currentUser!!.uid
-
-        val fieldsAndValuesDB = HashMap<String, Any>()
-        fieldsAndValuesDB.put("esFav?", false)
-        fieldsAndValuesDB.put("id_receta", emailR.text.toString())
-        fieldsAndValuesDB.put("id_usuario", emailR.text.toString())
-        fieldsAndValuesDB.put("tipo", emailR.text.toString())
-        fieldsAndValuesDB.put("titulo", emailR.text.toString())
-        fieldsAndValuesDB.put("pais", emailR.text.toString())
-        fieldsAndValuesDB.put("creador", user)
-
-        //comprobar que ningun campo esta vacio o no dejar insertar nueva receta
-
-        db.collection("Recetas").add(fieldsAndValuesDB)
-
-        //ademas he de hacer insert en usuario recetas de la nueva receta a todos los users ya registrados
-    }
 
     fun obtenerRestaurantesparaInsertarEnUsuariosRestaurantes(){
         val db = FirebaseFirestore.getInstance()

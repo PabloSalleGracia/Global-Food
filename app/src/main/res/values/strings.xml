@@ -64,6 +64,10 @@
     <string name="lista_fav_recipes">ListaFavRecipes</string>
     <string name="ListaFavRestaurants">ListaFavRestaurants</string>
     <string name="ListaFavRecipes">ListaFavRecipes</string>
+    <string name="subir_receta">Subir</string>
+    <string name="descripreceta">descripReceta</string>
+    <string name="paisreceta">paisReceta</string>
+    <string name="nombrereceta">nombreReceta</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

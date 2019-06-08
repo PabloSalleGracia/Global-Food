@@ -69,6 +69,7 @@ class MyRecipes : Fragment() {
                     if(values != null){
                         for(doc in values){
                             if (doc.get("tipo") != null) {
+                                println(datosMyRecipes)
                                 datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                         doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
                                 fillListMyRecipes()

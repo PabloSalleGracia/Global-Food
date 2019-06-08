@@ -51,17 +51,17 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
     }
 
     private fun openListReviews(){
-        val reviewList = ReviewsList.newInstance(tituloAReview)
+        val reviewList = ReviewsList.newInstance(tituloAReview, tipoAReview)
         supportFragmentManager.beginTransaction().replace(R.id.detail_container, reviewList).addToBackStack(null).commit()
     }
 
     private fun openWriteReviews(){
-        val writeReview = WriteReview.newInstance(tituloAReview)
+        val writeReview = WriteReview.newInstance(tituloAReview, tipoAReview)
         supportFragmentManager.beginTransaction().replace(R.id.detail_container, writeReview).addToBackStack(null).commit()
     }
 
     private fun openReadReviews(){
-        val readReview = ReadReview.newInstance(tituloAReview)
+        val readReview = ReadReview.newInstance(tituloAReview, tipoAReview)
         supportFragmentManager.beginTransaction().replace(R.id.detail_container, readReview).addToBackStack(null).commit()
     }
 

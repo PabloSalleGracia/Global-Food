@@ -38,6 +38,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
     override fun onButtonPressed(text: String) {
 
+
     }
 
 
@@ -54,9 +55,10 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
         tabLayout.setupWithViewPager(viewPager)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab.setOnClickListener {
+            openAddNewRecipeActivity()
+            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()*/
         }
 
     }
@@ -124,6 +126,13 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         detailActivity.putExtra("tipoRecRes", tipoRecRes)
         //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
         startActivity(detailActivity)
+    }
+
+
+    private fun openAddNewRecipeActivity(){
+        val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
+        startActivity(addNewRecipe)
+
     }
 
 }
