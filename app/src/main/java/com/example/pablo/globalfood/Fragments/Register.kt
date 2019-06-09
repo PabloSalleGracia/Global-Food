@@ -151,7 +151,7 @@ class Register : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
                         for (doc in values) {
-                            if (doc.get("tipo") != null) {
+                            if (doc.getString("tipo") != null) {
                                 val refRecetaId = db.document("/Recetas/${doc.id}")
 
                                 val fieldsAndValuesDB = HashMap<String, Any>()
@@ -180,7 +180,7 @@ class Register : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
                         for (doc in values) {
-                            if (doc.get("tipo") != null) {
+                            if (doc.getString("tipo") != null) {
                                 val refRestauranteId = db.document("/Restaurantes/${doc.id}")
 
                                 val fieldsAndValuesDB = HashMap<String, Any>()

@@ -8,15 +8,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.write_review.*
 
 
-private const val tituloRecibido = "datosEnviados"
-private const val tipoRecibido = "datosEnviados"
+private const val tituloRecibido = "titulo"
+private const val tipoRecibido = "tipo"
 
 class WriteReview : Fragment() {
 
@@ -62,20 +65,76 @@ class WriteReview : Fragment() {
             listener.onButtonPressed("Volver")
         }
 
+        boton_escribir_review.setOnClickListener{
+            escribirReview()
+        }
+
     }
 
     fun escribirReview(){
         val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
 
-        val data = "hola"
+        if(nombre_autor_write_review.text.isEmpty() || descripBreveWrite.text.isEmpty() || review.text.isEmpty()){
+            nombre_autor_write_review.error = "Introduce tu nombre para subir tu review"
+            descripBreveWrite.error = "Introduce una descripcíon breve para subir tu review"
+            review.error = "Este campo no puede estar vacío, introduce tu opinión"
+        }else {
 
-        db.collection("Reviews").add(data)
-                .addOnSuccessListener {
-                    documentReference ->  Log.d("WriteReview", "bla bla falla? bla bla" + documentReference.id)
-                }
-                .addOnFailureListener{
+            if (tipoWriteRev == "Plato") {
+                db.collection("Recetas")
+                        .whereEqualTo("titulo", tituloWriteRev)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        val fieldsAndValuesDB = HashMap<String, Any>()
+                                        fieldsAndValuesDB.put("titulo", 0)
+                                        fieldsAndValuesDB.put("autor", "Plato")
+                                        fieldsAndValuesDB.put("descripBreve", descripBreveWrite.text.toString())
+                                        fieldsAndValuesDB.put("descripcion", review.text.toString())
+                                        fieldsAndValuesDB.put("pais", "pais")
+                                        fieldsAndValuesDB.put("creador", user)
 
-                }
+
+                                        db.collection("Recetas").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
+                                                    listener.onButtonPressed("COMENTAR")
+
+                                                }
+                                    }
+                                }
+                            }
+                        }
+            } else {
+                db.collection("Restaurantes")
+                        .whereEqualTo("titulo", tituloWriteRev)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        val fieldsAndValuesDB = HashMap<String, Any>()
+                                        fieldsAndValuesDB.put("titulo", 0)
+                                        fieldsAndValuesDB.put("autor", "Plato")
+                                        fieldsAndValuesDB.put("descripBreve", descripBreveWrite.text.toString())
+                                        fieldsAndValuesDB.put("descripcion", review.text.toString())
+                                        fieldsAndValuesDB.put("pais", "pais")
+                                        fieldsAndValuesDB.put("creador", user)
+
+
+                                        db.collection("Restaurantes").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
+                                                    listener.onButtonPressed("COMENTAR")
+
+                                                }
+                                    }
+                                }
+                            }
+                        }
+            }
+        }
     }
 
 }

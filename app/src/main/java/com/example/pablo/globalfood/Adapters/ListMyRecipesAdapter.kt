@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
@@ -32,7 +31,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
         // Get title element
-        val title = rowView.findViewById(R.id.title_list_recipres) as TextView
+        val title = rowView.findViewById(R.id.descrip_breve_listreview) as TextView
 
         // Get
         val country = rowView.findViewById(R.id.pais_review) as TextView
@@ -68,6 +67,8 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
                 anadirFav.text = "Añadir a favs"
             }
         }
+
+        notifyDataSetChanged()
 
         return rowView
     }

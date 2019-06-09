@@ -63,49 +63,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
     }
 
-    fun pruebaFirebaseInsert(){
-        val db = FirebaseFirestore.getInstance()
-
-        // Add a new document with a generated id.
-        val data = HashMap<String, String>()
-        data.put("titulo", "TituloFBPrueba")
-        data.put("tipo", "PlatoFBPrueba")
-
-        db.collection("Recetas")
-                .add(data)
-                .addOnSuccessListener { documentReference -> Log.d("MainMenuActivity", "DocumentSnapshot written with ID: " + documentReference.id) }
-                .addOnFailureListener { e -> Log.w("MainMenuActivity", "Error adding document", e) }
-    }
-
-    fun pruebaFireBaseSelect(){
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("Recetas")
-                .whereEqualTo("titulo", "TituloReceta")
-                .addSnapshotListener(object : EventListener<QuerySnapshot> {
-                    override fun onEvent(p0: QuerySnapshot?, p1: FirebaseFirestoreException?) {
-                        if (p1 != null) {
-                            Log.w("MainMenuActivity", "Listen failed.", p1)
-                            return
-                        }
-
-
-                        val recetas = ArrayList<String?>()
-                        if (p0 != null) {
-                            for (doc in p0) {
-                                if (doc.get("titulo") != null) {
-                                    recetas.add(doc.getString("titulo"))
-                                }
-                            }
-                        }
-                        Log.d("MainMenuActivity", "Current cites in CA: $recetas")
-                    }
-                })
-
-    }
-
-
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true

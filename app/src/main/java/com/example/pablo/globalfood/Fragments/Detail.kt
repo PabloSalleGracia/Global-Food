@@ -15,10 +15,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail.*
 
 
-private const val tituloRecibido = "datosRecibidos"
-private const val tipoRecibido = "datosRecibidos"
+private const val tituloRecibido = "titulo"
+private const val tipoPlatoRecibido = "tipo"
 
-class RecipesDetail : Fragment() {
+class Detail : Fragment() {
 
     private var tituloRecDet: String? = null
     private var tipoRecRes: String? = null
@@ -36,16 +36,17 @@ class RecipesDetail : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             tituloRecDet = it.getString(tituloRecibido)
-            tipoRecRes = it.getString(tipoRecibido)
+            tipoRecRes = it.getString(tipoPlatoRecibido)
+
         }
     }
     companion object {
         @JvmStatic
         fun newInstance(tituloRecDet: String, tipoRecRes: String) =
-                RecipesDetail().apply {
+                Detail().apply {
                     arguments = Bundle().apply {
                         putString(tituloRecibido, tituloRecDet)
-                        putString(tipoRecibido, tipoRecRes)
+                        putString(tipoPlatoRecibido, tipoRecRes)
                     }
                 }
     }
@@ -58,7 +59,7 @@ class RecipesDetail : Fragment() {
         //titulo_detail_receta.text = tituloRecDet
 
         ver_reviews_detrec.setOnClickListener{
-            listenerTitulo.onTitleSelected(titulo_detail_receta.text.toString())
+            listenerTitulo.onTitleSelected(titulo_detail_receta.text.toString(), tipoRecRes!!)
             listener.onButtonPressed(ver_reviews_detrec.tag.toString())
         }
 
@@ -84,7 +85,7 @@ class RecipesDetail : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("tipo") != null) {
+                                if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
 
@@ -98,7 +99,7 @@ class RecipesDetail : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("tipo") != null) {
+                                if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
 

@@ -59,7 +59,7 @@ class FavRestaurants : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if(values != null){
                         for(doc in values){
-                            if (doc.get("tipo") != null) {
+                            if (doc.getString("tipo") != null) {
                                 datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
                                         doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
                                 fillListFavRestaurants()

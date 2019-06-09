@@ -23,8 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
-private const val tituloRecibido = "datosRecibidos"
-private const val tipoRecibido = "datosRecibidos"
+private const val tituloRecibido = "titulo"
+private const val tipoRecibido = "tipo"
 
 class ReviewsList : Fragment() {
 
@@ -63,6 +63,7 @@ class ReviewsList : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         titulo_reviews_list.text = tituloRewList
+        resDishListRev.text = tipoRewList
 
     }
 
@@ -81,15 +82,14 @@ class ReviewsList : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("titulo") != null) {
+                                if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
-                                                        if (docRev.get("descripcion") != null) {
-                                                            datosReviews.add(Review(1, doc.getString("titulo")!!,
-                                                                    docRev.getString("autor")!!, docRev.getString("pais")!!,
-                                                                    docRev.getString("tipo")!!
+                                                        if (docRev.get("autor") != null) {
+                                                            datosReviews.add(Review(docRev.getString("autor")!!,
+                                                                    docRev.getString("descripBreve")!!, doc.getString("pais")!!
                                                             ))
                                                             fillListReviews()
                                                         }
@@ -106,15 +106,14 @@ class ReviewsList : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("titulo") != null) {
+                                if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
-                                                        if (docRev.get("descripcion") != null) {
-                                                            datosReviews.add(Review(1, doc.getString("titulo")!!,
-                                                                    docRev.getString("autor")!!, docRev.getString("pais")!!,
-                                                                    docRev.getString("tipo")!!
+                                                        if (docRev.get("autor") != null) {
+                                                            datosReviews.add(Review(docRev.getString("autor")!!,
+                                                                    docRev.getString("descripBreve")!!, doc.getString("pais")!!
                                                             ))
                                                             fillListReviews()
                                                         }
@@ -136,16 +135,22 @@ class ReviewsList : Fragment() {
         val reviews = ListReviewsAdapter(context!!, datosReviews)
         listReviews.adapter = reviews
 
+        if(!reviews.dataSource[0].country.isEmpty()){
+            paisListRev.text = reviews.dataSource[0].country
+        }
+
         volver_review_list.setOnClickListener{
             listener.onButtonPressed("Volver")
         }
 
         write_reviews.setOnClickListener{
-            listenerReview.onTitleSelected(titulo_reviews_list.text.toString())
+            listenerReview.onTitleSelected(titulo_reviews_list.text.toString(), tipoRewList!!)
             listener.onButtonPressed(write_reviews.tag.toString())
         }
         listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(reviews.dataSource[position].title, reviews.dataSource[position].resDish)
+            listener.onItemPressed(tituloRewList!!, tipoRewList!! )
+            listenerReview.onAutorSelected(reviews.dataSource[position].nombreAutor)
+
         })
     }
 

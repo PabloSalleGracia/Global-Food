@@ -32,24 +32,25 @@
         android:text="@string/return_screen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review" />
+        app:layout_constraintTop_toBottomOf="@+id/review"
+        app:layout_constraintVertical_bias="0.253" />
 
     <TextView
         android:id="@+id/review"
         android:layout_width="301dp"
         android:layout_height="381dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="16dp"
         android:text="@string/text_review"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre_autor_write_review" />
+        app:layout_constraintTop_toBottomOf="@+id/descripBreveReadR" />
 
     <TextView
-        android:id="@+id/nombre_autor_write_review"
+        android:id="@+id/nombre_autor_read_review"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -60,5 +61,17 @@
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titulo_read_review" />
+
+    <TextView
+        android:id="@+id/descripBreveReadR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/descrip_breve"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nombre_autor_read_review" />
 
 </android.support.constraint.ConstraintLayout>

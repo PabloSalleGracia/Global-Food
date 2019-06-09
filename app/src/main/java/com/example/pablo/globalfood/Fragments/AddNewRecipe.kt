@@ -73,7 +73,7 @@ class AddNewRecipe : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
                         for (doc in values) {
-                            if (doc.get("titulo") != null) {
+                            if (doc.getString("titulo") != null) {
                                 db.collection("Usuarios")
                                         .addSnapshotListener{ values2, _->
                                             if (values2 != null){

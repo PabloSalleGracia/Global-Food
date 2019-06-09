@@ -68,8 +68,7 @@ class MyRecipes : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if(values != null){
                         for(doc in values){
-                            if (doc.get("tipo") != null) {
-                                println(datosMyRecipes)
+                            if (doc.getString("tipo") != null) {
                                 datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                         doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
                                 fillListMyRecipes()
@@ -116,11 +115,7 @@ class MyRecipes : Fragment() {
                                                 }
                                             }
                                         })
-                                /*prueba.put("id", doc.id)
-                                prueba.put("titulo", doc.getString("titulo")!!)
-                                prueba.put("pais", doc.getString("pais")!!)
-                                prueba.put("tipo", doc.getString("tipo")!!)
-                                println(prueba["titulo"])*/
+
                             }
                         }
                     }

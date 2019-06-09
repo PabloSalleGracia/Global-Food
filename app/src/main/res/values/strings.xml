@@ -68,6 +68,7 @@
     <string name="descripreceta">descripReceta</string>
     <string name="paisreceta">paisReceta</string>
     <string name="nombrereceta">nombreReceta</string>
+    <string name="descrip_breve">Indica brevemente si te ha gustado o no</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

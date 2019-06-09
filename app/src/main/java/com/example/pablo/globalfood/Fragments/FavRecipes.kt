@@ -56,7 +56,7 @@ class FavRecipes : Fragment() {
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
                         for (doc in values) {
-                            if (doc.get("tipo") != null) {
+                            if (doc.getString("tipo") != null) {
                                 datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                         doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
                                 fillListFavRecipes()

@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/title_list_recipres"
+        android:id="@+id/descrip_breve_listreview"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/pais_review"
@@ -38,7 +38,7 @@
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/plaRes_recres"
-        app:layout_constraintStart_toEndOf="@+id/title_list_recipres"
+        app:layout_constraintStart_toEndOf="@+id/descrip_breve_listreview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

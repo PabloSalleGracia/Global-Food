@@ -29,29 +29,19 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
         // Get view for row item
         val rowView = inflater.inflate(R.layout.list_item_reviews, parent, false)
 
-        // Get title element
-
-        val id = rowView.findViewById(R.id.id_review) as TextView
-
-        val title = rowView.findViewById(R.id.title_list_recipres) as TextView
 
         val nombreAutor = rowView.findViewById(R.id.nombre_autor) as TextView
 
         // Get
-        val country = rowView.findViewById(R.id.pais_review) as TextView
-
-        // Get
-        val recRes = rowView.findViewById(R.id.plaRes_review) as TextView
+        val descripBreve = rowView.findViewById(R.id.descripBreveWrite) as TextView
 
         //--
 
         val review = getItem(position) as Review
         // 2
-        id.text = review.idReview.toString()
-        title.text = review.title
+
         nombreAutor.text = review.nombreAutor
-        country.text = review.country
-        recRes.text = review.resDish
+        descripBreve.text = review.descripBreve
 
 
         // 3

@@ -7,21 +7,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.OnButtonPressedListener
 
 import com.example.pablo.globalfood.R
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.read_review.*
 
-private const val tituloRecibido = "datosEnviados"
-private const val tipoRecibido = "datosEnviados"
+private const val tituloRecibido = "titulo"
+private const val tipoRecibido = "tipo"
+private const val autorRecibido = "autor"
 
 class ReadReview : Fragment() {
 
     private var tituloReadRev: String? = null
     private var tipoReadRev: String? = null
+    private var autorReadRev: String? = null
     private lateinit var listener : OnButtonPressedListener
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -36,16 +36,18 @@ class ReadReview : Fragment() {
         arguments?.let {
             tituloReadRev = it.getString(tituloRecibido)
             tipoReadRev = it.getString(tipoRecibido)
+            autorReadRev = it.getString(autorRecibido)
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(tituloReadRev: String, tipoReadRev: String) =
+        fun newInstance(tituloReadRev: String, tipoReadRev: String, autorReadRev: String) =
                 ReadReview().apply {
                     arguments = Bundle().apply {
                         putString(tituloRecibido, tituloReadRev)
                         putString(tipoRecibido, tipoReadRev)
+                        putString(autorRecibido, autorReadRev)
                     }
                 }
     }
@@ -75,13 +77,16 @@ class ReadReview : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("titulo") != null) {
+                                if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                             review.text = docRev.getString(("descripcion"))
+                                                            titulo_read_review.text = doc.getString("titulo")
+                                                            nombre_autor_read_review.text = docRev.getString("autor")
+                                                            descripBreveReadR.text = docRev.getString("descripBreve")
+                                                            review.text = docRev.getString("descripcion")
                                                         }
                                                     }
                                                 }
@@ -96,13 +101,16 @@ class ReadReview : Fragment() {
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
-                                if (doc.get("titulo") != null) {
+                                if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                            review.text = docRev.getString(("descripcion"))
+                                                            titulo_read_review.text = doc.getString("titulo")
+                                                            nombre_autor_read_review.text = docRev.getString("autor")
+                                                            descripBreveReadR.text = docRev.getString("descripBreve")
+                                                            review.text = docRev.getString("descripcion")
                                                         }
                                                     }
                                                 }

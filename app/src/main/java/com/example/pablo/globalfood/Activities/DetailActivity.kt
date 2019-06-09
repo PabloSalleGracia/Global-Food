@@ -2,21 +2,24 @@ package com.example.pablo.globalfood.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.pablo.globalfood.Fragments.ReadReview
-import com.example.pablo.globalfood.Fragments.RecipesDetail
-import com.example.pablo.globalfood.Fragments.ReviewsList
-import com.example.pablo.globalfood.Fragments.WriteReview
+import com.example.pablo.globalfood.Fragments.*
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 
 private var tituloAReview = "ensladnas"
 private var tipoAReview = "ensladnas"
+private var autorAReview = "ensladnas"
 
 class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSelectedListener {
 
-    override fun onTitleSelected(text: String) {
-       tituloAReview = text
+    override fun onAutorSelected(autor: String) {
+        autorAReview = autor
+    }
+
+    override fun onTitleSelected(titulo:String , tipo:String) {
+       tituloAReview = titulo
+       tipoAReview = tipo
     }
 
     override fun onItemPressed(titulo: String, tipo: String) {
@@ -32,6 +35,7 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
             "Escribir review" -> openWriteReviews()
             "Volver" -> goToLastScreen()
             "VolverAtras" -> goBackToMenu()
+            "COMENTAR" -> openListReviews()
         }
     }
 
@@ -44,9 +48,9 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
         val tipoRecibido = intent.getStringExtra("tipoRecRes")
 
         if(savedInstanceState == null){
-            val recipesDetail = RecipesDetail.newInstance(tituloRecibido, tipoRecibido)
+            val detail = Detail.newInstance(tituloRecibido, tipoRecibido)
             supportFragmentManager.beginTransaction().
-                    add(R.id.detail_container, recipesDetail).commit()
+                    add(R.id.detail_container, detail).commit()
         }
     }
 
@@ -61,7 +65,7 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
     }
 
     private fun openReadReviews(){
-        val readReview = ReadReview.newInstance(tituloAReview, tipoAReview)
+        val readReview = ReadReview.newInstance(tituloAReview, tipoAReview, autorAReview)
         supportFragmentManager.beginTransaction().replace(R.id.detail_container, readReview).addToBackStack(null).commit()
     }
 

@@ -11,13 +11,12 @@
         android:id="@+id/titulo_reviews_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="87dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="107dp"
         android:text="@string/titulo_receta"
-        app:layout_constraintEnd_toStartOf="@+id/write_reviews"
-        app:layout_constraintHorizontal_bias="0.421"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/paisListRev"
+        app:layout_constraintStart_toEndOf="@+id/resDishListRev"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
@@ -25,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="538dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:tag="@string/reviews_list"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,28 +36,49 @@
         android:id="@+id/write_reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:tag="@string/write_review"
         android:text="@string/write_review"
-        app:layout_constraintBottom_toTopOf="@+id/list_reviews"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/list_reviews"
+        app:layout_constraintVertical_bias="0.451" />
 
     <Button
         android:id="@+id/volver_review_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:text="@string/return_screen"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/write_reviews"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_reviews" />
+        app:layout_constraintTop_toBottomOf="@+id/list_reviews"
+        app:layout_constraintVertical_bias="0.434" />
+
+    <TextView
+        android:id="@+id/resDishListRev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/plato_res"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/paisListRev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/pais"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

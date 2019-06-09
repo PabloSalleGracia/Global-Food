@@ -25,8 +25,6 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         }
     }
 
-    private lateinit var listener : OnButtonPressedListener
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
