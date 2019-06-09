@@ -7,9 +7,9 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 
-private var tituloAReview = "ensladnas"
-private var tipoAReview = "ensladnas"
-private var autorAReview = "ensladnas"
+private var tituloAReview = "titulo"
+private var tipoAReview = "tipo"
+private var autorAReview = "autor"
 
 class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSelectedListener {
 

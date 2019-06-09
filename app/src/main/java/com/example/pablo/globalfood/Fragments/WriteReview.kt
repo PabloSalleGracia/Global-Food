@@ -46,7 +46,7 @@ class WriteReview : Fragment() {
                 WriteReview().apply {
                     arguments = Bundle().apply {
                         putString(tituloRecibido, tituloWriteRev)
-                        putString(tituloRecibido, tipoWriteRev)
+                        putString(tipoRecibido, tipoWriteRev)
                     }
                 }
     }
@@ -62,7 +62,7 @@ class WriteReview : Fragment() {
         titulo_write_review.text = tituloWriteRev
 
         volver_wreview.setOnClickListener{
-            listener.onButtonPressed("Volver")
+            listener.onButtonPressed("VolverAtras")
         }
 
         boton_escribir_review.setOnClickListener{
@@ -89,11 +89,11 @@ class WriteReview : Fragment() {
                                 for (doc in values) {
                                     if (doc.getString("titulo") != null) {
                                         val fieldsAndValuesDB = HashMap<String, Any>()
-                                        fieldsAndValuesDB.put("titulo", 0)
-                                        fieldsAndValuesDB.put("autor", "Plato")
+                                        fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
+                                        fieldsAndValuesDB.put("autor", nombre_autor_write_review.text.toString())
                                         fieldsAndValuesDB.put("descripBreve", descripBreveWrite.text.toString())
                                         fieldsAndValuesDB.put("descripcion", review.text.toString())
-                                        fieldsAndValuesDB.put("pais", "pais")
+                                        fieldsAndValuesDB.put("pais", doc.getString("pais")!!)
                                         fieldsAndValuesDB.put("creador", user)
 
 
@@ -115,11 +115,11 @@ class WriteReview : Fragment() {
                                 for (doc in values) {
                                     if (doc.getString("titulo") != null) {
                                         val fieldsAndValuesDB = HashMap<String, Any>()
-                                        fieldsAndValuesDB.put("titulo", 0)
-                                        fieldsAndValuesDB.put("autor", "Plato")
+                                        fieldsAndValuesDB.put("titulo", doc.getString("titulo")!!)
+                                        fieldsAndValuesDB.put("autor", nombre_autor_write_review.text.toString())
                                         fieldsAndValuesDB.put("descripBreve", descripBreveWrite.text.toString())
                                         fieldsAndValuesDB.put("descripcion", review.text.toString())
-                                        fieldsAndValuesDB.put("pais", "pais")
+                                        fieldsAndValuesDB.put("pais", doc.getString("pais")!!)
                                         fieldsAndValuesDB.put("creador", user)
 
 

@@ -58,7 +58,7 @@ class ReadReview : Fragment() {
         titulo_read_review.text = tituloReadRev
 
         volver_rreview.setOnClickListener{
-            listener.onButtonPressed("Volver")
+            listener.onButtonPressed("VolverAtras")
         }
 
     }

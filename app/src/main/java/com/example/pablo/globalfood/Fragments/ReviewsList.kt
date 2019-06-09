@@ -30,6 +30,7 @@ class ReviewsList : Fragment() {
 
     private var tituloRewList: String? = null
     private var tipoRewList: String? = null
+    private var paisListRev: String? = null
     val datosReviews = ArrayList<Review>()
     private lateinit var listener : OnButtonPressedListener
     private lateinit var listenerReview : OnTitleSelectedListener
@@ -65,6 +66,15 @@ class ReviewsList : Fragment() {
         titulo_reviews_list.text = tituloRewList
         resDishListRev.text = tipoRewList
 
+        volver_review_list.setOnClickListener{
+            listener.onButtonPressed("Volver")
+        }
+
+        write_reviews.setOnClickListener{
+            listenerReview.onTitleSelected(titulo_reviews_list.text.toString(), tipoRewList!!)
+            listener.onButtonPressed(write_reviews.tag.toString())
+        }
+
     }
 
     override fun onAttach(context: Context?) {
@@ -83,6 +93,9 @@ class ReviewsList : Fragment() {
                         if (values != null) {
                             for (doc in values) {
                                 if (doc.getString("titulo") != null) {
+                                    //fix?
+                                    paisListRev = doc.getString("pais")
+                                    paisListReviews.text = paisListRev
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
@@ -107,6 +120,9 @@ class ReviewsList : Fragment() {
                         if (values != null) {
                             for (doc in values) {
                                 if (doc.getString("titulo") != null) {
+                                    //fix?
+                                    paisListRev = doc.getString("pais")
+                                    paisListReviews.text = paisListRev
                                     doc.reference.collection("Reviews")
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
@@ -132,26 +148,16 @@ class ReviewsList : Fragment() {
     fun fillListReviews(){
         val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
 
+
         val reviews = ListReviewsAdapter(context!!, datosReviews)
         listReviews.adapter = reviews
 
-        if(!reviews.dataSource[0].country.isEmpty()){
-            paisListRev.text = reviews.dataSource[0].country
-        }
-
-        volver_review_list.setOnClickListener{
-            listener.onButtonPressed("Volver")
-        }
-
-        write_reviews.setOnClickListener{
-            listenerReview.onTitleSelected(titulo_reviews_list.text.toString(), tipoRewList!!)
-            listener.onButtonPressed(write_reviews.tag.toString())
-        }
         listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
             listener.onItemPressed(tituloRewList!!, tipoRewList!! )
             listenerReview.onAutorSelected(reviews.dataSource[position].nombreAutor)
 
         })
     }
+
 
 }

@@ -33,7 +33,7 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
         val nombreAutor = rowView.findViewById(R.id.nombre_autor) as TextView
 
         // Get
-        val descripBreve = rowView.findViewById(R.id.descripBreveWrite) as TextView
+        val descripBreve = rowView.findViewById(R.id.descrip_breve_listreview) as TextView
 
         //--
 
@@ -44,6 +44,7 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
         descripBreve.text = review.descripBreve
 
 
+        notifyDataSetChanged()
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
