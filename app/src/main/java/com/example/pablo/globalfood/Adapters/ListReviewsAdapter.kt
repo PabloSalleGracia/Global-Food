@@ -27,8 +27,11 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // Get view for row item
+        notifyDataSetChanged()
+
         val rowView = inflater.inflate(R.layout.list_item_reviews, parent, false)
 
+        notifyDataSetChanged()
 
         val nombreAutor = rowView.findViewById(R.id.nombre_autor) as TextView
 
@@ -45,6 +48,7 @@ class ListReviewsAdapter (private val context: Context, val dataSource: ArrayLis
 
 
         notifyDataSetChanged()
+
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 

@@ -99,6 +99,7 @@ class WriteReview : Fragment() {
 
                                         db.collection("Recetas").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
                                                 .addOnSuccessListener {
+
                                                     Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
                                                     listener.onButtonPressed("COMENTAR")
 
@@ -125,6 +126,7 @@ class WriteReview : Fragment() {
 
                                         db.collection("Restaurantes").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
                                                 .addOnSuccessListener {
+
                                                     Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
                                                     listener.onButtonPressed("COMENTAR")
 

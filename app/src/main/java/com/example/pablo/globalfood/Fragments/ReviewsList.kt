@@ -38,7 +38,6 @@ class ReviewsList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        fireBaseSelectReviews()
         return inflater.inflate(R.layout.reviews_list, container, false)
     }
 
@@ -65,6 +64,8 @@ class ReviewsList : Fragment() {
 
         titulo_reviews_list.text = tituloRewList
         resDishListRev.text = tipoRewList
+
+        fireBaseSelectReviews()
 
         volver_review_list.setOnClickListener{
             listener.onButtonPressed("Volver")
@@ -104,13 +105,16 @@ class ReviewsList : Fragment() {
                                                             datosReviews.add(Review(docRev.getString("autor")!!,
                                                                     docRev.getString("descripBreve")!!, doc.getString("pais")!!
                                                             ))
-                                                            fillListReviews()
                                                         }
                                                     }
+                                                    fillListReviews()
                                                 }
                                             }
+
                                 }
+
                             }
+
                         }
                     }
         }else{
@@ -146,18 +150,29 @@ class ReviewsList : Fragment() {
     }
 
     fun fillListReviews(){
-        val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
+
+        if(view != null){
+            val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
 
 
-        val reviews = ListReviewsAdapter(context!!, datosReviews)
-        listReviews.adapter = reviews
+            val reviews = ListReviewsAdapter(context!!, datosReviews)
+            listReviews.adapter = reviews
 
-        listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(tituloRewList!!, tipoRewList!! )
-            listenerReview.onAutorSelected(reviews.dataSource[position].nombreAutor)
 
-        })
+            listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+                listenerReview.onAutorSelected(reviews.dataSource[position].nombreAutor)
+                listener.onItemPressed(tituloRewList!!, tipoRewList!! )
+            })
+
+        }
+
     }
+
+    override fun onPause() {
+        super.onPause()
+        datosReviews.clear()
+    }
+
 
 
 }

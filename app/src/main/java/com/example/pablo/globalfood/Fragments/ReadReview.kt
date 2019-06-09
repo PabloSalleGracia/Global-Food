@@ -56,6 +56,7 @@ class ReadReview : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         titulo_read_review.text = tituloReadRev
+        nombre_autor_read_review.text = autorReadRev
 
         volver_rreview.setOnClickListener{
             listener.onButtonPressed("VolverAtras")
@@ -79,12 +80,13 @@ class ReadReview : Fragment() {
                             for (doc in values) {
                                 if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
+                                            .whereEqualTo("autor", autorReadRev)
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                            titulo_read_review.text = doc.getString("titulo")
-                                                            nombre_autor_read_review.text = docRev.getString("autor")
+                                                            //titulo_read_review.text = doc.getString("titulo")
+                                                            //nombre_autor_read_review.text = docRev.getString("autor")
                                                             descripBreveReadR.text = docRev.getString("descripBreve")
                                                             review.text = docRev.getString("descripcion")
                                                         }
@@ -103,12 +105,13 @@ class ReadReview : Fragment() {
                             for (doc in values) {
                                 if (doc.getString("titulo") != null) {
                                     doc.reference.collection("Reviews")
+                                            .whereEqualTo("autor", autorReadRev)
                                             .addSnapshotListener{ reviews, _ ->
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                            titulo_read_review.text = doc.getString("titulo")
-                                                            nombre_autor_read_review.text = docRev.getString("autor")
+                                                            //titulo_read_review.text = doc.getString("titulo")
+                                                            //nombre_autor_read_review.text = docRev.getString("autor")
                                                             descripBreveReadR.text = docRev.getString("descripBreve")
                                                             review.text = docRev.getString("descripcion")
                                                         }

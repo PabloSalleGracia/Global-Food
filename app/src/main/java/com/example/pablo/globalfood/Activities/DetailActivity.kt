@@ -35,7 +35,8 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
             "Escribir review" -> openWriteReviews()
             "Volver" -> goToLastScreen()
             "VolverAtras" -> goBackToMenu()
-            "COMENTAR" -> openListReviews()
+            "COMENTAR" -> goToLastScreen()
+                //openListReviews()
         }
     }
 
