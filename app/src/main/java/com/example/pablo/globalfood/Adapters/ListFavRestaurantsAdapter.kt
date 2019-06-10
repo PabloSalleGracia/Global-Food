@@ -9,6 +9,8 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.FavRestaurant
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
 
@@ -55,17 +57,40 @@ class ListFavRestaurantsAdapter (private val context: Context, val dataSource: A
         }else{
             anadirFav.text = "Eliminar de favs"
         }
+
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+        var botonPulsadoMenos = false
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
-        rowView.anadir_fav_recipres.setOnClickListener{
-            if(!favRestaurant.esFav){
-                favRestaurant.esFav = true
-                anadirFav.text = "Eliminar de favs"
-            }else{
-                favRestaurant.esFav = false
-                anadirFav.text = "Añadir a favs"
+        /*rowView.anadir_fav_recipres.setOnClickListener{
+            if(favRestaurant.esFav && !botonPulsadoMenos){
+                db.collection("Usuario-Recetas")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", favRestaurant.title)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        if(!botonPulsadoMenos){
+                                            db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                    .addOnSuccessListener {
+                                                        //despues de hacer el update a false snapshot se llama porque ha recibido cambio
+                                                        //e intenta hacer otro update a false pero como ahi ya no cambia solo hace 2 iteraciones
+                                                        //mirar de solucionarlo y que solo haga 1
+                                                        favRestaurant.esFav = false
+                                                        botonPulsadoMenos = true
+                                                        notifyDataSetChanged()
+                                                    }
+                                        }
+                                    }
+                                }
+                            }
+                        }
             }
-        }
+        }*/
 
         return rowView
     }

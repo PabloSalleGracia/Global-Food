@@ -16,10 +16,7 @@ import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.favorite_recipes.*
 import kotlinx.android.synthetic.main.my_recipes.*
 
@@ -59,28 +56,71 @@ class FavRecipes : Fragment(){
                 .whereEqualTo("esFav?", true)
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
-                        for (doc in values) {
-                            if (doc.getString("tipo") != null) {
-                                datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                fillListFavRecipes()
+                        if(values.size() != 0) {
+                            for (doc in values) {
+                                if (doc.getString("tipo") != null) {
+                                    //if (datosFavRecipes.size < values.size()) {
+                                        //datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                          //      doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                    //}
+
+                                        for (dc in values.documentChanges) {
+                                            when (dc.type) {
+                                                DocumentChange.Type.MODIFIED -> {
+                                                    println("MODIFIED")
+                                                }
+                                                DocumentChange.Type.ADDED -> {
+                                                    //OBVIAMENTE ME AÑADE TODOS LOS QUE NO CONTIENE, OSEA TODOS LOS QUE NO ESTABAN EN FAVS
+                                                    // PERO HE DE COGER SOLO LOS QUE TIENEN ESFAV EN TRUE
+                                                    if(!datosFavRecipes.contains(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                                    doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))){
+                                                        datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                                doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                                        println("old add$dc.oldIndex")
+                                                        println("new add$dc.newIndex")
+                                                        println(datosFavRecipes)
+                                                    }
+                                                }
+                                                DocumentChange.Type.REMOVED -> {
+                                                    println(datosFavRecipes)
+                                                    //SE EJECUTA DOS VECES, Y BORRA DOS ELEMENTOS DEL ARRAYLIST DATOSFAVRECIPES ENTONCES
+                                                    datosFavRecipes.removeAt(dc.oldIndex)
+                                                    //TAMBIEN SE EJECUTA VARIAS VECES Y ME BORRA VARIOS
+                                                    datosFavRecipes.remove(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                                    println(datosFavRecipes)
+                                                    //println(doc.getString("titulo"))
+                                                    //println(datosFavRecipes)
+                                                    //println("old remo$dc.oldIndex")
+                                                    //println("new remo$dc.newIndex")
+                                                }
+
+                                            }
+                                    }
+
+                                    fillListFavRecipes()
+                                }
                             }
+                        }else{
+                            datosFavRecipes.clear()
                         }
                     }
                 }
     }
 
     private fun fillListFavRecipes(){
-        val listFavRecipes: ListView = view!!.findViewById(R.id.list_fav_recipes)
+        if(view != null){
+            val listFavRecipes: ListView = view!!.findViewById(R.id.list_fav_recipes)
 
-        val favRecipeAdapter = ListFavRecipesAdapter(context!!, datosFavRecipes )
-        listFavRecipes.adapter = favRecipeAdapter
+            val favRecipeAdapter = ListFavRecipesAdapter(context!!, datosFavRecipes )
+            listFavRecipes.adapter = favRecipeAdapter
 
 
-        listFavRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish)
-            listener.onButtonPressed(list_fav_recipes.tag.toString())
-        })
+            listFavRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+                listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish)
+            })
+        }
+
     }
 
 

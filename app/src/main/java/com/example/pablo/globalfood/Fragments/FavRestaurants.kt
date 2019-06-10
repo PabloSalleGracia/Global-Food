@@ -19,10 +19,7 @@ import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.favorite_recipes.*
 import kotlinx.android.synthetic.main.favorite_restaurants.*
 
@@ -62,14 +59,42 @@ class FavRestaurants : Fragment() {
                 .whereEqualTo("id_usuario", refUserId)
                 .whereEqualTo("esFav?", true)
                 .addSnapshotListener { values, _ ->
-                    if(values != null){
-                        for(doc in values){
-                            if (doc.getString("tipo") != null) {
-                                datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                fillListFavRestaurants()
-                            }
+                    if (values != null) {
+                        if(values.size() != 0) {
+                            for (doc in values) {
+                                if (doc.getString("tipo") != null) {
 
+                                    for (dc in values.documentChanges) {
+                                        when (dc.type) {
+                                            DocumentChange.Type.MODIFIED -> {
+                                                println("MODIFIED")
+                                            }
+                                            DocumentChange.Type.ADDED -> {
+                                                if(!datosFavRestaurants.contains(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                                doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))){
+                                                    datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                                    println("old add$dc.oldIndex")
+                                                    println("new add$dc.newIndex")
+                                                    println(datosFavRestaurants)
+                                                }
+                                            }
+                                            DocumentChange.Type.REMOVED -> {
+                                                println(datosFavRestaurants)
+                                                //datosFavRestaurants.removeAt(dc.oldIndex)
+                                                datosFavRestaurants.remove(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                                println(datosFavRestaurants)
+                                            }
+
+                                        }
+                                    }
+
+                                    fillListFavRestaurants()
+                                }
+                            }
+                        }else{
+                            datosFavRestaurants.clear()
                         }
                     }
                 }
@@ -83,7 +108,6 @@ class FavRestaurants : Fragment() {
 
         listFavRestau.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
             listener.onItemPressed(favRestaurantAdapter.dataSource[position].title, favRestaurantAdapter.dataSource[position].resDish)
-            listener.onButtonPressed(list_fav_restaurants.tag.toString())
         })
     }
 

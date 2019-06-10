@@ -90,6 +90,10 @@ class MyRecipes : Fragment() {
                     if(values != null){
                         for(doc in values){
                             if (doc.getString("tipo") != null) {
+                                /*aunque este en otra pantalla, si esta lista cambia
+                                0 esta se actualiza, y si se actualiza y da null
+                                por falta o exceso de una peta, y sino peta se duplica porque obtiene los nuevos datos
+                                de la base de datos*/
                                 if(datosMyRecipes.size < values.size()){
                                     datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                             doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))

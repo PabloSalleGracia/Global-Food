@@ -7,10 +7,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail.*
 
@@ -55,15 +57,25 @@ class Detail : Fragment() {
         super.onActivityCreated(savedInstanceState)
         datosDetailFromDB()
 
+        //anadir_favs_detrec.text = "fav"
+        //RECUPERAR VALOR ES FAV PARA CAMBIAR TEXTO DEL BOTON AL ABRIR PANTALLA
+
         ver_reviews_detrec.setOnClickListener{
             listenerTitulo.onTitleSelected(titulo_detail_receta.text.toString(), tipoRecRes!!)
             listener.onButtonPressed(ver_reviews_detrec.tag.toString())
         }
 
+        val numfavs = 3
+
+        num_favs_recetas.text = "Fav de $numfavs"
+
         volver_detrec.setOnClickListener{
             listener.onButtonPressed("VolverAtras")
         }
 
+        anadir_favs_detrec.setOnClickListener{
+            anadirFav()
+        }
 
     }
 
@@ -100,6 +112,55 @@ class Detail : Fragment() {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
 
+                                }
+                            }
+                        }
+                    }
+        }
+
+    }
+
+    fun anadirFav(){
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+        var botonPulsado = false
+
+        if(anadir_favs_detrec.text.toString() == "Añadir a Favs"){
+            db.collection("Usuario-Recetas")
+                    .whereEqualTo("id_usuario", refUserId)
+                    .whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.getString("titulo") != null) {
+                                    if(!botonPulsado) {
+                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
+                                                .addOnSuccessListener {
+                                                    botonPulsado = true
+                                                    anadir_favs_detrec.text = "Eliminar de fav"
+                                                }
+                                    }
+                                    }
+                                }
+                            }
+                        }
+        }else{
+            db.collection("Usuario-Recetas")
+                    .whereEqualTo("id_usuario", refUserId)
+                    .whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                    .addSnapshotListener { values, _ ->
+                        if (values != null) {
+                            for (doc in values) {
+                                if (doc.getString("titulo") != null) {
+                                    if(!botonPulsado) {
+                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                .addOnSuccessListener {
+                                                    botonPulsado = true
+                                                    anadir_favs_detrec.text = "Añadir a fav"
+                                                }
+                                    }
                                 }
                             }
                         }

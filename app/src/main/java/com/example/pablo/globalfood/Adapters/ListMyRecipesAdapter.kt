@@ -70,51 +70,56 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
         val user = FirebaseAuth.getInstance().currentUser!!.uid
         val refUserId = db.document("/Usuarios/$user")
 
-        var botonCambiado = false
+        var botonPulsadoMas = false
+        var botonPulsadoMenos = false
 
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(myRecipe.esFav && !botonCambiado){
+            if(myRecipe.esFav && !botonPulsadoMenos){
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
                         .whereEqualTo("titulo", myRecipe.title)
                         .addSnapshotListener { values, _ ->
                             if (values != null) {
                                 for (doc in values) {
-                                    if (doc.getString("titulo") != null) { //cogeme el documento del titulo seleccionado
-
-                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
-                                                .addOnSuccessListener {
-                                                    myRecipe.esFav = false
-                                                    botonCambiado = false
-                                                    anadirFav.text = "Añadir a favs"
-                                                    notifyDataSetChanged()
-                                                }
+                                    if (doc.getString("titulo") != null) {
+                                        if(!botonPulsadoMenos){
+                                            db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                    .addOnSuccessListener {
+                                                        //despues de hacer el update a false snapshot se llama porque ha recibido cambio
+                                                        //e intenta hacer otro update a false pero como ahi ya no cambia solo hace 2 iteraciones
+                                                        //mirar de solucionarlo y que solo haga 1
+                                                        myRecipe.esFav = false
+                                                        botonPulsadoMenos = true
+                                                        anadirFav.text = "Añadir a favs"
+                                                        notifyDataSetChanged()
+                                                    }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+            }else if(!myRecipe.esFav && !botonPulsadoMas) {
+                db.collection("Usuario-Recetas")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", myRecipe.title)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        if(!botonPulsadoMas){
+                                            db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
+                                                    .addOnSuccessListener {
+                                                        myRecipe.esFav = true
+                                                        botonPulsadoMas = true
+                                                        anadirFav.text = "Eliminar de favs"
+                                                        notifyDataSetChanged()
+                                                    }
+                                        }
                                     }
                                 }
                             }
                         }
             }
-            /*if(myRecipe.esFav && !botonCambiado){
-                db.collection("Usuario-Recetas")
-                        .whereEqualTo("id_usuario", refUserId)
-                        .whereEqualTo("titulo", myRecipe.title)
-                        .addSnapshotListener { values, _ ->
-                            if (values != null) {
-                                for (doc in values) {
-                                    if (doc.getString("titulo") != null) { //cogeme el documento del titulo seleccionado
-
-                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
-                                                .addOnSuccessListener {
-                                                    myRecipe.esFav = false
-                                                    botonCambiado = true
-                                                    anadirFav.text = "Añadir a favs"
-                                                    notifyDataSetChanged()
-                                                }
-                                    }
-                                }
-                            }
-                        }
-            }*/
         }
 
         notifyDataSetChanged()
