@@ -83,6 +83,18 @@ class ListFavRestaurantsAdapter (private val context: Context, val dataSource: A
                                                         favRestaurant.esFav = false
                                                         botonPulsadoMenos = true
                                                         notifyDataSetChanged()
+
+                                                        db.collection("Restaurantes").whereEqualTo("titulo", favRestaurant.title)
+                                                                .addSnapshotListener{restaurante, _ ->
+                                                                    if(restaurante != null){
+                                                                        for(docRes in restaurante){
+                                                                            if(docRes.getString("titulo") != null){
+                                                                                db.collection("Restaurantes").document(docRes.id).update("numFavs", docRes.getLong("numFavs")!!+1)
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
                                                     }
                                         }
                                     }

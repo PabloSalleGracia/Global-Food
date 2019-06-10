@@ -65,9 +65,6 @@ class Detail : Fragment() {
             listener.onButtonPressed(ver_reviews_detrec.tag.toString())
         }
 
-        val numfavs = 3
-
-        num_favs_recetas.text = "Fav de $numfavs"
 
         volver_detrec.setOnClickListener{
             listener.onButtonPressed("VolverAtras")
@@ -97,7 +94,7 @@ class Detail : Fragment() {
                                 if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
-
+                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
                                 }
                             }
                         }
@@ -111,7 +108,7 @@ class Detail : Fragment() {
                                 if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
-
+                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
                                 }
                             }
                         }
@@ -140,6 +137,21 @@ class Detail : Fragment() {
                                                 .addOnSuccessListener {
                                                     botonPulsado = true
                                                     anadir_favs_detrec.text = "Eliminar de fav"
+
+                                                    db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                            .addSnapshotListener{receta, _ ->
+                                                                if(receta != null){
+                                                                    for(docRec in receta){
+                                                                        if(docRec.getString("titulo") != null){
+                                                                            db.collection("Recetas").document(docRec.id).update("numFavs", docRec.getLong("numFavs")!!+1)
+                                                                                    .addOnSuccessListener {
+                                                                                        num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                                                                    }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            }
                                                 }
                                     }
                                     }
@@ -159,6 +171,21 @@ class Detail : Fragment() {
                                                 .addOnSuccessListener {
                                                     botonPulsado = true
                                                     anadir_favs_detrec.text = "Añadir a fav"
+
+                                                    db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                            .addSnapshotListener{receta, _ ->
+                                                                if(receta != null){
+                                                                    for(docRec in receta){
+                                                                        if(docRec.getString("titulo") != null){
+                                                                            db.collection("Recetas").document(docRec.id).update("numFavs", docRec.getLong("numFavs")!!-1)
+                                                                                    .addOnSuccessListener {
+                                                                                        num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                                                                    }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                            }
                                                 }
                                     }
                                 }

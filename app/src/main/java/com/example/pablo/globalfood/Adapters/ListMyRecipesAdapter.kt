@@ -92,6 +92,17 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         botonPulsadoMenos = true
                                                         anadirFav.text = "Añadir a favs"
                                                         notifyDataSetChanged()
+                                                        db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                                .addSnapshotListener{receta, _ ->
+                                                                    if(receta != null){
+                                                                        for(docRec in receta){
+                                                                            if(docRec.getString("titulo") != null){
+                                                                                db.collection("Recetas").document(docRec.id).update("numFavs", docRec.getLong("numFavs")!!-1)
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
                                                     }
                                         }
                                     }
@@ -113,6 +124,18 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         botonPulsadoMas = true
                                                         anadirFav.text = "Eliminar de favs"
                                                         notifyDataSetChanged()
+
+                                                        db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                                .addSnapshotListener{receta, _ ->
+                                                                    if(receta != null){
+                                                                        for(docRec in receta){
+                                                                            if(docRec.getString("titulo") != null){
+                                                                                db.collection("Recetas").document(docRec.id).update("numFavs", docRec.getLong("numFavs")!!+1)
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
                                                     }
                                         }
                                     }

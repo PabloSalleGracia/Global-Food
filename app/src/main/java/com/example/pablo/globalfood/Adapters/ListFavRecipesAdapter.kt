@@ -68,7 +68,7 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
 
         var botonPulsadoMenos = false
 
-        /*rowView.anadir_fav_recipres.setOnClickListener{
+        rowView.anadir_fav_recipres.setOnClickListener{
             if(favRecipe.esFav && !botonPulsadoMenos){
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
@@ -86,6 +86,18 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                                                         favRecipe.esFav = false
                                                         botonPulsadoMenos = true
                                                         notifyDataSetChanged()
+
+                                                        db.collection("Recetas").whereEqualTo("titulo", favRecipe.title)
+                                                                .addSnapshotListener{receta, _ ->
+                                                                    if(receta != null){
+                                                                        for(docRec in receta){
+                                                                            if(docRec.getString("titulo") != null){
+                                                                                db.collection("Recetas").document(docRec.id).update("numFavs", docRec.getLong("numFavs")!!+1)
+                                                                            }
+                                                                        }
+                                                                    }
+
+                                                                }
                                                     }
                                         }
                                     }
@@ -93,7 +105,7 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                             }
                         }
             }
-        }*/
+        }
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 

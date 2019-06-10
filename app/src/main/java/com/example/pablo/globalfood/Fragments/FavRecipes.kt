@@ -84,11 +84,14 @@ class FavRecipes : Fragment(){
                                                 DocumentChange.Type.REMOVED -> {
                                                     println(datosFavRecipes)
                                                     //SE EJECUTA DOS VECES, Y BORRA DOS ELEMENTOS DEL ARRAYLIST DATOSFAVRECIPES ENTONCES
-                                                    datosFavRecipes.removeAt(dc.oldIndex)
+                                                    /*datosFavRecipes.removeAt(dc.oldIndex)
                                                     //TAMBIEN SE EJECUTA VARIAS VECES Y ME BORRA VARIOS
                                                     datosFavRecipes.remove(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
                                                             doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                                    println(datosFavRecipes)
+                                                    println(datosFavRecipes)*/
+                                                    println("sooy la dataGET${dc.document.data.get("titulo")}")
+                                                    println("sooy la dataINDX${dc.document.data["titulo"]}")
+                                                    println("sooy la dataVALU${dc.document.data.getValue("titulo")}")
                                                     //println(doc.getString("titulo"))
                                                     //println(datosFavRecipes)
                                                     //println("old remo$dc.oldIndex")
