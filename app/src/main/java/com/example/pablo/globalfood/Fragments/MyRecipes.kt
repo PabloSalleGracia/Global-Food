@@ -90,8 +90,15 @@ class MyRecipes : Fragment() {
                     if(values != null){
                         for(doc in values){
                             if (doc.getString("tipo") != null) {
-                                datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                if(datosMyRecipes.size < values.size()){
+                                    datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                }else{
+                                    datosMyRecipes.clear()
+                                    datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                }
+
                                 fillListMyRecipes()
                             }
 
@@ -146,15 +153,18 @@ class MyRecipes : Fragment() {
     }
 
     private fun fillListMyRecipes(){
-        val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
+        if(view != null){
+            val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
 
-        val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
-        //myRecipeAdapter.filter("palabra buscada")
-        listMyRecipes.adapter = myRecipeAdapter
+            val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+            //myRecipeAdapter.filter("palabra buscada")
+            listMyRecipes.adapter = myRecipeAdapter
 
-        listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-            listener.onItemPressed(myRecipeAdapter.dataSource[position].title, myRecipeAdapter.dataSource[position].resDish )
+            listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
+                listener.onItemPressed(myRecipeAdapter.dataSource[position].title, myRecipeAdapter.dataSource[position].resDish )
+            }
         }
+
     }
 
 

@@ -36,16 +36,18 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_recipe)
 
-        //val palabraBuscada = intent.getStringExtra("palabraBusqueda")
+        val palabraBuscada = intent.getStringExtra("palabraBusqueda")
+        val add = intent.getStringExtra("addRecipe")
 
 
         if(savedInstanceState == null){
-            //if(palabraBuscada != null){
+            if(palabraBuscada != null){
                 val search = Search()
                 supportFragmentManager.beginTransaction().add(R.id.add_container, search).addToBackStack(null).commit()
-            /*}else{
+            }
+            if(add != null){
                 openAddNewRecipe()
-            }*/
+            }
         }
 
     }

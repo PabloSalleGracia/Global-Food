@@ -37,21 +37,9 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
     }
 
     override fun onButtonPressed(text: String) {
-        when(text){
-            "Vacio" -> {
-                val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
-                addNewRecipe.putExtra("palabraBusqueda", text)
-                startActivity(addNewRecipe)
-            }
-            else -> {
-                val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
-                //addNewRecipe.putExtra("palabraBusqueda", text)
-                startActivity(addNewRecipe)
-            }
-        }
-
-
-
+            val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
+            addNewRecipe.putExtra("palabraBusqueda", "search")
+            startActivity(addNewRecipe)
     }
 
 
@@ -101,6 +89,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
     private fun openAddNewRecipeActivity(){
         val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
+        addNewRecipe.putExtra("addRecipe", "abrirAdd")
         startActivity(addNewRecipe)
 
     }

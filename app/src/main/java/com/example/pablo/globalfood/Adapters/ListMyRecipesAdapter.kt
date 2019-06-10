@@ -11,6 +11,8 @@ import android.widget.Filterable
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -64,14 +66,55 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
+        val db = FirebaseFirestore.getInstance()
+        val user = FirebaseAuth.getInstance().currentUser!!.uid
+        val refUserId = db.document("/Usuarios/$user")
+
+        var botonCambiado = false
+
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(!myRecipe.esFav){
-                myRecipe.esFav = true
-                anadirFav.text = "Eliminar de favs"
-            }else{
-                myRecipe.esFav = false
-                anadirFav.text = "Añadir a favs"
+            if(myRecipe.esFav && !botonCambiado){
+                db.collection("Usuario-Recetas")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", myRecipe.title)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) { //cogeme el documento del titulo seleccionado
+
+                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                .addOnSuccessListener {
+                                                    myRecipe.esFav = false
+                                                    botonCambiado = false
+                                                    anadirFav.text = "Añadir a favs"
+                                                    notifyDataSetChanged()
+                                                }
+                                    }
+                                }
+                            }
+                        }
             }
+            /*if(myRecipe.esFav && !botonCambiado){
+                db.collection("Usuario-Recetas")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", myRecipe.title)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) { //cogeme el documento del titulo seleccionado
+
+                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                .addOnSuccessListener {
+                                                    myRecipe.esFav = false
+                                                    botonCambiado = true
+                                                    anadirFav.text = "Añadir a favs"
+                                                    notifyDataSetChanged()
+                                                }
+                                    }
+                                }
+                            }
+                        }
+            }*/
         }
 
         notifyDataSetChanged()

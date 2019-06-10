@@ -67,7 +67,6 @@ class FavRecipes : Fragment(){
                             }
                         }
                     }
-                    Log.d("MainMenuActivity", "Current cites in CA: $datosFavRecipes")
                 }
     }
 

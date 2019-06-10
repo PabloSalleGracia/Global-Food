@@ -102,9 +102,16 @@ class ReviewsList : Fragment() {
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("autor") != null) {
-                                                            datosReviews.add(Review(docRev.getString("autor")!!,
-                                                                    docRev.getString("descripBreve")!!, doc.getString("pais")!!
-                                                            ))
+                                                            if(datosReviews.size < reviews.size()){
+                                                                datosReviews.add(Review(docRev.getString("autor")!!,
+                                                                        docRev.getString("descripBreve")!!, doc.getString("pais")!!))
+                                                            }else{
+                                                                datosReviews.clear()
+                                                                datosReviews.add(Review(docRev.getString("autor")!!,
+                                                                        docRev.getString("descripBreve")!!, doc.getString("pais")!!))
+                                                            }
+
+
                                                         }
                                                     }
                                                     fillListReviews()

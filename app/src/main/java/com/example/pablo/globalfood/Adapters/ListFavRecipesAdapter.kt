@@ -13,7 +13,9 @@ import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
 import android.R.attr.name
 import android.text.method.TextKeyListener.clear
-
+import com.example.pablo.globalfood.Model.MyRecipe
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
@@ -62,8 +64,29 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
 
         rowView.anadir_fav_recipres.setOnClickListener{
             if(!favRecipe.esFav){
-                favRecipe.esFav = true
-                anadirFav.text = "Eliminar de favs"
+                val db = FirebaseFirestore.getInstance()
+                val user = FirebaseAuth.getInstance().currentUser!!.uid
+                val refUserId = db.document("/Usuarios/$user")
+
+                db.collection("Usuario-Recetas")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", favRecipe.title)
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) { //cogeme el documento del titulo seleccionado
+
+                                        db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
+                                        favRecipe.esFav = true
+                                        anadirFav.text = "Eliminar de favs"
+                                        //datosMyRecipes.add(MyRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
+                                        //        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
+                                        //fillLisResults()
+                                    }
+                                }
+                            }
+                        }
+
             }else{
                 favRecipe.esFav = false
                 anadirFav.text = "Añadir a favs"
@@ -93,21 +116,5 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
     override fun getCount(): Int {
         return dataSource.size
     }
-
-    /*fun filter(text: String) {
-        var text = text
-        items.clear()
-        if (text.isEmpty()) {
-            items.addAll(itemsCopy)
-        } else {
-            text = text.toLowerCase()
-            for (item in itemsCopy) {
-                if (item.name.toLowerCase().contains(text) || item.phone.toLowerCase().contains(text)) {
-                    items.add(item)
-                }
-            }
-        }
-        notifyDataSetChanged()
-    }*/
 
 }
