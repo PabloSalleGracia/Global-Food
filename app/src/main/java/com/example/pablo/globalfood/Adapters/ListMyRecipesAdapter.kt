@@ -6,20 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayList<MyRecipe>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
+    private lateinit var buscador:ArrayList<MyRecipe>
 
     @SuppressLint("ViewHolder")
     /*
-     private static class ViewHolder {
+private List<NombresAnimales> nombreListaAnimales = null;     private static class ViewHolder {
         TextView txtName;
         TextView txtType;
         TextView txtVersion;
@@ -27,6 +30,8 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
     }
     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        buscador = ArrayList()
+        buscador.addAll(dataSource)
         // Get view for row item
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
 
@@ -54,6 +59,7 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
         }else{
             anadirFav.text = "Eliminar de favs"
         }
+
 
         // 3
         //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
@@ -83,5 +89,20 @@ class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayL
 
     override fun getCount(): Int {
         return dataSource.size
+    }
+
+    fun filter(text: String) {
+        text.toLowerCase()
+        dataSource.clear()
+        if (text.isEmpty()) {
+            dataSource.addAll(buscador)
+        } else {
+            for (item in buscador) {
+                if (item.title.toLowerCase().contains(text) || item.country.toLowerCase().contains(text) || item.resDish.toLowerCase().contains(text)) {
+                    dataSource.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
     }
 }

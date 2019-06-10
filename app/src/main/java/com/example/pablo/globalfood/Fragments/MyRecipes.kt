@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.SearchView
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListMyRecipesAdapter
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.android.synthetic.main.favorite_restaurants.*
 import kotlinx.android.synthetic.main.my_recipes.*
 import java.util.concurrent.Future
 
@@ -35,12 +37,31 @@ class MyRecipes : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        fireBaseSelectMyRecipes()
         return inflater.inflate(R.layout.my_recipes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        fireBaseSelectMyRecipes()
+
+        search_view_my_recipes.setOnClickListener{
+            listener.onButtonPressed("SEARCH")
+        }
+        /*search_view_my_recipes.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextChange(resultados: String?): Boolean {
+                return false
+
+            }
+
+            override fun onQueryTextSubmit(resultados: String?): Boolean {
+                if(resultados != null){
+                    listener.onButtonPressed(resultados)
+                }else{
+                    listener.onButtonPressed("Vacio")
+                }
+                return false
+            }
+        })*/
             /* BORRAR FILAS
             datos2.removeAt(position)
             myReci.notifyDataSetChanged()*/
@@ -128,6 +149,7 @@ class MyRecipes : Fragment() {
         val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
 
         val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+        //myRecipeAdapter.filter("palabra buscada")
         listMyRecipes.adapter = myRecipeAdapter
 
         listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->

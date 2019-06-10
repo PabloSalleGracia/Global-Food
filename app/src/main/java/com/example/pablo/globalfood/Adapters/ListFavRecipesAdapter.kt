@@ -11,6 +11,10 @@ import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.R
 import kotlinx.android.synthetic.main.list_item_recipres.view.*
 import java.util.*
+import android.R.attr.name
+import android.text.method.TextKeyListener.clear
+
+
 
 class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
 
@@ -89,5 +93,21 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
     override fun getCount(): Int {
         return dataSource.size
     }
+
+    /*fun filter(text: String) {
+        var text = text
+        items.clear()
+        if (text.isEmpty()) {
+            items.addAll(itemsCopy)
+        } else {
+            text = text.toLowerCase()
+            for (item in itemsCopy) {
+                if (item.name.toLowerCase().contains(text) || item.phone.toLowerCase().contains(text)) {
+                    items.add(item)
+                }
+            }
+        }
+        notifyDataSetChanged()
+    }*/
 
 }

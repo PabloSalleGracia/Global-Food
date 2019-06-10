@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.SearchView
 import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListFavRestaurantsAdapter
 import com.example.pablo.globalfood.Model.FavRecipe
@@ -34,12 +35,16 @@ class FavRestaurants : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        fireBaseSelectFavRecipes()
         return inflater.inflate(R.layout.favorite_restaurants, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        fireBaseSelectFavRecipes()
+
+        search_view_fav_restaurants.setOnClickListener{
+            listener.onButtonPressed("SEARCH")
+        }
     }
 
     override fun onAttach(context: Context?) {

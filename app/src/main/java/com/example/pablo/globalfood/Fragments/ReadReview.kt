@@ -27,7 +27,6 @@ class ReadReview : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        datosReadReviewFromDB()
         return inflater.inflate(R.layout.read_review, container, false)
     }
 
@@ -54,6 +53,7 @@ class ReadReview : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        datosReadReviewFromDB()
 
         titulo_read_review.text = tituloReadRev
         nombre_autor_read_review.text = autorReadRev

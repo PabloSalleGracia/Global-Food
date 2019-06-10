@@ -25,8 +25,8 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.*
 
 
-private var tituloRecRes = "seEnvia"
-private var tipoRecRes = "seEnvia"
+private var tituloRecRes = "seEnviaTitulo"
+private var tipoRecRes = "seEnviaTipo"
 
 class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
@@ -37,6 +37,19 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
     }
 
     override fun onButtonPressed(text: String) {
+        when(text){
+            "Vacio" -> {
+                val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
+                addNewRecipe.putExtra("palabraBusqueda", text)
+                startActivity(addNewRecipe)
+            }
+            else -> {
+                val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
+                //addNewRecipe.putExtra("palabraBusqueda", text)
+                startActivity(addNewRecipe)
+            }
+        }
+
 
 
     }

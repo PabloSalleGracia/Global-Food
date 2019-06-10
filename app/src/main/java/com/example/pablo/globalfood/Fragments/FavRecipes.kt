@@ -5,11 +5,11 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ListView
+import android.widget.SearchView
+import com.example.pablo.globalfood.Activities.DetailActivity
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Model.MyRecipe
@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.favorite_recipes.*
 import kotlinx.android.synthetic.main.my_recipes.*
 
 
-class FavRecipes : Fragment() {
+class FavRecipes : Fragment(){
 
     private lateinit var listener: OnButtonPressedListener
     val datosFavRecipes = ArrayList<FavRecipe>()
@@ -32,12 +32,16 @@ class FavRecipes : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        fireBaseSelectFavRecipes()
         return inflater.inflate(R.layout.favorite_recipes, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        fireBaseSelectFavRecipes()
+
+        search_view_fav_recipes.setOnClickListener{
+            listener.onButtonPressed("SEARCH")
+        }
     }
 
     override fun onAttach(context: Context?) {
@@ -72,6 +76,7 @@ class FavRecipes : Fragment() {
 
         val favRecipeAdapter = ListFavRecipesAdapter(context!!, datosFavRecipes )
         listFavRecipes.adapter = favRecipeAdapter
+
 
         listFavRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
             listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish)

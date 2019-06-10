@@ -28,7 +28,6 @@ class Detail : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        datosDetailFromDB()
         return inflater.inflate(R.layout.detail, container, false)
     }
 
@@ -53,10 +52,8 @@ class Detail : Fragment() {
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-
         super.onActivityCreated(savedInstanceState)
-
-        //titulo_detail_receta.text = tituloRecDet
+        datosDetailFromDB()
 
         ver_reviews_detrec.setOnClickListener{
             listenerTitulo.onTitleSelected(titulo_detail_receta.text.toString(), tipoRecRes!!)

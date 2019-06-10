@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.pablo.globalfood.Fragments.AddNewRecipe
+import com.example.pablo.globalfood.Fragments.Search
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
@@ -12,10 +13,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_add_new_recipe.*
 import java.util.HashMap
 
+private var tituloRecRes = "seEnviaTitulo"
+private var tipoRecRes = "seEnviaTipo"
+
 class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
 
     override fun onItemPressed(titulo: String, tipo: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        tituloRecRes = titulo
+        tipoRecRes = tipo
+        openDetailRecipes()
     }
 
     override fun onButtonPressed(text: String) {
@@ -30,8 +36,16 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_recipe)
 
+        //val palabraBuscada = intent.getStringExtra("palabraBusqueda")
+
+
         if(savedInstanceState == null){
-            openAddNewRecipe()
+            //if(palabraBuscada != null){
+                val search = Search()
+                supportFragmentManager.beginTransaction().add(R.id.add_container, search).addToBackStack(null).commit()
+            /*}else{
+                openAddNewRecipe()
+            }*/
         }
 
     }
@@ -48,6 +62,14 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         //pendiente de mejorar/arreglar tambien
         val menuAgain = Intent(this, MainMenuActivity::class.java)
         startActivity(menuAgain)
+    }
+
+    private fun openDetailRecipes(){
+        val detailActivity = Intent(this, DetailActivity::class.java)
+        detailActivity.putExtra("tituloRecRes", tituloRecRes)
+        detailActivity.putExtra("tipoRecRes", tipoRecRes)
+        //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
+        startActivity(detailActivity)
     }
 
 }
