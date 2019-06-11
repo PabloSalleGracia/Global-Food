@@ -6,7 +6,7 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/logo_p" />
+            android:src="@drawable/global_food" />
     </item>
 
 

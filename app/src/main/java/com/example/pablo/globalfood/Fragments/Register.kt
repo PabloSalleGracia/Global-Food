@@ -55,16 +55,6 @@ class Register : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-    /*companion object {
-        @JvmStatic
-        fun newInstance(text: String = "") =
-                Register().apply {
-                    arguments = Bundle().apply {
-                        putString(TEXT, text)
-                    }
-                }
-    }*/
-
 
     private fun checkFields() {
         checkEmail()
@@ -94,18 +84,6 @@ class Register : Fragment() {
             fieldsOk = false
         }
     }
-
-    /*private fun loadFields(extras: Bundle) {
-        register_email.setText(extras.getString(LoginActivity.EMAIL_EXTRA))
-        register_password.setText(extras.getString(LoginActivity.PASSWORD_EXTRA))
-    }*/
-
-    /*private fun getLoginBundle(): Bundle {
-        val bundle = Bundle()
-        bundle.putString(LoginActivity.EMAIL_EXTRA, register_email.text.toString())
-        bundle.putString(LoginActivity.PASSWORD_EXTRA, register_password.text.toString())
-        return bundle
-    }*/
 
     private fun firebaseRegister(){
         val email = emailR.text.toString()

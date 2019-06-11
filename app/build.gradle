@@ -40,7 +40,7 @@ dependencies {
     //auth
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     //cloud firestore
-    implementation 'com.google.firebase:firebase-firestore:19.0.1'
+    implementation 'com.google.firebase:firebase-firestore:19.0.2'
 
 
 }

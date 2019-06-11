@@ -90,7 +90,7 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         //mirar de solucionarlo y que solo haga 1
                                                         myRecipe.esFav = false
                                                         botonPulsadoMenos = true
-                                                        anadirFav.text = "Añadir a favs"
+                                                        anadirFav.text = context.getString(R.string.anadir_afavs)
                                                         notifyDataSetChanged()
                                                         db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
