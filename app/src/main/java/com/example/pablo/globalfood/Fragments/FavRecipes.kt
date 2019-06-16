@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.my_recipes.*
 class FavRecipes : Fragment(){
 
     private lateinit var listener: OnButtonPressedListener
-    val datosFavRecipes = ArrayList<FavRecipe>()
+    private val datosFavRecipes = ArrayList<FavRecipe>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -56,57 +56,22 @@ class FavRecipes : Fragment(){
                 .whereEqualTo("esFav?", true)
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
-                        if(values.size() != 0) {
-                            for (doc in values) {
-                                if (doc.getString("tipo") != null) {
-                                    //if (datosFavRecipes.size < values.size()) {
-                                        //datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                          //      doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                    //}
-
-                                        for (dc in values.documentChanges) {
-                                            when (dc.type) {
-                                                DocumentChange.Type.MODIFIED -> {
-                                                    println("MODIFIED")
-                                                }
-                                                DocumentChange.Type.ADDED -> {
-                                                    //OBVIAMENTE ME AÑADE TODOS LOS QUE NO CONTIENE, OSEA TODOS LOS QUE NO ESTABAN EN FAVS
-                                                    // PERO HE DE COGER SOLO LOS QUE TIENEN ESFAV EN TRUE
-                                                    if(!datosFavRecipes.contains(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                                    doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))){
-                                                        datosFavRecipes.add(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                                doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                                        println("old add$dc.oldIndex")
-                                                        println("new add$dc.newIndex")
-                                                        println(datosFavRecipes)
-                                                    }
-                                                }
-                                                DocumentChange.Type.REMOVED -> {
-                                                    println(datosFavRecipes)
-                                                    //SE EJECUTA DOS VECES, Y BORRA DOS ELEMENTOS DEL ARRAYLIST DATOSFAVRECIPES ENTONCES
-                                                    /*datosFavRecipes.removeAt(dc.oldIndex)
-                                                    //TAMBIEN SE EJECUTA VARIAS VECES Y ME BORRA VARIOS
-                                                    datosFavRecipes.remove(FavRecipe(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                                    println(datosFavRecipes)*/
-                                                    println("sooy la dataGET${dc.document.data.get("titulo")}")
-                                                    println("sooy la dataINDX${dc.document.data["titulo"]}")
-                                                    println("sooy la dataVALU${dc.document.data.getValue("titulo")}")
-                                                    //println(doc.getString("titulo"))
-                                                    //println(datosFavRecipes)
-                                                    //println("old remo$dc.oldIndex")
-                                                    //println("new remo$dc.newIndex")
-                                                }
-
-                                            }
-                                    }
-
-                                    fillListFavRecipes()
+                        for (dc in values.documentChanges) {
+                            when (dc.type) {
+                                DocumentChange.Type.MODIFIED -> {
+                                    println("MODIFIED")
+                                }
+                                DocumentChange.Type.ADDED -> {
+                                        datosFavRecipes.add(FavRecipe(dc.document.data["titulo"].toString(), dc.document.data["pais"].toString(),
+                                                dc.document.data["tipo"].toString(), dc.document.data["esFav?"] as Boolean))
+                                }
+                                DocumentChange.Type.REMOVED -> {
+                                    datosFavRecipes.remove(FavRecipe(dc.document.data["titulo"].toString(), dc.document.data["pais"].toString(),
+                                            dc.document.data["tipo"].toString(), dc.document.data["esFav?"] as Boolean))
                                 }
                             }
-                        }else{
-                            datosFavRecipes.clear()
                         }
+                        fillListFavRecipes()
                     }
                 }
     }
@@ -120,7 +85,7 @@ class FavRecipes : Fragment(){
 
 
             listFavRecipes.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-                listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish)
+                listener.onItemPressed(favRecipeAdapter.dataSource[position].title, favRecipeAdapter.dataSource[position].resDish, favRecipeAdapter.dataSource[position].esFav.toString())
             })
         }
 

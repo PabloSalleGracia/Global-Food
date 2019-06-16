@@ -31,7 +31,7 @@ import java.util.concurrent.Future
 class MyRecipes : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
-    val datosMyRecipes = ArrayList<MyRecipe>()
+    private val datosMyRecipes = ArrayList<MyRecipe>()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -165,7 +165,7 @@ class MyRecipes : Fragment() {
             listMyRecipes.adapter = myRecipeAdapter
 
             listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-                listener.onItemPressed(myRecipeAdapter.dataSource[position].title, myRecipeAdapter.dataSource[position].resDish )
+                listener.onItemPressed(myRecipeAdapter.dataSource[position].title, myRecipeAdapter.dataSource[position].resDish, myRecipeAdapter.dataSource[position].esFav.toString() )
             }
         }
 

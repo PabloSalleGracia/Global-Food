@@ -18,7 +18,7 @@ private var tipoRecRes = "seEnviaTipo"
 
 class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
 
-    override fun onItemPressed(titulo: String, tipo: String) {
+    override fun onItemPressed(titulo: String, tipo: String, fav: String) {
         tituloRecRes = titulo
         tipoRecRes = tipo
         openDetailRecipes()

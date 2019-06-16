@@ -168,7 +168,7 @@ class ReviewsList : Fragment() {
 
             listReviews.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
                 listenerReview.onAutorSelected(reviews.dataSource[position].nombreAutor)
-                listener.onItemPressed(tituloRewList!!, tipoRewList!! )
+                listener.onItemPressed(tituloRewList!!, tipoRewList!!, "not used" )
             })
 
         }

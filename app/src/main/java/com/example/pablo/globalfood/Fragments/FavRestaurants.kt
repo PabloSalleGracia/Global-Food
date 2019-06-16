@@ -27,7 +27,7 @@ import kotlinx.android.synthetic.main.favorite_restaurants.*
 class FavRestaurants : Fragment() {
 
     private lateinit var listener: OnButtonPressedListener
-    val datosFavRestaurants = ArrayList<FavRestaurant>()
+    private val datosFavRestaurants = ArrayList<FavRestaurant>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -60,42 +60,22 @@ class FavRestaurants : Fragment() {
                 .whereEqualTo("esFav?", true)
                 .addSnapshotListener { values, _ ->
                     if (values != null) {
-                        if(values.size() != 0) {
-                            for (doc in values) {
-                                if (doc.getString("tipo") != null) {
-
-                                    for (dc in values.documentChanges) {
-                                        when (dc.type) {
-                                            DocumentChange.Type.MODIFIED -> {
-                                                println("MODIFIED")
-                                            }
-                                            DocumentChange.Type.ADDED -> {
-                                                if(!datosFavRestaurants.contains(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                                doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))){
-                                                    datosFavRestaurants.add(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                            doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                                    println("old add$dc.oldIndex")
-                                                    println("new add$dc.newIndex")
-                                                    println(datosFavRestaurants)
-                                                }
-                                            }
-                                            DocumentChange.Type.REMOVED -> {
-                                                println(datosFavRestaurants)
-                                                //datosFavRestaurants.removeAt(dc.oldIndex)
-                                                datosFavRestaurants.remove(FavRestaurant(doc.getString("titulo")!!, doc.getString("pais")!!,
-                                                        doc.getString("tipo")!!, doc.getBoolean("esFav?")!!))
-                                                println(datosFavRestaurants)
-                                            }
-
-                                        }
-                                    }
-
-                                    fillListFavRestaurants()
+                        for (dc in values.documentChanges) {
+                            when (dc.type) {
+                                DocumentChange.Type.MODIFIED -> {
+                                    println("MODIFIED")
+                                }
+                                DocumentChange.Type.ADDED -> {
+                                    datosFavRestaurants.add(FavRestaurant(dc.document.data["titulo"].toString(), dc.document.data["pais"].toString(),
+                                            dc.document.data["tipo"].toString(), dc.document.data["esFav?"] as Boolean))
+                                }
+                                DocumentChange.Type.REMOVED -> {
+                                    datosFavRestaurants.remove(FavRestaurant(dc.document.data["titulo"].toString(), dc.document.data["pais"].toString(),
+                                            dc.document.data["tipo"].toString(), dc.document.data["esFav?"] as Boolean))
                                 }
                             }
-                        }else{
-                            datosFavRestaurants.clear()
                         }
+                        fillListFavRestaurants()
                     }
                 }
     }
@@ -107,7 +87,7 @@ class FavRestaurants : Fragment() {
         listFavRestau.adapter = favRestaurantAdapter
 
         listFavRestau.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(favRestaurantAdapter.dataSource[position].title, favRestaurantAdapter.dataSource[position].resDish)
+            listener.onItemPressed(favRestaurantAdapter.dataSource[position].title, favRestaurantAdapter.dataSource[position].resDish, favRestaurantAdapter.dataSource[position].esFav.toString())
         })
     }
 

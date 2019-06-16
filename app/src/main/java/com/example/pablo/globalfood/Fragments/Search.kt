@@ -129,7 +129,7 @@ class Search : Fragment() {
         })
 
         listSearch.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-            listener.onItemPressed(searchAdapter.dataSource[position].title, searchAdapter.dataSource[position].resDish )
+            listener.onItemPressed(searchAdapter.dataSource[position].title, searchAdapter.dataSource[position].resDish, searchAdapter.dataSource[position].esFav.toString() )
         }
     }
 

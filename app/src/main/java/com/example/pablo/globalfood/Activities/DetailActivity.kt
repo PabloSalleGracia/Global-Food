@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
        tipoAReview = tipo
     }
 
-    override fun onItemPressed(titulo: String, tipo: String) {
+    override fun onItemPressed(titulo: String, tipo: String, fav: String) {
         tituloAReview = titulo
         tipoAReview = tipo
         openReadReviews()
@@ -47,9 +47,10 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
 
         val tituloRecibido = intent.getStringExtra("tituloRecRes")
         val tipoRecibido = intent.getStringExtra("tipoRecRes")
+        val botonFavRecibido = intent.getStringExtra("botonFav")
 
         if(savedInstanceState == null){
-            val detail = Detail.newInstance(tituloRecibido, tipoRecibido)
+            val detail = Detail.newInstance(tituloRecibido, tipoRecibido, botonFavRecibido)
             supportFragmentManager.beginTransaction().
                     add(R.id.detail_container, detail).commit()
         }
