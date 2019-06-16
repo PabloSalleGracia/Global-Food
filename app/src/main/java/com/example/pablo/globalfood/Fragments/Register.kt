@@ -9,14 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
-import kotlinx.android.synthetic.main.fragment_register.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.regex.Pattern
+import kotlinx.android.synthetic.main.fragment_register.*
 import java.util.*
+import java.util.regex.Pattern
 
 
 class Register : Fragment() {
@@ -40,8 +39,6 @@ class Register : Fragment() {
             if (fieldsOk) {
                 firebaseRegister()
             }
-
-
         }
 
         haveAcc.setOnClickListener{
@@ -96,8 +93,8 @@ class Register : Fragment() {
                         val db = FirebaseFirestore.getInstance()
                         val newUserForDB = FirebaseAuth.getInstance().currentUser!!.uid
                         val fieldsAndValuesDB = HashMap<String, Any>()
-                        fieldsAndValuesDB.put("fecha_registrado", " ")
-                        fieldsAndValuesDB.put("activo?", true)
+                        fieldsAndValuesDB["fecha_registrado"] = " "
+                        fieldsAndValuesDB["activo?"] = true
 
                         db.collection("Usuarios").document(newUserForDB)
                                 .set(fieldsAndValuesDB)
@@ -116,11 +113,11 @@ class Register : Fragment() {
                     }
                 }
                 .addOnFailureListener{
-                    emailR.error = "Este usuario ya existe, introduce otro email"
+                    emailR.error = getString(R.string.error_user_already_exists)
                 }
     }
 
-    fun obtenerRecetasparaInsertarEnUsuariosRecetas(){
+    private fun obtenerRecetasparaInsertarEnUsuariosRecetas(){
         val db = FirebaseFirestore.getInstance()
         val user = FirebaseAuth.getInstance().currentUser!!.uid
         val refUserId = db.document("/Usuarios/$user")
@@ -149,7 +146,7 @@ class Register : Fragment() {
     }
 
 
-    fun obtenerRestaurantesparaInsertarEnUsuariosRestaurantes(){
+    private fun obtenerRestaurantesparaInsertarEnUsuariosRestaurantes(){
         val db = FirebaseFirestore.getInstance()
         val user = FirebaseAuth.getInstance().currentUser!!.uid
         val refUserId = db.document("/Usuarios/$user")

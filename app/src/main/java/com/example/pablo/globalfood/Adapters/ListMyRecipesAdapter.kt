@@ -6,16 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.list_item_recipres.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayList<MyRecipe>) : BaseAdapter() {
 
@@ -34,37 +30,21 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         buscador = ArrayList()
         buscador.addAll(dataSource)
-        // Get view for row item
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
-
-        // Get title element
         val title = rowView.findViewById(R.id.descrip_breve_listreview) as TextView
-
-        // Get
         val country = rowView.findViewById(R.id.pais_review) as TextView
-
-        // Get
         val recRes = rowView.findViewById(R.id.plaRes_recres) as TextView
-
-        // Get
         val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as TextView
 
-        //--
-
         val myRecipe = getItem(position) as MyRecipe
-        // 2
         title.text = myRecipe.title
         country.text = myRecipe.country
         recRes.text = myRecipe.resDish
         if(!myRecipe.esFav){
-            anadirFav.text = "Añadir a favs"
+            anadirFav.text = context.getString(R.string.add_to_favs)
         }else{
-            anadirFav.text = "Eliminar de favs"
+            anadirFav.text = context.getString(R.string.delete_from_favs)
         }
-
-
-        // 3
-        //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
 
         val db = FirebaseFirestore.getInstance()
         val user = FirebaseAuth.getInstance().currentUser!!.uid
@@ -90,7 +70,7 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         //mirar de solucionarlo y que solo haga 1
                                                         myRecipe.esFav = false
                                                         botonPulsadoMenos = true
-                                                        anadirFav.text = context.getString(R.string.anadir_afavs)
+                                                        anadirFav.text = context.getString(R.string.add_to_favs)
                                                         notifyDataSetChanged()
 
                                                         /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
@@ -130,7 +110,7 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                     .addOnSuccessListener {
                                                         myRecipe.esFav = true
                                                         botonPulsadoMas = true
-                                                        anadirFav.text = "Eliminar de favs"
+                                                        anadirFav.text = context.getString(R.string.delete_from_favs)
                                                         notifyDataSetChanged()
 
                                                         /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
@@ -161,7 +141,6 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
         }
 
         notifyDataSetChanged()
-
         return rowView
     }
 

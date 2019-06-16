@@ -4,25 +4,20 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListReviewsAdapter
-import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
-
 import com.example.pablo.globalfood.R
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.detail.*
 import kotlinx.android.synthetic.main.reviews_list.*
 
+private const val BACK = "Volver"
 private const val tituloRecibido = "titulo"
 private const val tipoRecibido = "tipo"
 
@@ -31,7 +26,7 @@ class ReviewsList : Fragment() {
     private var tituloRewList: String? = null
     private var tipoRewList: String? = null
     private var paisListRev: String? = null
-    val datosReviews = ArrayList<Review>()
+    private val datosReviews = ArrayList<Review>()
     private lateinit var listener : OnButtonPressedListener
     private lateinit var listenerReview : OnTitleSelectedListener
 
@@ -68,7 +63,7 @@ class ReviewsList : Fragment() {
         fireBaseSelectReviews()
 
         volver_review_list.setOnClickListener{
-            listener.onButtonPressed("Volver")
+            listener.onButtonPressed(BACK)
         }
 
         write_reviews.setOnClickListener{
@@ -84,7 +79,7 @@ class ReviewsList : Fragment() {
         listenerReview = activity as OnTitleSelectedListener
     }
 
-    fun fireBaseSelectReviews(){
+    private fun fireBaseSelectReviews(){
         val db = FirebaseFirestore.getInstance()
 
         if(tipoRewList == "Plato"){
@@ -110,8 +105,6 @@ class ReviewsList : Fragment() {
                                                                 datosReviews.add(Review(docRev.getString("autor")!!,
                                                                         docRev.getString("descripBreve")!!, doc.getString("pais")!!))
                                                             }
-
-
                                                         }
                                                     }
                                                     fillListReviews()
@@ -156,12 +149,10 @@ class ReviewsList : Fragment() {
 
     }
 
-    fun fillListReviews(){
+    private fun fillListReviews(){
 
         if(view != null){
             val listReviews: ListView = view!!.findViewById(R.id.list_reviews)
-
-
             val reviews = ListReviewsAdapter(context!!, datosReviews)
             listReviews.adapter = reviews
 

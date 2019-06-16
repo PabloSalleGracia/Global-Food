@@ -13,6 +13,7 @@ import com.example.pablo.globalfood.R
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.read_review.*
 
+private const val RBACK = "VolverAtras"
 private const val tituloRecibido = "titulo"
 private const val tipoRecibido = "tipo"
 private const val autorRecibido = "autor"
@@ -59,7 +60,7 @@ class ReadReview : Fragment() {
         nombre_autor_read_review.text = autorReadRev
 
         volver_rreview.setOnClickListener{
-            listener.onButtonPressed("VolverAtras")
+            listener.onButtonPressed(RBACK)
         }
 
     }
@@ -69,7 +70,7 @@ class ReadReview : Fragment() {
         listener = activity as OnButtonPressedListener
     }
 
-    fun datosReadReviewFromDB(){
+    private fun datosReadReviewFromDB(){
         val db = FirebaseFirestore.getInstance()
 
         if(tipoReadRev == "Plato"){
@@ -85,8 +86,6 @@ class ReadReview : Fragment() {
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                            //titulo_read_review.text = doc.getString("titulo")
-                                                            //nombre_autor_read_review.text = docRev.getString("autor")
                                                             descripBreveReadR.text = docRev.getString("descripBreve")
                                                             review.text = docRev.getString("descripcion")
                                                         }
@@ -110,8 +109,6 @@ class ReadReview : Fragment() {
                                                 if (reviews != null) {
                                                     for (docRev in reviews) {
                                                         if (docRev.get("descripcion") != null) {
-                                                            //titulo_read_review.text = doc.getString("titulo")
-                                                            //nombre_autor_read_review.text = docRev.getString("autor")
                                                             descripBreveReadR.text = docRev.getString("descripBreve")
                                                             review.text = docRev.getString("descripcion")
                                                         }

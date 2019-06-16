@@ -2,29 +2,19 @@ package com.example.pablo.globalfood.Activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.*
-import com.example.pablo.globalfood.*
+import android.widget.Toast
 import com.example.pablo.globalfood.Adapters.PagerAdapter
-import com.example.pablo.globalfood.Fragments.*
-
-import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.activity_menu.view.*
-import android.support.annotation.NonNull
-import android.support.annotation.Nullable
-import android.support.v4.app.FragmentActivity
-import android.util.Log
+import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.firestore.*
+import kotlinx.android.synthetic.main.activity_menu.*
 
 
+private const val SEARCH = "SEARCH"
 private var tituloRecRes = "seEnviaTitulo"
 private var tipoRecRes = "seEnviaTipo"
 private var botonFav = "seEnviaFav"
@@ -40,7 +30,7 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
     override fun onButtonPressed(text: String) {
             val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
-            addNewRecipe.putExtra("palabraBusqueda", "search")
+            addNewRecipe.putExtra("palabraBusqueda", SEARCH)
             startActivity(addNewRecipe)
     }
 
@@ -60,8 +50,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
 
         fab.setOnClickListener {
             openAddNewRecipeActivity()
-            /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()*/
         }
 
     }
@@ -69,7 +57,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
-        //return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -85,7 +72,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         detailActivity.putExtra("tituloRecRes", tituloRecRes)
         detailActivity.putExtra("tipoRecRes", tipoRecRes)
         detailActivity.putExtra("botonFav", botonFav)
-        //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
         startActivity(detailActivity)
     }
 
@@ -94,7 +80,6 @@ class MainMenuActivity : AppCompatActivity(), OnButtonPressedListener {
         val addNewRecipe = Intent(this, AddNewRecipeActivity::class.java)
         addNewRecipe.putExtra("addRecipe", "abrirAdd")
         startActivity(addNewRecipe)
-
     }
 
 }

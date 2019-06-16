@@ -43,7 +43,7 @@ class Login : Fragment() {
             listener.onButtonPressed(register.tag.toString())
         }
     }
-    fun checkEmail(editText: EditText){
+    private fun checkEmail(editText: EditText){
         val email = editText.text.toString()
         if (!Pattern.compile(".+\\@.+\\..+").matcher(email).matches()) {
             editText.error = getString(R.string.email_invalido)
@@ -51,7 +51,7 @@ class Login : Fragment() {
         }
     }
 
-    fun checkPass(editText: EditText){
+    private fun checkPass(editText: EditText){
         val password = contrasena.text.toString()
         if (password.isEmpty() || password.length < 8) {
             editText.error = getString(R.string.contrasena_error)
@@ -59,7 +59,7 @@ class Login : Fragment() {
         }
     }
 
-    fun logIn(){
+    private fun logIn(){
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email.text.toString(), contrasena.text.toString())
                 .addOnCompleteListener{
                     if(!it.isSuccessful){
@@ -70,7 +70,7 @@ class Login : Fragment() {
                     }
                 }
                 .addOnFailureListener{
-                    email.error = "El email o contraseña introducidos no son válidos"
+                    email.error = getString(R.string.error_mail_pass_notvalid)
                 }
     }
 

@@ -16,18 +16,16 @@ import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.favorite_restaurants.*
 import kotlinx.android.synthetic.main.search.*
 
 
-private const val palabra = "palabra"
+private const val BACK = "VOLVER"
 
 
 class Search : Fragment() {
 
     private lateinit var listener : OnButtonPressedListener
-    private var busqueda: String? = null
-    val datosMyRecipes = ArrayList<MyRecipe>()
+    private val datosMyRecipes = ArrayList<MyRecipe>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -35,29 +33,12 @@ class Search : Fragment() {
         return inflater.inflate(R.layout.search, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            busqueda = it.getString(palabra)
-
-        }
-    }
-    companion object {
-        @JvmStatic
-        fun newInstance(palabraBusqueda: String) =
-                Search().apply {
-                    arguments = Bundle().apply {
-                        putString(palabra, palabraBusqueda)
-                    }
-                }
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         busquedaFireBase()
 
         volver_buscar.setOnClickListener{
-            listener.onButtonPressed("VOLVER")
+            listener.onButtonPressed(BACK)
         }
     }
 
@@ -97,8 +78,6 @@ class Search : Fragment() {
                         }
                     }
                 }
-
-
     }
 
     private fun fillLisResults(){
@@ -114,9 +93,7 @@ class Search : Fragment() {
                         searchAdapter.filter(resultados)
                     }
                     return false
-
                 }
-
                 override fun onQueryTextSubmit(resultados: String?): Boolean {
                     /*if(resultados != null){
                     busqueda = resultados

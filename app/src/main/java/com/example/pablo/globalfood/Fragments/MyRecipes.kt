@@ -4,29 +4,20 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.SearchView
-import com.example.pablo.globalfood.Model.FavRecipe
-import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListMyRecipesAdapter
 import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthProvider
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.android.synthetic.main.favorite_restaurants.*
 import kotlinx.android.synthetic.main.my_recipes.*
-import java.util.concurrent.Future
 
+private const val SEARCH = "SEARCH"
 
 class MyRecipes : Fragment() {
 
@@ -45,27 +36,8 @@ class MyRecipes : Fragment() {
         fireBaseSelectMyRecipes()
 
         search_view_my_recipes.setOnClickListener{
-            listener.onButtonPressed("SEARCH")
+            listener.onButtonPressed(SEARCH)
         }
-        /*search_view_my_recipes.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextChange(resultados: String?): Boolean {
-                return false
-
-            }
-
-            override fun onQueryTextSubmit(resultados: String?): Boolean {
-                if(resultados != null){
-                    listener.onButtonPressed(resultados)
-                }else{
-                    listener.onButtonPressed("Vacio")
-                }
-                return false
-            }
-        })*/
-            /* BORRAR FILAS
-            datos2.removeAt(position)
-            myReci.notifyDataSetChanged()*/
-
     }
 
     override fun onAttach(context: Context?) {
@@ -161,7 +133,6 @@ class MyRecipes : Fragment() {
             val listMyRecipes: ListView = view!!.findViewById(R.id.list_my_recipes)
 
             val myRecipeAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
-            //myRecipeAdapter.filter("palabra buscada")
             listMyRecipes.adapter = myRecipeAdapter
 
             listMyRecipes.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->

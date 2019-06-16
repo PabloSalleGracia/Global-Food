@@ -4,23 +4,18 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.SearchView
-import com.example.pablo.globalfood.Adapters.ListFavRecipesAdapter
 import com.example.pablo.globalfood.Adapters.ListFavRestaurantsAdapter
-import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.Model.FavRestaurant
-import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
-import kotlinx.android.synthetic.main.favorite_recipes.*
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.favorite_restaurants.*
 
 

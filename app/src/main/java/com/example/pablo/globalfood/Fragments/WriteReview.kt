@@ -4,20 +4,18 @@ package com.example.pablo.globalfood.Fragments
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.pablo.globalfood.Model.Review
 import com.example.pablo.globalfood.OnButtonPressedListener
-
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.write_review.*
 
-
+private const val COMMENT = "COMENTAR"
+private const val RBACK = "VolverAtras"
 private const val tituloRecibido = "titulo"
 private const val tipoRecibido = "tipo"
 
@@ -58,11 +56,10 @@ class WriteReview : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //tituloRR.text = param1
         titulo_write_review.text = tituloWriteRev
 
         volver_wreview.setOnClickListener{
-            listener.onButtonPressed("VolverAtras")
+            listener.onButtonPressed(RBACK)
         }
 
         boton_escribir_review.setOnClickListener{
@@ -76,11 +73,10 @@ class WriteReview : Fragment() {
         val user = FirebaseAuth.getInstance().currentUser!!.uid
 
         if(nombre_autor_write_review.text.isEmpty() || descripBreveWrite.text.isEmpty() || review.text.isEmpty()){
-            nombre_autor_write_review.error = "Introduce tu nombre para subir tu review"
-            descripBreveWrite.error = "Introduce una descripcíon breve para subir tu review"
-            review.error = "Este campo no puede estar vacío, introduce tu opinión"
+            nombre_autor_write_review.error = getString(R.string.error_no_name_review)
+            descripBreveWrite.error = getString(R.string.error_no_descripbr_review)
+            review.error = getString(R.string.error_no_review)
         }else {
-
             if (tipoWriteRev == "Plato") {
                 db.collection("Recetas")
                         .whereEqualTo("titulo", tituloWriteRev)
@@ -99,9 +95,8 @@ class WriteReview : Fragment() {
 
                                         db.collection("Recetas").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
                                                 .addOnSuccessListener {
-
-                                                    Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
-                                                    listener.onButtonPressed("COMENTAR")
+                                                    Toast.makeText(this.context, (getString(R.string.success_review_upload)), Toast.LENGTH_LONG).show()
+                                                    listener.onButtonPressed(COMMENT)
 
                                                 }
                                     }
@@ -127,8 +122,8 @@ class WriteReview : Fragment() {
                                         db.collection("Restaurantes").document(doc.id).collection("Reviews").add(fieldsAndValuesDB)
                                                 .addOnSuccessListener {
 
-                                                    Toast.makeText(this.context, ("Se ha subido tu review correctamente"), Toast.LENGTH_LONG).show()
-                                                    listener.onButtonPressed("COMENTAR")
+                                                    Toast.makeText(this.context, (getString(R.string.success_review_upload)), Toast.LENGTH_LONG).show()
+                                                    listener.onButtonPressed(COMMENT)
 
                                                 }
                                     }

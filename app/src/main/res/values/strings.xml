@@ -70,6 +70,16 @@
     <string name="nombrereceta">nombreReceta</string>
     <string name="descrip_breve">Indica brevemente si te ha gustado o no</string>
     <string name="anadir_afavs">Añadir a favs</string>
+    <string name="empty_recipe">Algunos de los campos están vacíos, no se ha podido subir la receta por ese motivo</string>
+    <string name="succes_recipe_upload">Se ha subido tu receta correctamente</string>
+    <string name="add_to_favs">Añadir a favs</string>
+    <string name="delete_from_favs">Eliminar de favs</string>
+    <string name="error_no_name_review">Introduce tu nombre para subir tu review</string>
+    <string name="error_no_descripbr_review">Introduce una descripcíon breve para subir tu review</string>
+    <string name="error_no_review">Este campo no puede estar vacío, introduce tu opinión</string>
+    <string name="success_review_upload">Se ha subido tu review correctamente</string>
+    <string name="error_user_already_exists">Este usuario ya existe, introduce otro email</string>
+    <string name="error_mail_pass_notvalid">El email o contraseña introducidos no son válidos</string>
     <string-array name="pruebaLista">
         <item>Uno</item>
         <item>Dos</item>

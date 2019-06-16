@@ -9,19 +9,15 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.pablo.globalfood.Model.FavRecipe
 import com.example.pablo.globalfood.R
-import kotlinx.android.synthetic.main.list_item_recipres.view.*
-import java.util.*
-import android.R.attr.name
-import android.text.method.TextKeyListener.clear
-import com.example.pablo.globalfood.Model.MyRecipe
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.list_item_recipres.view.*
+import java.util.*
 
 
 class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayList<FavRecipe>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
 
     @SuppressLint("ViewHolder")
     /*
@@ -33,33 +29,20 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
     }
     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        // Get view for row item
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
-
-        // Get title element
         val title = rowView.findViewById(R.id.descrip_breve_listreview) as TextView
-
-        // Get
         val country = rowView.findViewById(R.id.pais_review) as TextView
-
-        // Get
         val recRes = rowView.findViewById(R.id.plaRes_recres) as TextView
-
-        // Get
         val anadirFav = rowView.findViewById(R.id.anadir_fav_recipres) as TextView
-
-        //--
-
-        // 1
         val favRecipe = getItem(position) as FavRecipe
-        // 2
+
         title.text = favRecipe.title
         country.text = favRecipe.country
         recRes.text = favRecipe.resDish
         if(!favRecipe.esFav){
-            anadirFav.text = "Añadir a favs"
+            anadirFav.text = context.getString(R.string.add_to_favs)
         }else{
-            anadirFav.text = "Eliminar de favs"
+            anadirFav.text = context.getString(R.string.delete_from_favs)
         }
 
         val db = FirebaseFirestore.getInstance()
@@ -86,7 +69,6 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                                                         favRecipe.esFav = false
                                                         botonPulsadoMenos = true
                                                         notifyDataSetChanged()
-
                                                         /*db.collection("Recetas").whereEqualTo("titulo", favRecipe.title)
                                                                 .get()
                                                                 .addOnSuccessListener { anafav ->
@@ -114,16 +96,11 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                         }
             }
         }
-        // 3
-        //Picasso.with(context).load(recipe.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView)
-
         //borra los datos y la fila seleccionada cuando le das al boton anadir
         /*rowView.anadir_fav_recipres.setOnClickListener{
             dataSource.removeAt(position)
             notifyDataSetChanged()
         }*/
-
-
         return rowView
     }
 

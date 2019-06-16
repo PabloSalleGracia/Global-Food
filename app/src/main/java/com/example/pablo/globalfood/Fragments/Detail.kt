@@ -7,18 +7,14 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.pablo.globalfood.Model.FavRecipe
-import com.example.pablo.globalfood.Model.MyRecipe
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
-
 import com.example.pablo.globalfood.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.detail.*
 
-
+private const val RBACK = "VolverAtras"
 private const val tituloRecibido = "titulo"
 private const val tipoPlatoRecibido = "tipo"
 private const val botonFavRecibido = "fav"
@@ -64,21 +60,17 @@ class Detail : Fragment() {
         datosDetailFromDB()
 
         if(botonFav == "false"){
-            anadir_favs_detrec.text = "Añadir a Favs"
+            anadir_favs_detrec.text = getString(R.string.add_to_favs)
         }else{
-            anadir_favs_detrec.text = "Eliminar de Favs"
+            anadir_favs_detrec.text = getString(R.string.delete_from_favs)
         }
-        //anadir_favs_detrec.text = "fav"
-        //RECUPERAR VALOR ES FAV PARA CAMBIAR TEXTO DEL BOTON AL ABRIR PANTALLA
-
         ver_reviews_detrec.setOnClickListener{
             listenerTitulo.onTitleSelected(titulo_detail_receta.text.toString(), tipoRecRes!!)
             listener.onButtonPressed(ver_reviews_detrec.tag.toString())
         }
 
-
         volver_detrec.setOnClickListener{
-            listener.onButtonPressed("VolverAtras")
+            listener.onButtonPressed(RBACK)
         }
 
         anadir_favs_detrec.setOnClickListener{
@@ -138,7 +130,7 @@ class Detail : Fragment() {
         var botonPulsado = false
 
         if(botonFav == "false"){
-            anadir_favs_detrec.text = "Añadir a Favs"
+            anadir_favs_detrec.text = getString(R.string.add_to_favs)
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
                         .whereEqualTo("titulo", titulo_detail_receta.text.toString())
@@ -151,7 +143,7 @@ class Detail : Fragment() {
                                                     .addOnSuccessListener {
                                                         botonPulsado = true
                                                         botonFav = "true"
-                                                        anadir_favs_detrec.text = "Eliminar de fav"
+                                                        anadir_favs_detrec.text = getString(R.string.delete_from_favs)
 
                                                         /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
                                                                 .get()
@@ -199,7 +191,7 @@ class Detail : Fragment() {
                                 }
                             }
         }else{
-            anadir_favs_detrec.text = "Eliminar de fav"
+            anadir_favs_detrec.text = getString(R.string.delete_from_favs)
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
                         .whereEqualTo("titulo", titulo_detail_receta.text.toString())
@@ -212,7 +204,7 @@ class Detail : Fragment() {
                                                     .addOnSuccessListener {
                                                         botonPulsado = true
                                                         botonFav = "false"
-                                                        anadir_favs_detrec.text = "Añadir a fav"
+                                                        anadir_favs_detrec.text = getString(R.string.add_to_favs)
 
                                                         /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
                                                                 .get()

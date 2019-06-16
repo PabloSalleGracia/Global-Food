@@ -1,12 +1,21 @@
 package com.example.pablo.globalfood.Activities
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import com.example.pablo.globalfood.Fragments.*
+import android.support.v7.app.AppCompatActivity
+import com.example.pablo.globalfood.Fragments.Detail
+import com.example.pablo.globalfood.Fragments.ReadReview
+import com.example.pablo.globalfood.Fragments.ReviewsList
+import com.example.pablo.globalfood.Fragments.WriteReview
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.OnTitleSelectedListener
 import com.example.pablo.globalfood.R
 
+
+private const val READ = "Ver Review"
+private const val WRITE = "Escribir review"
+private const val BACK = "Volver"
+private const val RBACK = "VolverAtras"
+private const val COMMENT = "COMENTAR"
 private var tituloAReview = "titulo"
 private var tipoAReview = "tipo"
 private var autorAReview = "autor"
@@ -31,12 +40,11 @@ class DetailActivity : AppCompatActivity(), OnButtonPressedListener, OnTitleSele
 
     override fun onButtonPressed(text: String) {
         when(text){
-            "Ver Review" -> openListReviews()
-            "Escribir review" -> openWriteReviews()
-            "Volver" -> goToLastScreen()
-            "VolverAtras" -> goBackToMenu()
-            "COMENTAR" -> goToLastScreen()
-                //openListReviews()
+            READ -> openListReviews()
+            WRITE -> openWriteReviews()
+            BACK -> goToLastScreen()
+            RBACK -> goBackToMenu()
+            COMMENT -> goToLastScreen()
         }
     }
 

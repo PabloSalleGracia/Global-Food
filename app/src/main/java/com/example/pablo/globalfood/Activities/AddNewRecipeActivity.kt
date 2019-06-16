@@ -1,18 +1,15 @@
 package com.example.pablo.globalfood.Activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.support.v7.app.AppCompatActivity
 import com.example.pablo.globalfood.Fragments.AddNewRecipe
 import com.example.pablo.globalfood.Fragments.Search
 import com.example.pablo.globalfood.OnButtonPressedListener
 import com.example.pablo.globalfood.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_add_new_recipe.*
-import java.util.HashMap
 
+private const val UPLOAD = "SUBIR"
+private const val BACK = "VOLVER"
 private var tituloRecRes = "seEnviaTitulo"
 private var tipoRecRes = "seEnviaTipo"
 
@@ -26,8 +23,8 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
 
     override fun onButtonPressed(text: String) {
         when(text){
-            "SUBIR" -> goToLastScreen()
-            "VOLVER" -> goToLastScreen()
+            UPLOAD -> goToLastScreen()
+            BACK -> goToLastScreen()
         }
     }
 
@@ -42,8 +39,7 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
 
         if(savedInstanceState == null){
             if(palabraBuscada != null){
-                val search = Search()
-                supportFragmentManager.beginTransaction().add(R.id.add_container, search).addToBackStack(null).commit()
+                openSearch()
             }
             if(add != null){
                 openAddNewRecipe()
@@ -51,6 +47,12 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         }
 
     }
+
+    private fun openSearch(){
+        val search = Search()
+        supportFragmentManager.beginTransaction().add(R.id.add_container, search).addToBackStack(null).commit()
+    }
+
 
     private fun openAddNewRecipe(){
         //addToBackStack hace al usuario volver a una pagina blanca si le da atras con el boton del movil (FrameLayou de la Activity)
@@ -70,7 +72,6 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         val detailActivity = Intent(this, DetailActivity::class.java)
         detailActivity.putExtra("tituloRecRes", tituloRecRes)
         detailActivity.putExtra("tipoRecRes", tipoRecRes)
-        //startActivityForResult(intent2, MainMenuActivity.REQUEST_CODE)
         startActivity(detailActivity)
     }
 
