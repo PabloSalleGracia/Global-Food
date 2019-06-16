@@ -87,7 +87,15 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                                                         botonPulsadoMenos = true
                                                         notifyDataSetChanged()
 
-                                                        db.collection("Recetas").whereEqualTo("titulo", favRecipe.title)
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", favRecipe.title)
+                                                                .get()
+                                                                .addOnSuccessListener { anafav ->
+                                                                    for(documen in anafav){
+                                                                        db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long - 1)
+                                                                    }
+                                                                }*/
+
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", favRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for(docRec in receta){
@@ -97,7 +105,7 @@ class ListFavRecipesAdapter(private val context: Context, val dataSource: ArrayL
                                                                         }
                                                                     }
 
-                                                                }
+                                                                }*/
                                                     }
                                         }
                                     }

@@ -102,34 +102,36 @@ class Search : Fragment() {
     }
 
     private fun fillLisResults(){
-        val listSearch: ListView = view!!.findViewById(R.id.list_buscar)
+        if(view != null) {
+            val listSearch: ListView = view!!.findViewById(R.id.list_buscar)
 
-        val searchAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
-        listSearch.adapter = searchAdapter
+            val searchAdapter = ListMyRecipesAdapter(context!!, datosMyRecipes)
+            listSearch.adapter = searchAdapter
 
-        search_view_buscar.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-            override fun onQueryTextChange(resultados: String?): Boolean {
-                if(resultados != null){
-                    searchAdapter.filter(resultados)
+            search_view_buscar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(resultados: String?): Boolean {
+                    if (resultados != null) {
+                        searchAdapter.filter(resultados)
+                    }
+                    return false
+
                 }
-                return false
 
-            }
-
-            override fun onQueryTextSubmit(resultados: String?): Boolean {
-                /*if(resultados != null){
+                override fun onQueryTextSubmit(resultados: String?): Boolean {
+                    /*if(resultados != null){
                     busqueda = resultados
                     busquedaFireBase()
                 }else{
                     busqueda = "Vacio"
                     busquedaFireBase()
                 }*/
-                return false
-            }
-        })
+                    return false
+                }
+            })
 
-        listSearch.onItemClickListener = AdapterView.OnItemClickListener{ _, _, position, _ ->
-            listener.onItemPressed(searchAdapter.dataSource[position].title, searchAdapter.dataSource[position].resDish, searchAdapter.dataSource[position].esFav.toString() )
+            listSearch.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                listener.onItemPressed(searchAdapter.dataSource[position].title, searchAdapter.dataSource[position].resDish, searchAdapter.dataSource[position].esFav.toString())
+            }
         }
     }
 

@@ -92,7 +92,15 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         botonPulsadoMenos = true
                                                         anadirFav.text = context.getString(R.string.anadir_afavs)
                                                         notifyDataSetChanged()
-                                                        db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                                .get()
+                                                                .addOnSuccessListener { anafav ->
+                                                                    for(documen in anafav){
+                                                                        db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long - 1)
+                                                                    }
+                                                                }*/
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for(docRec in receta){
@@ -102,7 +110,7 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                                         }
                                                                     }
 
-                                                                }
+                                                                }*/
                                                     }
                                         }
                                     }
@@ -125,7 +133,14 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                         anadirFav.text = "Eliminar de favs"
                                                         notifyDataSetChanged()
 
-                                                        db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                                .get()
+                                                                .addOnSuccessListener { anafav ->
+                                                                    for(documen in anafav){
+                                                                        db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long + 1)
+                                                                    }
+                                                                }*/
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for(docRec in receta){
@@ -135,7 +150,7 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                                         }
                                                                     }
 
-                                                                }
+                                                                }*/
                                                     }
                                         }
                                     }

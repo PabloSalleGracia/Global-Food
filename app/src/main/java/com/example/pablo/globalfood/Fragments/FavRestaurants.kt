@@ -81,14 +81,17 @@ class FavRestaurants : Fragment() {
     }
 
     private fun fillListFavRestaurants(){
-        val listFavRestau: ListView = view!!.findViewById(R.id.list_fav_restaurants)
+        if(view != null){
+            val listFavRestau: ListView = view!!.findViewById(R.id.list_fav_restaurants)
 
-        val favRestaurantAdapter = ListFavRestaurantsAdapter(context!!, datosFavRestaurants)
-        listFavRestau.adapter = favRestaurantAdapter
+            val favRestaurantAdapter = ListFavRestaurantsAdapter(context!!, datosFavRestaurants)
+            listFavRestau.adapter = favRestaurantAdapter
 
-        listFavRestau.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
-            listener.onItemPressed(favRestaurantAdapter.dataSource[position].title, favRestaurantAdapter.dataSource[position].resDish, favRestaurantAdapter.dataSource[position].esFav.toString())
-        })
+            listFavRestau.onItemClickListener = (AdapterView.OnItemClickListener { _, _, position, _ ->
+                listener.onItemPressed(favRestaurantAdapter.dataSource[position].title, favRestaurantAdapter.dataSource[position].resDish, favRestaurantAdapter.dataSource[position].esFav.toString())
+            })
+        }
+
     }
 
 }

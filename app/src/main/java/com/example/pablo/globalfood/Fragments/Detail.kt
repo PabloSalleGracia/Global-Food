@@ -99,6 +99,7 @@ class Detail : Fragment() {
         if(tipoRecRes == "Plato"){
             db.collection("Recetas")
                     .whereEqualTo("titulo", tituloRecDet)
+                    //.get()
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
@@ -113,6 +114,7 @@ class Detail : Fragment() {
         }else{
             db.collection("Restaurantes")
                     .whereEqualTo("titulo", tituloRecDet)
+                    //.get()
                     .addSnapshotListener { values, _ ->
                         if (values != null) {
                             for (doc in values) {
@@ -151,7 +153,18 @@ class Detail : Fragment() {
                                                         botonFav = "true"
                                                         anadir_favs_detrec.text = "Eliminar de fav"
 
-                                                        db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                                .get()
+                                                                .addOnSuccessListener { anafav ->
+                                                                    for(documen in anafav){
+                                                                        db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long + 1)
+                                                                                .addOnSuccessListener {
+                                                                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                                                                }
+                                                                    }
+                                                                }*/
+
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for (dc in receta.documentChanges) {
@@ -178,7 +191,7 @@ class Detail : Fragment() {
                                                                         }
                                                                     }
 
-                                                                }
+                                                                }*/
                                                     }
                                         }
                                         }
@@ -201,7 +214,18 @@ class Detail : Fragment() {
                                                         botonFav = "false"
                                                         anadir_favs_detrec.text = "Añadir a fav"
 
-                                                        db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                                                                .get()
+                                                                .addOnSuccessListener { anafav ->
+                                                                    for(documen in anafav){
+                                                                        db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long - 1)
+                                                                                .addOnSuccessListener {
+                                                                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                                                                }
+                                                                    }
+                                                                }*/
+
+                                                        /*db.collection("Recetas").whereEqualTo("titulo", titulo_detail_receta.text.toString())
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for (dc in receta.documentChanges) {
@@ -222,7 +246,7 @@ class Detail : Fragment() {
                                                                         }
                                                                     }
 
-                                                                }
+                                                                }*/
                                                     }
                                         }
                                     }
