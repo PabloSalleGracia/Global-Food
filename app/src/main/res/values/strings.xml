@@ -14,9 +14,6 @@
     <string name="fecha">Fecha de nacimiento</string>
     <string name="el_logo">El Logo</string>
     <string name="confirma_contra_incorrecta">Las contraseñas introducidas no coinciden</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ha_olvidado_la_contrasena">Ha olvidado la contraseña?</string>
     <string name="have_account">Ya tienes cuenta? Logeate aquí!</string>
     <string name="menu_principal">Menú Principal</string>
@@ -80,9 +77,4 @@
     <string name="success_review_upload">Se ha subido tu review correctamente</string>
     <string name="error_user_already_exists">Este usuario ya existe, introduce otro email</string>
     <string name="error_mail_pass_notvalid">El email o contraseña introducidos no son válidos</string>
-    <string-array name="pruebaLista">
-        <item>Uno</item>
-        <item>Dos</item>
-        <item>Tres</item>
-    </string-array>
 </resources>

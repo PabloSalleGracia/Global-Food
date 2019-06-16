@@ -18,9 +18,13 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="colorPrimary">#f932</item>
+        <item name="colorPrimaryDark">#f291</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="colorPrimary">#f73</item>
+        <item name="colorPrimaryDark">#f019</item>
     </style>
 
 </resources>

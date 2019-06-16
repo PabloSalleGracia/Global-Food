@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ReadReview">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/titulo_read_review"
         android:layout_width="160dp"
@@ -15,6 +13,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:background="@drawable/textbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,6 +28,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
         android:text="@string/return_screen"
+        android:background="@drawable/buttonborder"
+        android:textColor="#f6cd14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.458"
@@ -43,6 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="52dp"
         android:layout_marginEnd="16dp"
+        android:background="@drawable/textbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descripBreveReadR" />
@@ -54,6 +56,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:background="@drawable/textbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +69,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/textbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombre_autor_read_review" />

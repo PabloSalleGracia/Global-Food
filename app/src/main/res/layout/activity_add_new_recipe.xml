@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.AddNewRecipeActivity"
+    android:background="#F6A514"
     android:id="@+id/add_container">
 
 
