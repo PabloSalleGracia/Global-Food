@@ -12,12 +12,14 @@ private const val UPLOAD = "SUBIR"
 private const val BACK = "VOLVER"
 private var tituloRecRes = "seEnviaTitulo"
 private var tipoRecRes = "seEnviaTipo"
+private var botonFav = "seEnviaFav"
 
 class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
 
     override fun onItemPressed(titulo: String, tipo: String, fav: String) {
         tituloRecRes = titulo
         tipoRecRes = tipo
+        botonFav = fav
         openDetailRecipes()
     }
 
@@ -72,6 +74,7 @@ class AddNewRecipeActivity : AppCompatActivity(), OnButtonPressedListener{
         val detailActivity = Intent(this, DetailActivity::class.java)
         detailActivity.putExtra("tituloRecRes", tituloRecRes)
         detailActivity.putExtra("tipoRecRes", tipoRecRes)
+        detailActivity.putExtra("botonFav", botonFav)
         startActivity(detailActivity)
     }
 

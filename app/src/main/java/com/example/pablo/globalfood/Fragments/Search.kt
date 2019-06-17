@@ -88,10 +88,8 @@ class Search : Fragment() {
             listSearch.adapter = searchAdapter
 
             search_view_buscar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextChange(resultados: String?): Boolean {
-                    if (resultados != null) {
-                        searchAdapter.filter(resultados)
-                    }
+                override fun onQueryTextChange(resultados: String): Boolean {
+                    searchAdapter.filter(resultados)
                     return false
                 }
                 override fun onQueryTextSubmit(resultados: String?): Boolean {

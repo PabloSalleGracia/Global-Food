@@ -16,7 +16,16 @@ import kotlinx.android.synthetic.main.list_item_recipres.view.*
 class ListMyRecipesAdapter (private val context: Context, val dataSource: ArrayList<MyRecipe>) : BaseAdapter() {
 
     private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    private lateinit var buscador:ArrayList<MyRecipe>
+    private var buscadoraux:ArrayList<MyRecipe>
+    private var buscador:ArrayList<MyRecipe>
+
+    init{
+        buscadoraux = ArrayList()
+        buscadoraux.addAll(dataSource)
+
+        buscador = dataSource
+    }
+
 
     @SuppressLint("ViewHolder")
     /*
@@ -28,8 +37,9 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
     }
     */
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        buscador = ArrayList()
-        buscador.addAll(dataSource)
+
+
+
         val rowView = inflater.inflate(R.layout.list_item_recipres, parent, false)
         val title = rowView.findViewById(R.id.descrip_breve_listreview) as TextView
         val country = rowView.findViewById(R.id.pais_review) as TextView
@@ -158,13 +168,13 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
 
     fun filter(text: String) {
         text.toLowerCase()
-        dataSource.clear()
+        buscador.clear()
         if (text.isEmpty()) {
-            dataSource.addAll(buscador)
+            buscador.addAll(buscadoraux)
         } else {
-            for (item in buscador) {
+            for (item in buscadoraux) {
                 if (item.title.toLowerCase().contains(text) || item.country.toLowerCase().contains(text) || item.resDish.toLowerCase().contains(text)) {
-                    dataSource.add(item)
+                    buscador.add(item)
                 }
             }
         }
