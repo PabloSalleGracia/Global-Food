@@ -64,33 +64,34 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
         var botonPulsadoMenos = false
 
         rowView.anadir_fav_recipres.setOnClickListener{
-            if(myRecipe.esFav && !botonPulsadoMenos){
-                db.collection("Usuario-Recetas")
-                        .whereEqualTo("id_usuario", refUserId)
-                        .whereEqualTo("titulo", myRecipe.title)
-                        .addSnapshotListener { values, _ ->
-                            if (values != null) {
-                                for (doc in values) {
-                                    if (doc.getString("titulo") != null) {
-                                        if(!botonPulsadoMenos){
-                                            db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
-                                                    .addOnSuccessListener {
-                                                        //despues de hacer el update a false snapshot se llama porque ha recibido cambio
-                                                        //e intenta hacer otro update a false pero como ahi ya no cambia solo hace 2 iteraciones
-                                                        //mirar de solucionarlo y que solo haga 1
-                                                        myRecipe.esFav = false
-                                                        botonPulsadoMenos = true
-                                                        anadirFav.text = context.getString(R.string.add_to_favs)
-                                                        notifyDataSetChanged()
+            if(myRecipe.resDish == "Plato") {
+                if (myRecipe.esFav && !botonPulsadoMenos) {
+                    db.collection("Usuario-Recetas")
+                            .whereEqualTo("id_usuario", refUserId)
+                            .whereEqualTo("titulo", myRecipe.title)
+                            .addSnapshotListener { values, _ ->
+                                if (values != null) {
+                                    for (doc in values) {
+                                        if (doc.getString("titulo") != null) {
+                                            if (!botonPulsadoMenos) {
+                                                db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
+                                                        .addOnSuccessListener {
+                                                            //despues de hacer el update a false snapshot se llama porque ha recibido cambio
+                                                            //e intenta hacer otro update a false pero como ahi ya no cambia solo hace 2 iteraciones
+                                                            //mirar de solucionarlo y que solo haga 1
+                                                            myRecipe.esFav = false
+                                                            botonPulsadoMenos = true
+                                                            anadirFav.text = context.getString(R.string.add_to_favs)
+                                                            notifyDataSetChanged()
 
-                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                            /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .get()
                                                                 .addOnSuccessListener { anafav ->
                                                                     for(documen in anafav){
                                                                         db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long - 1)
                                                                     }
                                                                 }*/
-                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                            /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for(docRec in receta){
@@ -101,36 +102,36 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                                     }
 
                                                                 }*/
-                                                    }
+                                                        }
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-            }else if(!myRecipe.esFav && !botonPulsadoMas) {
-                db.collection("Usuario-Recetas")
-                        .whereEqualTo("id_usuario", refUserId)
-                        .whereEqualTo("titulo", myRecipe.title)
-                        .addSnapshotListener { values, _ ->
-                            if (values != null) {
-                                for (doc in values) {
-                                    if (doc.getString("titulo") != null) {
-                                        if(!botonPulsadoMas){
-                                            db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
-                                                    .addOnSuccessListener {
-                                                        myRecipe.esFav = true
-                                                        botonPulsadoMas = true
-                                                        anadirFav.text = context.getString(R.string.delete_from_favs)
-                                                        notifyDataSetChanged()
+                } else if (!myRecipe.esFav && !botonPulsadoMas) {
+                    db.collection("Usuario-Recetas")
+                            .whereEqualTo("id_usuario", refUserId)
+                            .whereEqualTo("titulo", myRecipe.title)
+                            .addSnapshotListener { values, _ ->
+                                if (values != null) {
+                                    for (doc in values) {
+                                        if (doc.getString("titulo") != null) {
+                                            if (!botonPulsadoMas) {
+                                                db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
+                                                        .addOnSuccessListener {
+                                                            myRecipe.esFav = true
+                                                            botonPulsadoMas = true
+                                                            anadirFav.text = context.getString(R.string.delete_from_favs)
+                                                            notifyDataSetChanged()
 
-                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                            /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .get()
                                                                 .addOnSuccessListener { anafav ->
                                                                     for(documen in anafav){
                                                                         db.collection("Recetas").document(documen.id).update("numFavs", documen.data["numFavs"] as Long + 1)
                                                                     }
                                                                 }*/
-                                                        /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
+                                                            /*db.collection("Recetas").whereEqualTo("titulo", myRecipe.title)
                                                                 .addSnapshotListener{receta, _ ->
                                                                     if(receta != null){
                                                                         for(docRec in receta){
@@ -141,12 +142,57 @@ private List<NombresAnimales> nombreListaAnimales = null;     private static cla
                                                                     }
 
                                                                 }*/
-                                                    }
+                                                        }
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
+                }
+            }else{
+                if (myRecipe.esFav && !botonPulsadoMenos) {
+                    db.collection("Usuario-Restaurantes")
+                            .whereEqualTo("id_usuario", refUserId)
+                            .whereEqualTo("titulo", myRecipe.title)
+                            .addSnapshotListener { values, _ ->
+                                if (values != null) {
+                                    for (doc in values) {
+                                        if (doc.getString("titulo") != null) {
+                                            if (!botonPulsadoMenos) {
+                                                db.collection("Usuario-Restaurantes").document(doc.id).update("esFav?", false)
+                                                        .addOnSuccessListener {
+                                                            myRecipe.esFav = false
+                                                            botonPulsadoMenos = true
+                                                            anadirFav.text = context.getString(R.string.add_to_favs)
+                                                            notifyDataSetChanged()
+                                                        }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                } else if (!myRecipe.esFav && !botonPulsadoMas) {
+                    db.collection("Usuario-Restaurantes")
+                            .whereEqualTo("id_usuario", refUserId)
+                            .whereEqualTo("titulo", myRecipe.title)
+                            .addSnapshotListener { values, _ ->
+                                if (values != null) {
+                                    for (doc in values) {
+                                        if (doc.getString("titulo") != null) {
+                                            if (!botonPulsadoMas) {
+                                                db.collection("Usuario-Restaurantes").document(doc.id).update("esFav?", true)
+                                                        .addOnSuccessListener {
+                                                            myRecipe.esFav = true
+                                                            botonPulsadoMas = true
+                                                            anadirFav.text = context.getString(R.string.delete_from_favs)
+                                                            notifyDataSetChanged()
+                                                        }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                }
             }
         }
 

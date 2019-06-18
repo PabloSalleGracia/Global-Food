@@ -98,7 +98,7 @@ class Detail : Fragment() {
                                 if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
-                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                    //num_favs_recetas.text = doc.getLong("numFavs").toString()
                                 }
                             }
                         }
@@ -113,7 +113,7 @@ class Detail : Fragment() {
                                 if (doc.getString("tipo") != null) {
                                     titulo_detail_receta.text = tituloRecDet
                                     recipe_description.text = doc.getString("descripcion")
-                                    num_favs_recetas.text = doc.getLong("numFavs").toString()
+                                    //num_favs_recetas.text = doc.getLong("numFavs").toString()
                                 }
                             }
                         }
@@ -129,8 +129,9 @@ class Detail : Fragment() {
 
         var botonPulsado = false
 
-        if(botonFav == "false"){
-            anadir_favs_detrec.text = getString(R.string.add_to_favs)
+        if(tipoRecRes == "Plato") {
+            if (botonFav == "false") {
+                anadir_favs_detrec.text = getString(R.string.add_to_favs)
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
                         .whereEqualTo("titulo", titulo_detail_receta.text.toString())
@@ -138,7 +139,7 @@ class Detail : Fragment() {
                             if (values != null) {
                                 for (doc in values) {
                                     if (doc.getString("titulo") != null) {
-                                        if(!botonPulsado) {
+                                        if (!botonPulsado) {
                                             db.collection("Usuario-Recetas").document(doc.id).update("esFav?", true)
                                                     .addOnSuccessListener {
                                                         botonPulsado = true
@@ -186,12 +187,12 @@ class Detail : Fragment() {
                                                                 }*/
                                                     }
                                         }
-                                        }
                                     }
                                 }
                             }
-        }else{
-            anadir_favs_detrec.text = getString(R.string.delete_from_favs)
+                        }
+            } else {
+                anadir_favs_detrec.text = getString(R.string.delete_from_favs)
                 db.collection("Usuario-Recetas")
                         .whereEqualTo("id_usuario", refUserId)
                         .whereEqualTo("titulo", titulo_detail_receta.text.toString())
@@ -199,7 +200,7 @@ class Detail : Fragment() {
                             if (values != null) {
                                 for (doc in values) {
                                     if (doc.getString("titulo") != null) {
-                                        if(!botonPulsado) {
+                                        if (!botonPulsado) {
                                             db.collection("Usuario-Recetas").document(doc.id).update("esFav?", false)
                                                     .addOnSuccessListener {
                                                         botonPulsado = true
@@ -245,6 +246,51 @@ class Detail : Fragment() {
                                 }
                             }
                         }
+            }
+        }else{
+            if (botonFav == "false") {
+                anadir_favs_detrec.text = getString(R.string.add_to_favs)
+                db.collection("Usuario-Restaurantes")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        if (!botonPulsado) {
+                                            db.collection("Usuario-Restaurantes").document(doc.id).update("esFav?", true)
+                                                    .addOnSuccessListener {
+                                                        botonPulsado = true
+                                                        botonFav = "true"
+                                                        anadir_favs_detrec.text = getString(R.string.delete_from_favs)
+                                                    }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+            } else {
+                anadir_favs_detrec.text = getString(R.string.delete_from_favs)
+                db.collection("Usuario-Restaurantes")
+                        .whereEqualTo("id_usuario", refUserId)
+                        .whereEqualTo("titulo", titulo_detail_receta.text.toString())
+                        .addSnapshotListener { values, _ ->
+                            if (values != null) {
+                                for (doc in values) {
+                                    if (doc.getString("titulo") != null) {
+                                        if (!botonPulsado) {
+                                            db.collection("Usuario-Restaurantes").document(doc.id).update("esFav?", false)
+                                                    .addOnSuccessListener {
+                                                        botonPulsado = true
+                                                        botonFav = "false"
+                                                        anadir_favs_detrec.text = getString(R.string.add_to_favs)
+                                                    }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+            }
         }
 
     }

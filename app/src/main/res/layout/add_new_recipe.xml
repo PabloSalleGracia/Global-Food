@@ -57,32 +57,32 @@
 
     <Button
         android:id="@+id/volverAddRec"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="88dp"
-        android:text="@string/volver"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/buttonborder"
+        android:text="@string/volver"
         android:textColor="#f6cd14"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/subirAddRec"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descripReceta" />
+        app:layout_constraintTop_toBottomOf="@+id/descripReceta"
+        app:layout_constraintVertical_bias="0.698" />
 
     <Button
         android:id="@+id/subirAddRec"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="96dp"
-        android:text="@string/subir_receta"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="80dp"
         android:background="@drawable/buttonborder"
+        android:text="@string/subir_receta"
         android:textColor="#f6cd14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descripReceta" />
+        app:layout_constraintTop_toBottomOf="@+id/descripReceta"
+        app:layout_constraintVertical_bias="0.697" />
 
 </android.support.constraint.ConstraintLayout>
